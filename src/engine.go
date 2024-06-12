@@ -1,32 +1,28 @@
 package forum
 
 import (
-	"fmt"
-	// "math/rand"
-	"net/http"
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/template/html/v2"
+	//"github.com/gofiber/websocket/v2"
 )
 
 type Engine struct {
-	Port		string
+	Port string
 }
 
 func (E *Engine) Init() {
 	//rand.Seed(time.Now().UnixNano())
-
 	E.Port = ":8080"
-
 }
-
 
 func (E *Engine) Run() {
 	E.Init()
-
-	fs := http.FileServer(http.Dir("serv"))
-	http.Handle("/serv/", http.StripPrefix("/serv/", fs))
-
-	http.HandleFunc("/", E.index)
-
-	fmt.Println("(http://localhost:8080) - Serveur started on port", E.Port)
-
-	http.ListenAndServe(E.Port, nil)
+	engine := html.New("./serv/html", ".html")
+	
+	app := fiber.New(fiber.Config{
+		Views: engine,
+	})
+	app.Static("/serv", "./serv")
+	app.Get("/", E.Index)
+	app.Listen(E.Port)
 }

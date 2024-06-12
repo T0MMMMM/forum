@@ -1,22 +1,18 @@
 package forum
 
 import (
-	"html/template"
-	"net/http"
+	"github.com/gofiber/fiber/v2"
 )
-
-
-func (E *Engine) index(w http.ResponseWriter, r *http.Request) {
-
-	E.templateRender(w, "index")
-
+	
+type Person struct {
+	Name string
+	Age  int
 }
 
-func (E *Engine) templateRender(w http.ResponseWriter, tmpl string) {
-	t, err := template.ParseFiles("./serv/html/" + tmpl + ".html")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+func (E *Engine) Index(c *fiber.Ctx) error {
+	person := Person{
+		Name: "John Connor",
+		Age:  30,
 	}
-	t.Execute(w, E)
+	return c.Render("index", person)
 }
