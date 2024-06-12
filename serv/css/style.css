@@ -1,0 +1,25 @@
+@font-face {
+    font-family: rubik;
+    src: url(../assets/fonts/Rubik/Rubik-Medium.ttf);
+}
+@font-face {
+  font-family: rubik-bold;
+  src: url(../assets/fonts/Rubik/Rubik-Bold.ttf);
+}
+@font-face {
+    font-family: satoshi;
+    src: url(../assets/fonts/Satoshi/Satoshi-Variable.ttf);
+}
+@font-face {
+    font-family: bosch;
+    src: url(../assets/fonts/Bosch/Bosch.otf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 30px;
+    font-weight: 900;
+    cursor: url(../assets/cursor/cursor2.cur), auto;
+}
+
