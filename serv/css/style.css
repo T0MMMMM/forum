@@ -1,11 +1,4 @@
-@font-face {
-    font-family: rubik;
-    src: url(../assets/fonts/Rubik/Rubik-Medium.ttf);
-}
-@font-face {
-  font-family: rubik-bold;
-  src: url(../assets/fonts/Rubik/Rubik-Bold.ttf);
-}
+
 @font-face {
     font-family: satoshi;
     src: url(../assets/fonts/Satoshi/Satoshi-Variable.ttf);
@@ -24,3 +17,7 @@
     cursor: url(../assets/cursor/cursor2.cur), auto;
 }
 
+#messages {
+    max-height: 200px;
+    overflow-y: scroll;
+}
