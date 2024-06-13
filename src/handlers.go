@@ -1,7 +1,6 @@
 package forum
 
 import (
-	"fmt"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/websocket/v2"
@@ -24,20 +23,43 @@ func (E *Engine) Connexion(c *fiber.Ctx) error {
 	return c.Render("connexion", nil)
 }
 
+func (E *Engine) Register(c *fiber.Ctx) error {
+	return c.Render("register", nil)
+}
 
-func (E *Engine) Submit(c *fiber.Ctx) error {
+func (E *Engine) SubmitConnexion(c *fiber.Ctx) error {
 	username := c.FormValue("username")
 	pwd := c.FormValue("pwd")
-
+	
 	if (username != "" && pwd != "") {
-		fmt.Println(username)
-		fmt.Println(" --- ")
-		fmt.Println(pwd)
-		
-		//E.DataBase.Exec()
+		data, _ := E.DataBase.Query("SELECT username, password FROM users")
+		var usernameRnd string
+		var passwordRnd string
+		for data.Next() {
+			data.Scan(&usernameRnd, &passwordRnd)
+			if usernameRnd == username && passwordRnd == pwd {
+				c.Redirect("/")
+				return c.SendString("0")
+			}
+		}
 	}
+	c.Redirect("/connexion")
+	return c.SendString("1")
+}
 
-	return c.SendString("c ok")
+func (E *Engine) SubmitRegister(c *fiber.Ctx) error {
+	username := c.FormValue("username")
+	email := c.FormValue("email")
+	pwd := c.FormValue("pwd")
+	if (username != "" && pwd != "" && email != "") {
+		_, err := E.DataBase.Exec("INSERT INTO users (username, password, email) VALUES ('" + username + "', '" + pwd + "', '" + email + "')")
+		if (err != nil) {
+			c.Redirect("/register")
+			return c.SendString("1")
+		}
+	}
+	c.Redirect("/")
+	return c.SendString("0")
 }
 
 func (E *Engine) Websocket(c *websocket.Conn) {
@@ -57,7 +79,6 @@ func (E *Engine) Websocket(c *websocket.Conn) {
                 }
             }
         }
-	delete(E.ConnectedUsers, c)
-		
+	delete(E.ConnectedUsers, c)	
 	c.Close()
 }

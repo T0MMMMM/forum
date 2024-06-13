@@ -41,9 +41,15 @@ func (E *Engine) Run() {
 
 	app.Get("/", E.Index)
 
-    app.Get("/connexion", E.Connexion)
+	app.Get("/sub", E.SubmitRegister)
 
-    app.Post("/submit", E.Submit)
+    app.Get("/connexion", E.Connexion)
+	app.Get("/register", E.Register)
+
+
+    app.Post("/submit_connexion", E.SubmitConnexion)
+	app.Post("/submit_register", E.SubmitRegister)
+
 
 	app.Listen(E.Port)
 }
