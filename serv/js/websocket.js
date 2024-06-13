@@ -13,5 +13,7 @@ function sendMessage() {
     if (message) {
         socket.send(message);
         input.value = '';
+        messages.innerHTML += '<p>' + message + '</p>';
+        messages.scrollTop = messages.scrollHeight;
     }
 }

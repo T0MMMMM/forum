@@ -6,7 +6,6 @@ CREATE TABLE `users` (
   `created_at` timestamp,
   `updated_at` timestamp
 );
-
 CREATE TABLE `categories` (
   `id` integer PRIMARY KEY,
   `name` varchar(255),
@@ -14,7 +13,6 @@ CREATE TABLE `categories` (
   `created_at` timestamp,
   `updated_at` timestamp
 );
-
 CREATE TABLE `topics` (
   `id` integer PRIMARY KEY,
   `categoryID` integer,
@@ -24,7 +22,6 @@ CREATE TABLE `topics` (
   `created_at` timestamp,
   `updated_at` timestamp
 );
-
 CREATE TABLE `Posts` (
   `id` integer PRIMARY KEY,
   `topicID` integer,
@@ -33,11 +30,7 @@ CREATE TABLE `Posts` (
   `created_at` timestamp,
   `updated_at` timestamp
 );
-
 ALTER TABLE `topics` ADD FOREIGN KEY (`categoryID`) REFERENCES `categories` (`id`);
-
 ALTER TABLE `topics` ADD FOREIGN KEY (`userID`) REFERENCES `users` (`id`);
-
 ALTER TABLE `Posts` ADD FOREIGN KEY (`topicID`) REFERENCES `topics` (`id`);
-
 ALTER TABLE `Posts` ADD FOREIGN KEY (`userID`) REFERENCES `users` (`id`);
