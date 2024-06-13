@@ -1,7 +1,7 @@
 
 const messages = document.getElementById('messages');
 const input = document.getElementById('input');
-const socket = new WebSocket('ws://localhost:3000/ws');
+const socket = new WebSocket('ws://localhost:8080/ws');
 
 socket.onmessage = function(event) {
     messages.innerHTML += '<p>' + event.data + '</p>';

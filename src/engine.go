@@ -12,13 +12,14 @@ type Engine struct {
 
 func (E *Engine) Init() {
 	//rand.Seed(time.Now().UnixNano())
-	E.Port = ":3000"
+	E.DataBase()
+	E.Port = ":8080"
 }
 
 func (E *Engine) Run() {
 	E.Init()
 	engine := html.New("./serv/html", ".html")
-	
+
 	app := fiber.New(fiber.Config{
 		Views: engine,
 	})
