@@ -1,12 +1,13 @@
 package forum
 
 import (
+	"database/sql"
 	"fmt"
 	"io/ioutil"
 	"log"
+
 	//"strconv"
 	"strings"
-	_ "github.com/mattn/go-sqlite3"
 )
 
 
@@ -24,6 +25,11 @@ func (E *Engine) DataBaseCreation() {
             log.Fatalf("Erreur d'exécution de la commande SQL: %v", err)
         }
     }
+	_, err = E.DataBase.Exec("PRAGMA journal_mode=WAL;")
+	if err != nil {
+		log.Fatal(err)
+	}
+	E.DataBase.Close()
 }
 
 
@@ -37,3 +43,23 @@ func splitSQLCommands(file string) []string {
 }
 
 
+func (E *Engine) ExecuteSQL(cmd string) error {
+	E.DataBase, _ = sql.Open("sqlite", "./serv/data/data.db")
+	_, err := E.DataBase.Exec(cmd)
+	if (err != nil) {
+		log.Fatalf("Erreur d'exécution de la commande SQL: %v", err)
+		return err
+	}
+	E.DataBase.Close()
+	return nil
+}
+
+func (E *Engine) QuerySQL(cmd string) *sql.Rows {
+	E.DataBase, _ = sql.Open("sqlite", "./serv/data/data.db")
+	data, err := E.DataBase.Query(cmd)
+	if (err != nil) {
+		log.Fatalf("Erreur d'exécution de la commande SQL: %v", err)
+	}
+	E.DataBase.Close()
+	return data
+}

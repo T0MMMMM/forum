@@ -4,7 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/template/html/v2"
 	"github.com/gofiber/websocket/v2"
-    _ "github.com/mattn/go-sqlite3"
+    _ "modernc.org/sqlite"
     "database/sql"
 )
 
@@ -12,18 +12,32 @@ type Engine struct {
 	Port string
     ConnectedUsers map[*websocket.Conn]struct{}
     DataBase *sql.DB
+	CurrentUser User
+}
+
+type User struct {
+	Id int
+	Username string
+	Email string
+	Password string
 }
 
 func (E *Engine) Init() {
 	//rand.Seed(time.Now().UnixNano())
 
-    E.DataBase, _ = sql.Open("sqlite3", "./serv/data/data.db")
+	E.CurrentUser = User{
+		Username: "username",
+		Email:  "",
+		Password: "pwd",
+	}
+
+    E.DataBase, _ = sql.Open("sqlite", "./serv/data/data.db")
 
 	E.DataBaseCreation()
 	E.Port = ":8080"
 
-
 }
+
 
 func (E *Engine) Run() {
 	E.Init()
@@ -40,8 +54,6 @@ func (E *Engine) Run() {
     app.Get("/ws", websocket.New(E.Websocket))
 
 	app.Get("/", E.Index)
-
-	app.Get("/sub", E.SubmitRegister)
 
     app.Get("/connexion", E.Connexion)
 	app.Get("/register", E.Register)

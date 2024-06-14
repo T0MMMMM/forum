@@ -1,22 +1,14 @@
 package forum
 
 import (
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/websocket/v2"
 )
-	
-type Person struct {
-	Name string
-	Age  int
-}
 
 func (E *Engine) Index(c *fiber.Ctx) error {
-	person := Person{
-		Name: "John Connor",
-		Age:  30,
-	}
-	return c.Render("index", person)
+	return c.Render("index", E.CurrentUser)
 }
 
 func (E *Engine) Connexion(c *fiber.Ctx) error {
@@ -32,12 +24,19 @@ func (E *Engine) SubmitConnexion(c *fiber.Ctx) error {
 	pwd := c.FormValue("pwd")
 	
 	if (username != "" && pwd != "") {
-		data, _ := E.DataBase.Query("SELECT username, password FROM users")
+		data := E.QuerySQL("SELECT id, username, password FROM users")
 		var usernameRnd string
 		var passwordRnd string
+		var id int
 		for data.Next() {
-			data.Scan(&usernameRnd, &passwordRnd)
+			data.Scan(&id, &usernameRnd, &passwordRnd)
 			if usernameRnd == username && passwordRnd == pwd {
+				E.CurrentUser = User{
+					Id : id,
+					Username: username,
+					Email:  "",
+					Password: pwd,
+				}
 				c.Redirect("/")
 				return c.SendString("0")
 			}
@@ -52,7 +51,7 @@ func (E *Engine) SubmitRegister(c *fiber.Ctx) error {
 	email := c.FormValue("email")
 	pwd := c.FormValue("pwd")
 	if (username != "" && pwd != "" && email != "") {
-		_, err := E.DataBase.Exec("INSERT INTO users (username, password, email) VALUES ('" + username + "', '" + pwd + "', '" + email + "')")
+		err := E.ExecuteSQL("INSERT INTO users (username, password, email) VALUES ('" + username + "', '" + pwd + "', '" + email + "')")
 		if (err != nil) {
 			c.Redirect("/register")
 			return c.SendString("1")
@@ -68,6 +67,9 @@ func (E *Engine) Websocket(c *websocket.Conn) {
 
         for {
             _, msg, err := c.ReadMessage()
+			if (len(msg) > 0) {
+				E.ExecuteSQL("INSERT INTO Posts (userID, content) VALUES ('" + strconv.Itoa(E.CurrentUser.Id) + "', '" + string(msg[len(E.CurrentUser.Username)+3:]) + "')")
+			}
             if err != nil {
                 break
             }

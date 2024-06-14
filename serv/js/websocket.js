@@ -1,6 +1,7 @@
 
 const messages = document.getElementById('messages');
 const input = document.getElementById('input');
+let username = document.getElementById("username").getAttribute("data-variable");
 const socket = new WebSocket('ws://localhost:8080/ws');
 
 socket.onmessage = function(event) {
@@ -11,9 +12,9 @@ socket.onmessage = function(event) {
 function sendMessage() {
     const message = input.value.trim();
     if (message) {
-        socket.send(message);
+        socket.send(username + " : " + message);
         input.value = '';
-        messages.innerHTML += '<p>' + message + '</p>';
+        messages.innerHTML += '<p>' + username + " : " + message + '</p>';
         messages.scrollTop = messages.scrollHeight;
     }
 }

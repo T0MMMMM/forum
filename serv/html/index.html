@@ -11,9 +11,12 @@
 
 <body>
     <h1>Chat Example</h1>
+    <h2>{{ .Username }}</h2>
     <div id="messages"></div>
     <input type="text" id="input" placeholder="Type a message...">
     <button onclick="sendMessage()">Send</button>
+
+    <div id="username" data-variable="{{ .Username }}"></div>
 
     <script src="serv/js/websocket.js"></script>
     
