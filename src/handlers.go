@@ -21,6 +21,19 @@ func (E *Engine) Register(c *fiber.Ctx) error {
 	return c.Render("register", E.CurrentData)
 }
 
+func (E *Engine) NewTopic(c *fiber.Ctx) error {
+	defer func() {E.CurrentData.CurrentErrorMsg = ""} ()
+	return c.Render("new-topic", E.CurrentData)
+}
+
+func (E *Engine) Topic(c *fiber.Ctx) error {
+
+	TopicID := c.FormValue("TopicID")
+
+	defer func() {E.CurrentData.CurrentErrorMsg = ""} ()
+	return c.Render("topic", E.FindTopicByID(E.StrToInt(TopicID)))
+}
+
 func (E *Engine) SubmitConnexion(c *fiber.Ctx) error {
 	username := c.FormValue("username")
 	pwd := c.FormValue("pwd")
@@ -83,6 +96,32 @@ func (E *Engine) SubmitRegister(c *fiber.Ctx) error {
 	return c.SendString("0")
 }
 
+
+
+func (E *Engine) SubmitNewTopic(c *fiber.Ctx) error {
+	categorieID := c.FormValue("categorie")
+	title := c.FormValue("title")
+	content := c.FormValue("content")
+
+	if (categorieID != "" && title != "" && content != "" && E.CurrentUser.Username != "") {
+		err := E.ExecuteSQL("INSERT INTO topics (categoryID, userID, title, content, created_at, status, visible, like, dislike) VALUES ('" + categorieID + "', '" + strconv.Itoa(E.CurrentUser.Id) + "', '" + title + "', '" + content + "', '" + "2006-01-02 15:04:05" + "', '" + "unsolved" + "', '" + "true" + "', '" + "0" + "', '" + "0" + "')")
+		if (err != nil) {
+			E.CurrentData.CurrentErrorMsg = "Erreur de base de données, donc rien à voir avec vous, réessaie plus tard"
+			c.Redirect("/new-topic")
+			return c.SendString("1")
+		}
+	} else {
+		E.CurrentData.CurrentErrorMsg = "Champs obligatoires / vous n'etes pas connectés gros nul"
+		c.Redirect("/new-topic")
+		return c.SendString("1")
+	}
+
+	c.Redirect("/")
+	return c.SendString("0")
+}
+
+
+
 func (E *Engine) Websocket(c *websocket.Conn) {
 
     E.ConnectedUsers[c] = struct{}{}
@@ -90,7 +129,7 @@ func (E *Engine) Websocket(c *websocket.Conn) {
         for {
             _, msg, err := c.ReadMessage()
 			if (len(msg) > 0) {
-				E.ExecuteSQL("INSERT INTO Posts (userID, content) VALUES ('" + strconv.Itoa(E.CurrentUser.Id) + "', '" + string(msg[len(E.CurrentUser.Username)+3:]) + "')")
+				E.ExecuteSQL("INSERT INTO answers (userID, content) VALUES ('" + strconv.Itoa(E.CurrentUser.Id) + "', '" + string(msg[len(E.CurrentUser.Username)+3:]) + "')")
 			}
             if err != nil {
                 break
