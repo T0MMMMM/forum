@@ -56,6 +56,7 @@ type Answer struct {
 	User User
 	Content string
 	CreatedAt string
+	Status string
 	Visible bool
 	Like int
 	Dislike int

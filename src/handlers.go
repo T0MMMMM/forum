@@ -129,7 +129,7 @@ func (E *Engine) Websocket(c *websocket.Conn) {
         for {
             _, msg, err := c.ReadMessage()
 			if (len(msg) > 0) {
-				E.ExecuteSQL("INSERT INTO answers (userID, content) VALUES ('" + strconv.Itoa(E.CurrentUser.Id) + "', '" + string(msg[len(E.CurrentUser.Username)+3:]) + "')")
+				E.ExecuteSQL("INSERT INTO answers (topicID, userID, content) VALUES ( '1' , '" + strconv.Itoa(E.CurrentUser.Id) + "', '" + string(msg[len(E.CurrentUser.Username)+3:]) + "')")
 			}
             if err != nil {
                 break

@@ -16,6 +16,11 @@
     <span>Creator : {{ .User.Username }}</span>
     <h2>---</h2>
     <p>{{ .Content }}</p>
+    <div>
+        {{ range .Answers }}
+            <p>{{ .User.Username }} : {{ .Content }}</p>
+        {{ end }}
+    </div>
     
 
 </body>

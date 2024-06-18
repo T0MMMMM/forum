@@ -104,6 +104,7 @@ func (E *Engine) FindTopicByID(TopicID int) Topic {
 		Visible: visible,
 		Like: like,
 		Dislike: dislike,
+		Answers: E.FindAnswersByTopicID(TopicID),
 	}
 }
 
@@ -144,6 +145,28 @@ func (E *Engine) FindUserByID(UserID int) User {
 		Email: email,
 		CreatedAt: created_at,
 	}
+}
+
+func (E *Engine) FindAnswersByTopicID(TopicID int) []Answer {
+
+	data := E.QuerySQL("SELECT id, userID, content, created_at, status, visible, like, dislike FROM answers WHERE topicID = " + strconv.Itoa(TopicID))
+
+	var (
+	answers []Answer
+	id int
+	userID int
+	content string
+	created_at string
+	status string
+	visible bool
+	like int
+	dislike int )
+
+	for data.Next() {
+		data.Scan(&id, &userID, &content, &created_at, &status, &visible, &like, &dislike)
+		answers = append(answers, Answer{Id: id, User: E.FindUserByID(userID), Content: content, CreatedAt: created_at, Status: status, Visible: visible, Like: like, Dislike: dislike})
+	}
+	return answers
 }
 
 func (E *Engine) StrToInt(str string) int {
