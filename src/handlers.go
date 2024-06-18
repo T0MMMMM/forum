@@ -16,3 +16,11 @@ func (E *Engine) Index(c *fiber.Ctx) error {
 	}
 	return c.Render("index", person)
 }
+
+func (E *Engine) Forum(c *fiber.Ctx) error {
+	return c.Render("forum", nil)
+}
+
+func (E *Engine) Index2(c *fiber.Ctx) error {
+	return c.Render("index2", nil)
+}

@@ -59,5 +59,7 @@ func (E *Engine) Run() {
     }))
 
 	app.Get("/", E.Index)
+    app.Get("/forum", E.Forum)
+    app.Get("/index2", E.Index2)
 	app.Listen(E.Port)
 }
