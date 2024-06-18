@@ -12,11 +12,13 @@ func (E *Engine) Index(c *fiber.Ctx) error {
 }
 
 func (E *Engine) Connexion(c *fiber.Ctx) error {
-	return c.Render("connexion", nil)
+	defer func() {E.CurrentData.CurrentErrorMsg = ""} ()
+	return c.Render("connexion", E.CurrentData)
 }
 
 func (E *Engine) Register(c *fiber.Ctx) error {
-	return c.Render("register", nil)
+	defer func() {E.CurrentData.CurrentErrorMsg = ""} ()
+	return c.Render("register", E.CurrentData)
 }
 
 func (E *Engine) SubmitConnexion(c *fiber.Ctx) error {
@@ -37,11 +39,13 @@ func (E *Engine) SubmitConnexion(c *fiber.Ctx) error {
 					Email:  "",
 					Password: pwd,
 				}
+				E.CurrentData.CurrentErrorMsg = ""
 				c.Redirect("/")
 				return c.SendString("0")
 			}
 		}
 	}
+	E.CurrentData.CurrentErrorMsg = "Nom d'utilisateur ou mail incorect"
 	c.Redirect("/connexion")
 	return c.SendString("1")
 }
@@ -50,9 +54,27 @@ func (E *Engine) SubmitRegister(c *fiber.Ctx) error {
 	username := c.FormValue("username")
 	email := c.FormValue("email")
 	pwd := c.FormValue("pwd")
+
+	var usernameExist string
+	var emailExist string
+
+	data := E.QuerySQL("SELECT username, email FROM users")
+	for data.Next() {
+		data.Scan(&usernameExist, &emailExist)
+		if usernameExist == username  {
+			E.CurrentData.CurrentErrorMsg = "Vous utilisez un nom d'utilisateur déja existant, donc rajoute full _"
+			c.Redirect("/register")
+			return nil
+		} else if emailExist == email {
+			E.CurrentData.CurrentErrorMsg = "Cette adresse mail est déja utilisée, donc connecte toi stp "
+			c.Redirect("/register")
+			return nil
+		}
+	}
 	if (username != "" && pwd != "" && email != "") {
 		err := E.ExecuteSQL("INSERT INTO users (username, password, email) VALUES ('" + username + "', '" + pwd + "', '" + email + "')")
 		if (err != nil) {
+			E.CurrentData.CurrentErrorMsg = "Erreur de base de données, donc rien à voir avec vous, réessaie plus tard"
 			c.Redirect("/register")
 			return c.SendString("1")
 		}

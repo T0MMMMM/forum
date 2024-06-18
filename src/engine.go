@@ -13,7 +13,13 @@ type Engine struct {
     ConnectedUsers map[*websocket.Conn]struct{}
     DataBase *sql.DB
 	CurrentUser User
+	CurrentData Data 
 }
+
+type Data struct {
+	CurrentErrorMsg string
+}
+
 
 type User struct {
 	Id int
@@ -26,9 +32,12 @@ func (E *Engine) Init() {
 	//rand.Seed(time.Now().UnixNano())
 
 	E.CurrentUser = User{
-		Username: "username",
+		Username: "",
 		Email:  "",
-		Password: "pwd",
+		Password: "",
+	}
+	E.CurrentData = Data{
+		CurrentErrorMsg : "",
 	}
 
     E.DataBase, _ = sql.Open("sqlite", "./serv/data/data.db")

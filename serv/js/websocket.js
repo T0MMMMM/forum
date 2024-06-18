@@ -11,7 +11,7 @@ socket.onmessage = function(event) {
 
 function sendMessage() {
     const message = input.value.trim();
-    if (message) {
+    if (message && username != "") {
         socket.send(username + " : " + message);
         input.value = '';
         messages.innerHTML += '<p>' + username + " : " + message + '</p>';

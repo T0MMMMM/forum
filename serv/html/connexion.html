@@ -12,11 +12,15 @@
 <body>
 
     <h1>Connexion</h1>
+
     <form action="/submit_connexion" method="POST">
         <input name="username" type="text">
         <input name="pwd" type="text">
         <input type="submit">
     </form>
+
+    <span> {{ .CurrentErrorMsg }} </span>
+    
 
 </body>
 
