@@ -12,6 +12,7 @@
 <body>
 
     <h1>New Topic</h1>
+    {{ .User.Username }}
     <form action="/submit_new-topic" method="POST">
         <select name="categorie" id="">
             {{ range .Categories }}
@@ -23,7 +24,7 @@
         <input type="submit">
     </form>
 
-    <span> {{ .CurrentErrorMsg }} </span>
+    <span> {{ .ErrorMsg }} </span>
 
 
 </body>

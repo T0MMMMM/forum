@@ -11,14 +11,16 @@
 
 <body>
     <h1>Chat Example</h1>
-    <h2>{{ .Username }}</h2>
+    <h2>{{ .User.Username }}</h2>
     <div id="messages"></div>
     <input type="text" id="input" placeholder="Type a message...">
     <button onclick="sendMessage()">Send</button>
 
-    <div id="username" data-variable="{{ .Username }}"></div>
+    <div id="username" data-variable="{{ .User.Username }}"></div>
 
     <a href="/topic?TopicID=1">Topic 1</a>
+    <a href="/topic?TopicID=2">Topic 2</a>
+    <a href="/topic?TopicID=3">Topic 3</a>
 
     <script src="serv/js/websocket.js"></script>
     

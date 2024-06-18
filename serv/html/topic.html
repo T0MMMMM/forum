@@ -11,16 +11,23 @@
 
 <body>
 
-    <h1>{{ .Title }}</h1>
-    <span>Category : {{ .Category.Name }}</span></br>
-    <span>Creator : {{ .User.Username }}</span>
+    <h1>{{ .Topic.Title }}</h1>
+    <span>Category : {{ .Topic.Category.Name }}</span></br>
+    <span>Creator : {{ .Topic.User.Username }}</span>
     <h2>---</h2>
-    <p>{{ .Content }}</p>
-    <div>
-        {{ range .Answers }}
+    <p>{{ .Topic.Content }}</p>
+    <div id="messages">
+        {{ range .Topic.Answers }}
             <p>{{ .User.Username }} : {{ .Content }}</p>
         {{ end }}
     </div>
+
+    <input type="text" id="input" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+
+    <div id="username" data-variable="{{ .User.Username }}"></div>
+
+    <script src="serv/js/websocket.js"></script>
     
 
 </body>

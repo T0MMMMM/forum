@@ -13,13 +13,14 @@ type Engine struct {
 	Port           string
 	ConnectedUsers map[*websocket.Conn]struct{}
 	DataBase       *sql.DB
-	CurrentUser    User
 	CurrentData    Data
 }
 
 type Data struct {
-	CurrentErrorMsg string
-	Categories      []Category
+	Topic		Topic
+	User		User
+	ErrorMsg	string
+	Categories	[]Category
 }
 
 type Category struct {
@@ -29,50 +30,50 @@ type Category struct {
 }
 
 type User struct {
-	Id       int
-	Username string
-	Email    string
-	Password string
+	Id        int
+	Username  string
+	Email     string
+	Password  string
 	CreatedAt string
 }
 
 type Topic struct {
-	Id int
-	Title string
-	Category Category
-	User User
-	Content string
+	Id        int
+	Title     string
+	Category  Category
+	User      User
+	Content   string
 	CreatedAt string
-	Status string
-	Visible bool
-	Like int
-	Dislike int
+	Status    string
+	Visible   bool
+	Like      int
+	Dislike   int
 
 	Answers []Answer
 }
 
 type Answer struct {
-	Id int
-	User User
-	Content string
+	Id        int
+	User      User
+	Content   string
 	CreatedAt string
-	Status string
-	Visible bool
-	Like int
-	Dislike int
+	Status    string
+	Visible   bool
+	Like      int
+	Dislike   int
 }
 
 func (E *Engine) Init() {
 	//rand.Seed(time.Now().UnixNano())
 
-	E.CurrentUser = User{
+	E.CurrentData.User = User{
 		Username: "",
 		Email:    "",
 		Password: "",
 	}
 
 	E.CurrentData = Data{
-		CurrentErrorMsg: "",
+		ErrorMsg: "",
 	}
 
 	E.DataBase, _ = sql.Open("sqlite", "./serv/data/data.db")
@@ -111,7 +112,6 @@ func (E *Engine) Run() {
 	app.Get("/register", E.Register)
 	app.Get("/new-topic", E.NewTopic)
 	app.Get("/topic", E.Topic)
-
 
 	app.Post("/submit_connexion", E.SubmitConnexion)
 	app.Post("/submit_register", E.SubmitRegister)
