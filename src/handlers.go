@@ -8,31 +8,33 @@ import (
 )
 
 func (E *Engine) Index(c *fiber.Ctx) error {
+	E.GetCookieUSer(c)
 	defer func() { E.CurrentData.ErrorMsg = "" }()
 	return c.Render("index", E.CurrentData)
 }
 
 func (E *Engine) Connexion(c *fiber.Ctx) error {
+	E.GetCookieUSer(c)
 	defer func() { E.CurrentData.ErrorMsg = "" }()
 	return c.Render("connexion", E.CurrentData)
 }
 
 func (E *Engine) Register(c *fiber.Ctx) error {
+	E.GetCookieUSer(c)
 	defer func() { E.CurrentData.ErrorMsg = "" }()
 	return c.Render("register", E.CurrentData)
 }
 
 func (E *Engine) NewTopic(c *fiber.Ctx) error {
+	E.GetCookieUSer(c)
 	defer func() { E.CurrentData.ErrorMsg = "" }()
 	return c.Render("new-topic", E.CurrentData)
 }
 
 func (E *Engine) Topic(c *fiber.Ctx) error {
-
+	E.GetCookieUSer(c)
 	TopicID := c.FormValue("TopicID")
-
-	E.CurrentData.Topic =  E.FindTopicByID(E.StrToInt(TopicID))
-
+	E.CurrentData.Topic = E.FindTopicByID(E.StrToInt(TopicID))
 	defer func() { E.CurrentData.ErrorMsg = "" }()
 	return c.Render("topic", E.CurrentData)
 }
@@ -42,20 +44,19 @@ func (E *Engine) SubmitConnexion(c *fiber.Ctx) error {
 	pwd := c.FormValue("pwd")
 
 	if username != "" && pwd != "" {
-		data := E.QuerySQL("SELECT id, username, password FROM users")
+		data := E.QuerySQL("SELECT id, username, password, email, created_at FROM users")
 		var usernameRnd string
 		var passwordRnd string
+		var email string
 		var id int
+		var created_at string
 		for data.Next() {
-			data.Scan(&id, &usernameRnd, &passwordRnd)
+			data.Scan(&id, &usernameRnd, &passwordRnd, &email, &created_at)
 			if usernameRnd == username && passwordRnd == pwd {
-				E.CurrentData.User = User{
-					Id:       id,
-					Username: username,
-					Email:    "",
-					Password: pwd,
-				}
+				E.SetCookieUser(User{Id: id, Username: username, Email: email, Password: pwd, CreatedAt: created_at}, c)
 				E.CurrentData.ErrorMsg = ""
+				E.GetCookieUSer(c)
+				
 				c.Redirect("/")
 				return c.SendString("0")
 			}
@@ -104,7 +105,6 @@ func (E *Engine) SubmitNewTopic(c *fiber.Ctx) error {
 	title := c.FormValue("title")
 	content := c.FormValue("content")
 
-
 	if categorieID != "" && title != "" && content != "" && E.CurrentData.User.Username != "" {
 		err := E.ExecuteSQL("INSERT INTO topics (categoryID, userID, title, content, created_at, status, visible, like, dislike) VALUES ('" + categorieID + "', '" + strconv.Itoa(E.CurrentData.User.Id) + "', '" + title + "', '" + content + "', '" + "2006-01-02 15:04:05" + "', '" + "unsolved" + "', '" + "true" + "', '" + "0" + "', '" + "0" + "')")
 		if err != nil {
@@ -117,7 +117,6 @@ func (E *Engine) SubmitNewTopic(c *fiber.Ctx) error {
 		c.Redirect("/new-topic")
 		return c.SendString("2")
 	}
-
 
 	c.Redirect("/")
 	return c.SendString("0")

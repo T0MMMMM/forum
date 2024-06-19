@@ -6,6 +6,9 @@ import (
 	"io/ioutil"
 	"log"
 	"strconv"
+	"time"
+
+	"github.com/gofiber/fiber/v2"
 
 	//"strconv"
 	"strings"
@@ -167,6 +170,50 @@ func (E *Engine) FindAnswersByTopicID(TopicID int) []Answer {
 		answers = append(answers, Answer{Id: id, User: E.FindUserByID(userID), Content: content, CreatedAt: created_at, Status: status, Visible: visible, Like: like, Dislike: dislike})
 	}
 	return answers
+}
+
+func (E *Engine) GetCookieUSer(c *fiber.Ctx) {
+	CookieUser := new(User)
+	if err := c.CookieParser(CookieUser); err != nil {panic(err)}
+	E.CurrentData.User = *CookieUser
+}
+
+
+
+func (E *Engine) SetCookieUser(usr User, c *fiber.Ctx) {
+	cookie := new(fiber.Cookie)
+	cookie.Name = "username"
+	cookie.Value = usr.Username
+	cookie.Expires = time.Now().Add(24 * time.Hour)
+	c.Cookie(cookie)
+	
+	cookie2 := new(fiber.Cookie)
+	cookie2.Name = "id"
+	cookie2.Value = strconv.Itoa(usr.Id)
+	cookie2.Expires = time.Now().Add(24 * time.Hour)
+	c.Cookie(cookie2)
+
+
+	cookie3 := new(fiber.Cookie)
+	cookie3.Name = "email"
+	cookie3.Value = usr.Email
+	cookie3.Expires = time.Now().Add(24 * time.Hour)
+	c.Cookie(cookie3)
+
+
+	cookie4 := new(fiber.Cookie)
+	cookie4.Name = "password"
+	cookie4.Value = usr.Password
+	cookie4.Expires = time.Now().Add(24 * time.Hour)
+	c.Cookie(cookie4)
+
+
+	cookie5 := new(fiber.Cookie)
+	cookie5.Name = "created_at"
+	cookie5.Value = usr.CreatedAt
+	cookie5.Expires = time.Now().Add(24 * time.Hour)
+	c.Cookie(cookie5)
+
 }
 
 func (E *Engine) StrToInt(str string) int {

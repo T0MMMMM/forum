@@ -17,10 +17,10 @@ type Engine struct {
 }
 
 type Data struct {
-	Topic		Topic
-	User		User
-	ErrorMsg	string
-	Categories	[]Category
+	Topic      Topic
+	User       User
+	ErrorMsg   string
+	Categories []Category
 }
 
 type Category struct {
@@ -30,11 +30,11 @@ type Category struct {
 }
 
 type User struct {
-	Id        int
-	Username  string
-	Email     string
-	Password  string
-	CreatedAt string
+	Id        int    `cookie:"id"`
+	Username  string `cookie:"username"`
+	Email     string `cookie:"email"`
+	Password  string `cookie:"password"`
+	CreatedAt string `cookie:"created_at"`
 }
 
 type Topic struct {
@@ -66,11 +66,7 @@ type Answer struct {
 func (E *Engine) Init() {
 	//rand.Seed(time.Now().UnixNano())
 
-	E.CurrentData.User = User{
-		Username: "",
-		Email:    "",
-		Password: "",
-	}
+	E.CurrentData.User = User{}
 
 	E.CurrentData = Data{
 		ErrorMsg: "",
@@ -79,7 +75,7 @@ func (E *Engine) Init() {
 	E.DataBase, _ = sql.Open("sqlite", "./serv/data/data.db")
 
 	E.DataBaseCreation()
-	E.Port = ":8080"
+	E.Port = ":3000"
 
 	data := E.QuerySQL("SELECT id, name, description FROM categories")
 	var id int
@@ -97,14 +93,16 @@ func (E *Engine) Run() {
 	engine := html.New("./serv/html", ".html")
 
 	app := fiber.New(fiber.Config{
-		Views: engine,
+		Views:     engine,
+		Immutable: true,
 	})
+
 	app.Static("/serv", "./serv")
 
 	E.ConnectedUsers = make(map[*websocket.Conn]struct{})
 
-	// WebSocket route for user communication
 	app.Get("/ws", websocket.New(E.Websocket))
+
 
 	app.Get("/", E.Index)
 
