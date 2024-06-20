@@ -2,9 +2,6 @@ package forum
 
 import (
 	"database/sql"
-
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/template/html/v2"
 	"github.com/gofiber/websocket/v2"
 	_ "modernc.org/sqlite"
 )
@@ -21,6 +18,7 @@ type Data struct {
 	User       User
 	ErrorMsg   string
 	Categories []Category
+	Topics     []Topic
 }
 
 type Category struct {
@@ -48,7 +46,6 @@ type Topic struct {
 	Visible   bool
 	Like      int
 	Dislike   int
-
 	Answers []Answer
 }
 
@@ -63,6 +60,8 @@ type Answer struct {
 	Dislike   int
 }
 
+
+
 func (E *Engine) Init() {
 	//rand.Seed(time.Now().UnixNano())
 	E.CurrentData.User = User{}
@@ -70,7 +69,13 @@ func (E *Engine) Init() {
 	E.DataBase, _ = sql.Open("sqlite", "./serv/data/data.db")
 	E.DataBaseCreation()
 	E.Port = ":8080"
+	E.InitDescriptions()
+	E.InitTopics()
+}
 
+
+
+func (E *Engine) InitDescriptions() {
 	data := E.QuerySQL("SELECT id, name, description FROM categories")
 	var id int
 	var name string
@@ -79,28 +84,25 @@ func (E *Engine) Init() {
 		data.Scan(&id, &name, &description)
 		E.CurrentData.Categories = append(E.CurrentData.Categories, Category{Id: id, Name: name, Description: description})
 	}
-
 }
 
-func (E *Engine) Run() {
-	E.Init()
-	engine := html.New("./serv/html", ".html")
-	app := fiber.New(fiber.Config{
-		Views:     engine,
-		Immutable: true,
-	})
-	E.ConnectedUsers = make(map[*websocket.Conn]struct{})
-	app.Static("/serv", "./serv")
-	app.Get("/ws", websocket.New(E.Websocket))
-
-	app.Get("/", E.Index)
-	app.Get("/connexion", E.Connexion)
-	app.Get("/new-topic", E.NewTopic)
-	app.Get("/topic", E.Topic)
-
-	app.Post("/submit_connexion", E.SubmitConnexion)
-	app.Post("/submit_register", E.SubmitRegister)
-	app.Post("/submit_new-topic", E.SubmitNewTopic)
-
-	app.Listen(E.Port)
+func (E *Engine) InitTopics() {
+	data := E.QuerySQL("SELECT id, categoryID, userID, title, content, created_at, status, visible, like, dislike FROM topics")
+	var id int
+	var categoryID int
+	var userID int
+	var title string
+	var content string
+	var created_at string
+	var status string
+	var visible bool
+	var like int
+	var dislike int
+	for data.Next() {
+		data.Scan(&id, &categoryID, &userID, &title, &content, &created_at, &status, &visible, &like, &dislike)
+		E.CurrentData.Topics = 
+		append(E.CurrentData.Topics, Topic{Id: id, Category: E.FindCategoryByID(categoryID), 
+			User: E.FindUserByID(userID), Title: title, Content: content, CreatedAt: created_at, Status: status,
+		    Visible: visible, Like: like, Dislike: dislike,})
+	}
 }

@@ -11,7 +11,12 @@
 </head>
 
 <body>
+<<<<<<< HEAD
+    <h1>Chat Example</h1>
+    <h2>{{ .User.Username }}</h2>
+=======
     <!-- <h1>Chat Example</h1>
+>>>>>>> origin/front
     <div id="messages"></div>
     <input type="text" id="input" placeholder="Type a message...">
     <button onclick="sendMessage()">Send</button>
@@ -51,12 +56,9 @@
 
     <div class="main">
         <div class="mainWrapper">
-            <div class="topic"></div>
-            <div class="topic" id="topic1"></div>
-            <div class="topic" id="topic3"></div>
-            <div class="topic" id="topic2"></div>
-            <div class="topic" id="topic2"></div>
-            <div class="topic" id="topic3"></div>
+            {{ range .Topics}}
+                <div class="topic"> {{ .Title }} </div>
+            {{ end }}
         </div>
     </div>
 
