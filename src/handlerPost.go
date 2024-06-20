@@ -3,44 +3,12 @@ package forum
 import (
 	"fmt"
 	"strconv"
-	"strings"
-
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/websocket/v2"
 )
-
-func (E *Engine) Index(c *fiber.Ctx) error {
-	E.GetCookieUser(c)
-	defer func() { E.CurrentData.ErrorMsg = "" }()
-	return c.Render("index", E.CurrentData)
-}
-
-func (E *Engine) Connexion(c *fiber.Ctx) error {
-	//E.GetCookieUser(c)
-	defer func() { E.CurrentData.ErrorMsg = "" }()
-	return c.Render("connexion", E.CurrentData)
-}
-
-func (E *Engine) NewTopic(c *fiber.Ctx) error {
-	E.GetCookieUser(c)
-	defer func() { E.CurrentData.ErrorMsg = "" }()
-	return c.Render("new-topic", E.CurrentData)
-}
-
-func (E *Engine) Topic(c *fiber.Ctx) error {
-	TopicID := c.FormValue("TopicID")
-	//E.SetCookieTopic(E.StrToInt(TopicID), c)
-	E.GetCookieUser(c)
-	E.CurrentData.Topic = E.FindTopicByID(E.StrToInt(TopicID))
-	//E.GetCookieTopic(c)
-	defer func() { E.CurrentData.ErrorMsg = "" }()
-	return c.Render("topic", E.CurrentData)
-}
 
 func (E *Engine) SubmitConnexion(c *fiber.Ctx) error {
 	username := c.FormValue("username")
 	pwd := c.FormValue("pwd")
-	
 	if username != "" && pwd != "" {
 		data := E.QuerySQL("SELECT id, username, password, email, created_at FROM users")
 		var usernameRnd string
@@ -129,29 +97,4 @@ func (E *Engine) SubmitNewTopic(c *fiber.Ctx) error {
 
 	c.Redirect("/")
 	return c.SendString("0")
-}
-
-func (E *Engine) Websocket(c *websocket.Conn) {
-
-	E.ConnectedUsers[c] = struct{}{}
-
-	for {
-		_, msg, err := c.ReadMessage()
-		message := strings.Split(string(msg), ":") // 0 = id / 1 = username / 2 = msg / 3 = topic ID
-		if len(msg) > 0 {
-			E.ExecuteSQL("INSERT INTO answers (topicID, userID, content) VALUES ( '" + message[3] + "' , '" + message[0] + "', '" + message[2] + "')")
-		}
-		if err != nil {
-			break
-		}
-		for usr := range E.ConnectedUsers {
-			if usr != c {
-				if err := usr.WriteMessage(websocket.TextMessage, []byte(message[1]+":"+message[2]+":"+message[3])); err != nil {
-					return
-				}
-			}
-		}
-	}
-	delete(E.ConnectedUsers, c)
-	c.Close()
 }
