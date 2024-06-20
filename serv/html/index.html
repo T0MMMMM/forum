@@ -16,7 +16,8 @@
     <input type="text" id="input" placeholder="Type a message...">
     <button onclick="sendMessage()">Send</button>
 
-    <div id="username" data-variable="{{ .User.Username }}"></div>
+    <div id="data" data-variable-username="{{ .User.Username }}" data-variable-id="{{ .User.Id }}" data-variable-topic-id="{{ .Topic.Id }}"></div>
+
 
     <a href="/topic?TopicID=1">Topic 1</a>
     <a href="/topic?TopicID=2">Topic 2</a>

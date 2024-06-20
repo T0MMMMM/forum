@@ -2,39 +2,42 @@ package forum
 
 import (
 	"strconv"
+	"strings"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/websocket/v2"
 )
 
 func (E *Engine) Index(c *fiber.Ctx) error {
-	E.GetCookieUSer(c)
+	E.GetCookieUser(c)
 	defer func() { E.CurrentData.ErrorMsg = "" }()
 	return c.Render("index", E.CurrentData)
 }
 
 func (E *Engine) Connexion(c *fiber.Ctx) error {
-	E.GetCookieUSer(c)
+	//E.GetCookieUser(c)
 	defer func() { E.CurrentData.ErrorMsg = "" }()
 	return c.Render("connexion", E.CurrentData)
 }
 
 func (E *Engine) Register(c *fiber.Ctx) error {
-	E.GetCookieUSer(c)
+	E.GetCookieUser(c)
 	defer func() { E.CurrentData.ErrorMsg = "" }()
 	return c.Render("register", E.CurrentData)
 }
 
 func (E *Engine) NewTopic(c *fiber.Ctx) error {
-	E.GetCookieUSer(c)
+	E.GetCookieUser(c)
 	defer func() { E.CurrentData.ErrorMsg = "" }()
 	return c.Render("new-topic", E.CurrentData)
 }
 
 func (E *Engine) Topic(c *fiber.Ctx) error {
-	E.GetCookieUSer(c)
 	TopicID := c.FormValue("TopicID")
+	//E.SetCookieTopic(E.StrToInt(TopicID), c)
+	E.GetCookieUser(c)
 	E.CurrentData.Topic = E.FindTopicByID(E.StrToInt(TopicID))
+	//E.GetCookieTopic(c)
 	defer func() { E.CurrentData.ErrorMsg = "" }()
 	return c.Render("topic", E.CurrentData)
 }
@@ -53,10 +56,8 @@ func (E *Engine) SubmitConnexion(c *fiber.Ctx) error {
 		for data.Next() {
 			data.Scan(&id, &usernameRnd, &passwordRnd, &email, &created_at)
 			if usernameRnd == username && passwordRnd == pwd {
-				E.SetCookieUser(User{Id: id, Username: username, Email: email, Password: pwd, CreatedAt: created_at}, c)
+				E.SetCookieUser(id, c)
 				E.CurrentData.ErrorMsg = ""
-				E.GetCookieUSer(c)
-				
 				c.Redirect("/")
 				return c.SendString("0")
 			}
@@ -128,15 +129,16 @@ func (E *Engine) Websocket(c *websocket.Conn) {
 
 	for {
 		_, msg, err := c.ReadMessage()
+		message := strings.Split(string(msg), ":") // 0 = id / 1 = username / 2 = msg / 3 = topic ID
 		if len(msg) > 0 {
-			E.ExecuteSQL("INSERT INTO answers (topicID, userID, content) VALUES ( '" + strconv.Itoa(E.CurrentData.Topic.Id) + "' , '" + strconv.Itoa(E.CurrentData.User.Id) + "', '" + string(msg[len(E.CurrentData.User.Username)+3:]) + "')")
+			E.ExecuteSQL("INSERT INTO answers (topicID, userID, content) VALUES ( '" + message[3] + "' , '" + message[0] + "', '" + message[2] + "')")
 		}
 		if err != nil {
 			break
 		}
 		for usr := range E.ConnectedUsers {
 			if usr != c {
-				if err := usr.WriteMessage(websocket.TextMessage, msg); err != nil {
+				if err := usr.WriteMessage(websocket.TextMessage, []byte(message[1]+":"+message[2]+":"+message[3])); err != nil {
 					return
 				}
 			}

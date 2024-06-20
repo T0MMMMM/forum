@@ -75,7 +75,7 @@ func (E *Engine) Init() {
 	E.DataBase, _ = sql.Open("sqlite", "./serv/data/data.db")
 
 	E.DataBaseCreation()
-	E.Port = ":3000"
+	E.Port = ":8080"
 
 	data := E.QuerySQL("SELECT id, name, description FROM categories")
 	var id int
