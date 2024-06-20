@@ -30,7 +30,6 @@
 
         <div class="headerUser">
             <h3 class="userText">LOGIN</h3>
-            <div class="userImage"></div>
         </div>
 
     </header>
@@ -39,8 +38,21 @@
     <div class="background"></div>
 
 
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.6.8/build/spline-viewer.js"></script>
-    <spline-viewer class="splineText" url="https://prod.spline.design/yvJprAPC56Fb3yG5/scene.splinecode"></spline-viewer>
+    <!-- <script type="module" src="https://unpkg.com/@splinetool/viewer@1.6.8/build/spline-viewer.js"></script>
+    <spline-viewer class="splineText" url="https://prod.spline.design/yvJprAPC56Fb3yG5/scene.splinecode"></spline-viewer> -->
+
+
+    <div class="main">
+        <div class="mainWrapper">
+            <div class="topic"></div>
+            <div class="topic" id="topic1"></div>
+            <div class="topic" id="topic3"></div>
+            <div class="topic" id="topic2"></div>
+            <div class="topic" id="topic2"></div>
+            <div class="topic" id="topic3"></div>
+        </div>
+    </div>
+
 
     <div id="hider">
         <i class="fa-regular fa-envelope"></i>
@@ -56,9 +68,16 @@
         </div>
         <div class="privateMessageCard" id="1">
             <i class="fa-solid fa-arrow-left arrow" id="1"></i>
+            <input type="text" placeholder="Type a message..." class="messageInput">
+            <div class="sendButton">
+                <i class="fa-solid fa-paper-plane plane"></i>
+            </div>
         </div>
+
     </div>
-    <div id="closeHider"></div>
+    <div id="closeHider">
+        <i class="fa-solid fa-xmark cross"></i>
+    </div>
 
     <script type="module" src="serv/js/style.js"></script>
 

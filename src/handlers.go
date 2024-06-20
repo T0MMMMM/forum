@@ -21,6 +21,6 @@ func (E *Engine) Forum(c *fiber.Ctx) error {
 	return c.Render("forum", nil)
 }
 
-func (E *Engine) Index2(c *fiber.Ctx) error {
-	return c.Render("index2", nil)
+func (E *Engine) Connexion(c *fiber.Ctx) error {
+	return c.Render("connexion", nil)
 }

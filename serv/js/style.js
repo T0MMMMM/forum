@@ -18,8 +18,16 @@ closeHider.addEventListener("click", closeHiderFunc)
 function closeHiderFunc() {
     closeHider.id = "closeHider";
     setTimeout(() => {
-        hider.id = "hider";
+        for (let i = 0; i < messageCards.length; i++) {
+            messageCards.item(i).classList.remove("privateMessageCardAfter");
+        }
+        for (let j = 0; j < messageDivs.length; j++) {
+            messageDivs.item(j).classList.remove('privateMessageAfter');
+        }
     }, 200);
+    setTimeout(() => {
+        hider.id = "hider";
+    }, 500);
 }
 
 
@@ -40,4 +48,11 @@ arrow.addEventListener("click", function () {
     for (let j = 0; j < messageDivs.length; j++) {
         messageDivs.item(j).classList.remove("privateMessageAfter");
     }
+});
+
+
+var headerUser = document.getElementsByClassName('headerUser').item(0);
+
+headerUser.addEventListener("click", function () {
+    window.location.href = "/connexion";
 });
