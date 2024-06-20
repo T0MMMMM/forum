@@ -1,6 +1,7 @@
 package forum
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 
@@ -18,12 +19,6 @@ func (E *Engine) Connexion(c *fiber.Ctx) error {
 	//E.GetCookieUser(c)
 	defer func() { E.CurrentData.ErrorMsg = "" }()
 	return c.Render("connexion", E.CurrentData)
-}
-
-func (E *Engine) Register(c *fiber.Ctx) error {
-	E.GetCookieUser(c)
-	defer func() { E.CurrentData.ErrorMsg = "" }()
-	return c.Render("register", E.CurrentData)
 }
 
 func (E *Engine) NewTopic(c *fiber.Ctx) error {
@@ -45,7 +40,7 @@ func (E *Engine) Topic(c *fiber.Ctx) error {
 func (E *Engine) SubmitConnexion(c *fiber.Ctx) error {
 	username := c.FormValue("username")
 	pwd := c.FormValue("pwd")
-
+	
 	if username != "" && pwd != "" {
 		data := E.QuerySQL("SELECT id, username, password, email, created_at FROM users")
 		var usernameRnd string
@@ -72,7 +67,9 @@ func (E *Engine) SubmitRegister(c *fiber.Ctx) error {
 	username := c.FormValue("username")
 	email := c.FormValue("email")
 	pwd := c.FormValue("pwd")
-
+	fmt.Println("d")
+	fmt.Println(username)
+	
 	var usernameExist string
 	var emailExist string
 
@@ -93,9 +90,20 @@ func (E *Engine) SubmitRegister(c *fiber.Ctx) error {
 		err := E.ExecuteSQL("INSERT INTO users (username, password, email) VALUES ('" + username + "', '" + pwd + "', '" + email + "')")
 		if err != nil {
 			E.CurrentData.ErrorMsg = "Erreur de base de données, donc rien à voir avec vous, réessaie plus tard"
-			c.Redirect("/register")
+			c.Redirect("/connexion")
 			return c.SendString("1")
+		} else {
+			var count int
+			data :=  E.QuerySQL("SELECT count(*) FROM users")
+			for data.Next() {
+				err:= data.Scan(&count)
+				if (err != nil) {panic(err)}
+			}
+			E.SetCookieUser(count, c)
+			c.Redirect("/")
 		}
+	} else {
+		c.Redirect("/connexion")
 	}
 	c.Redirect("/")
 	return c.SendString("0")

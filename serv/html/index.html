@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="serv/css/style.css">
     <script src="https://kit.fontawesome.com/ea8060e81f.js" crossorigin="anonymous"></script>
+    
     <title>Forum</title>
 
 </head>
 
 <body>
-    <h1>Chat Example</h1>
-    <h2>{{ .User.Username }}</h2>
+    <!-- <h1>Chat Example</h1>
     <div id="messages"></div>
     <input type="text" id="input" placeholder="Type a message...">
     <button onclick="sendMessage()">Send</button>
@@ -24,7 +24,69 @@
     <a href="/topic?TopicID=3">Topic 3</a>
 
     <script src="serv/js/websocket.js"></script>
-    
+     -->
+
+
+    <header id="head">
+        <ul>
+            <li><a href="/"><h3 class="headerText" id="header1">HOME</h3></a></li>
+            <li><a href="/forum"><h3 class="headerText" id="header2">FORUM</h3></a></li>
+            <li><a href="/index2"><h3 class="headerText" id="header3">ACTU</h3></a></li>
+            <li><a href="/"><h3 class="headerText" id="header4">CONTACT</h3></a></li>
+        </ul>
+
+        <div class="headerUser">
+            <h3 class="userText">LOGIN</h3>
+        </div>
+
+    </header>
+
+
+    <div class="background"></div>
+
+
+    <!-- <script type="module" src="https://unpkg.com/@splinetool/viewer@1.6.8/build/spline-viewer.js"></script>
+    <spline-viewer class="splineText" url="https://prod.spline.design/yvJprAPC56Fb3yG5/scene.splinecode"></spline-viewer> -->
+
+
+    <div class="main">
+        <div class="mainWrapper">
+            <div class="topic"></div>
+            <div class="topic" id="topic1"></div>
+            <div class="topic" id="topic3"></div>
+            <div class="topic" id="topic2"></div>
+            <div class="topic" id="topic2"></div>
+            <div class="topic" id="topic3"></div>
+        </div>
+    </div>
+
+
+    <div id="hider">
+        <i class="fa-regular fa-envelope"></i>
+        <div class="privateMessageWrapper">
+            <div class="privateMessage" id="1"></div>
+            <div class="privateMessage" id="2"></div>
+            <div class="privateMessage" id="3"></div>
+            <div class="privateMessage" id="4"></div>
+            <div class="privateMessage" id="5"></div>
+            <div class="privateMessage" id="6"></div>
+            <div class="privateMessage" id="7"></div>
+            <br>
+        </div>
+        <div class="privateMessageCard" id="1">
+            <i class="fa-solid fa-arrow-left arrow" id="1"></i>
+            <input type="text" placeholder="Type a message..." class="messageInput">
+            <div class="sendButton">
+                <i class="fa-solid fa-paper-plane plane"></i>
+            </div>
+        </div>
+
+    </div>
+    <div id="closeHider">
+        <i class="fa-solid fa-xmark cross"></i>
+    </div>
+
+    <script type="module" src="serv/js/style.js"></script>
 
 </body>
 

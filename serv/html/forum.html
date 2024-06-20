@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="serv/css/style.css">
+    <script src="https://kit.fontawesome.com/ea8060e81f.js" crossorigin="anonymous"></script>
+    <title>Forum</title>
+
+</head>
+
+<body>
+
+    <header id="head">
+        <ul>
+            <li><a href="/"><h3 class="headerText" id="header1">HOME</h3></a></li>
+            <li><a href="/"><h3 class="headerText" id="header2">FORUM</h3></a></li>
+            <li><a href="/"><h3 class="headerText" id="header3">ACTU</h3></a></li>
+            <li><a href="/"><h3 class="headerText" id="header4">CONTACT</h3></a></li>
+        </ul>
+
+        <div class="headerUser">
+            <h3 class="userText">USERNAME</h3>
+            <div class="userImage"></div>
+        </div>
+
+    </header>
+
+
+    <h1>Chat Example</h1>
+    <div id="messages"></div>
+    <input type="text" id="input" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+
+    
+    <script src="serv/js/websocket.js"></script>
+    
+
+
+</body>
+
+</html>

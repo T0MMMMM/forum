@@ -5,23 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="serv/css/style.css">
     <script src="https://kit.fontawesome.com/ea8060e81f.js" crossorigin="anonymous"></script>
-    <title>Forum</title>
+    
+    <title>Connexion</title>
 
 </head>
 
-<body>
+<body class="connexionBody">
 
-    <h1>Connexion</h1>
+    <div class="connexionCard">
 
-    <form action="/submit_connexion" method="POST">
-        <input name="username" type="text">
-        <input name="pwd" type="text">
-        <input type="submit">
-    </form>
+<!-- 
+        <form action="/submit_register" method="POST">
+            <input name="username" type="text">
+            <input name="email" type="text">
+            <input name="pwd" type="text">
+            <input type="submit">
+        </form> -->
 
-    <span> {{ .ErrorMsg }} </span>
-    
+        <form action="/submit_register" method="POST">
+            <div class="registerPart">
+                <h4 class="registerText">Register</h4>
+                <div class="registerInputDiv">
+                    <input class="registerInput" type="text" name="username" placeholder="Username">
+                    <input class="registerInput" type="text" name="email" placeholder="Email">
+                    <input class="registerInput" type="password" name="pwd" placeholder="Password">
+                </div>
+                <div class="registerSendButton">
+                    <input type="submit" value="Register">
+                </div>
+            </div>
+        </form>
+        <form action="/submit_connexion" method="POST">  
+            <div class="conexionPart">
+                <h4 class="connexionText">Connexion</h4>
+                <div class="connexionInputDiv">
+                    <input class="connexionInput" type="text" name="username" placeholder="Username">
+                    <input class="connexionInput" type="password" name="pwd" placeholder="Password">
+                </div>
+                <div class="connexionSendButton">
+                    <input type="submit" value="Log In">
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="connexionHider">
+        <div class="hiderTextContainer">
+            <h4 class="hiderText" id="hiderText1">New member ?</h4>
+            <br>
+            <h4 class="hiderText" id="hiderText2">Welcome back !</h4>
+        </div>
+        
+        <div class="connexionButton">
+            <h4 class="buttonText">Sing up</h4>
+        </div>
+    </div>
+
+
+
+
+    <script type="module" src="serv/js/styleConnexion.js"></script>
 
 </body>
-
-</html>

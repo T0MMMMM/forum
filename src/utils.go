@@ -177,7 +177,9 @@ func (E *Engine) FindAnswersByTopicID(TopicID int) []Answer {
 }
 
 func (E *Engine) GetCookieUser(c *fiber.Ctx) {
-	E.CurrentData.User = E.FindUserByID(E.StrToInt(c.Cookies("UserID")))
+	if (c.Cookies("UserId", "false") == "false") {
+		E.CurrentData.User = E.FindUserByID(E.StrToInt(c.Cookies("UserID")))
+	}
 }
 
 func (E *Engine) GetCookieTopic(c *fiber.Ctx) {
@@ -207,3 +209,4 @@ func (E *Engine) StrToInt(str string) int {
 	}
 	return i
 }
+

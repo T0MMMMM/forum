@@ -8,16 +8,750 @@
     src: url(../assets/fonts/Bosch/Bosch.otf);
 }
 
+
+/*----- Index -----*/
+
+
 * {
     margin: 0;
     font-family: bosch;
     padding: 0;
     font-size: 30px;
     font-weight: 900;
-    cursor: url(../assets/cursor/cursor2.cur), auto;
+    cursor: url("../assets/cursor/cursor2.cur"), auto;
 }
+
+html {
+    max-height: 100%;
+    height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+body {
+    /*background: linear-gradient(#718355, #B5C99A);*/
+    background: linear-gradient(#395886, #8AAEE0);
+}
+
+.background {
+    position: absolute;
+    width: 60%;
+    height: 200%;
+    top: -20%;
+    left: 45%;
+    /*background: linear-gradient(#E9F5DB, #B5C99A);*/
+    background: linear-gradient(#F0F3FA, #B1C9EF);
+    /*background-color: #E9F5DB;*/
+    background-color: #F0F3FA;
+    transform: rotate(22.5deg);
+    border-radius: 60px;
+    /*box-shadow: -5px -5px 25px #63724a;*/
+    box-shadow: -5px -5px 25px #395886;
+    /* inset -5px -5px 25px #fff */
+    /*border: solid 2px #fff; */
+}
+
+header {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    height: 100px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s;
+    z-index: 8;
+}
+
+ul {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    animation: 0.5s ease-out 0s 1 slideInFromTop;
+    position: center;
+    max-height: 100%;
+}
+
+li {
+    display: inline-block;
+    padding: 2%;
+    text-align: center;
+}
+
+a, button {
+    cursor: url("../assets/cursor/cursor.cur"), pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+.headerText {
+    /*color: #E9F5DB;*/
+    color: #F0F3FA;
+    cursor: url("../assets/cursor/cursor.cur"), pointer;
+}
+
+#header1::before {
+    opacity: 1;
+    content: "";
+    position: absolute;
+    height: 4px;
+    width: 95px;
+    border-radius: 15px;
+    transform: translateX(-8%) scaleX(0%) ;
+    top: 75px;
+    /*background-color: #E9F5DB;*/
+    background-color: #F0F3FA;
+    transition: all 0.5s;
+}
+
+#header1:hover::before {
+    transform: translateX(-8%) scaleX(100%);
+    transition: all 0.5s;
+}
+
+#header2::before {
+    opacity: 1;
+    content: "";
+    position: absolute;
+    height: 4px;
+    width: 115px;
+    border-radius: 15px;
+    transform: translateX(-7%) scaleX(0%) ;
+    top: 75px;
+    /* background-color: #E9F5DB; */
+    background-color: #F0F3FA;
+    transition: all 0.5s;
+}
+
+#header2:hover::before {
+    transform: translateX(-7%) scaleX(100%);
+    transition: all 0.5s;
+}
+
+#header3::before {
+    opacity: 1;
+    content: "";
+    position: absolute;
+    height: 4px;
+    width: 90px;
+    border-radius: 15px;
+    transform: translateX(-9%) scaleX(0%) ;
+    top: 75px;
+    /* background-color: #E9F5DB; */
+    background-color: #F0F3FA;
+    transition: all 0.5s;
+}
+
+#header3:hover::before {
+    transform: translateX(-9%) scaleX(100%);
+    transition: all 0.5s;
+}
+
+#header4 {
+    /*color: #718355;*/
+    color: #395886;
+}
+
+#header4::before {
+    opacity: 1;
+    content: "";
+    position: absolute;
+    height: 4px;
+    width: 130px;
+    border-radius: 15px;
+    transform: translateX(-3%) scaleX(0%) ;
+    top: 75px;
+    /* background-color: #718355; */
+    background-color: #395886;
+    transition: all 0.5s;
+}
+
+#header4:hover::before {
+    transform: translateX(-3%) scaleX(100%);
+    transition: all 0.5s;
+}
+
+
+
+
+.headerUser {
+    position: absolute;
+    height: 60px;
+    width: 10%;
+    left: 88%;
+    top: 22px;
+    background-color: #395886;
+    border-radius: 30px;
+    transition: all 0.3s;
+}
+
+.headerUser:hover {
+    background-color: #4971ad;
+    transition: all 0.3s;
+    box-shadow: 0px 0px 14px #4971ad;
+}
+
+.userText {
+    position: absolute;
+    /* color: #718355; */
+    color: #F0F3FA;
+    width: 300px;
+    top: 20px;
+    left: -86%;
+    text-align: right;
+    pointer-events: none;
+}
+
+.textForum3d {
+    position: absolute;
+    top: -44%;
+    left: -40%;
+    scale: 30%;
+}
+
+
+.main {
+    position: relative;
+    height: 1000px;
+    width: 100%;
+    overflow: hidden;
+
+    /*background-color: rgb(102, 102, 102);*/
+}
+
+.mainWrapper {
+    position: absolute;
+    height: 900px;
+    width: 100%;
+    left: 0;
+    display: grid;
+    grid-column: 1;
+    overflow-y: scroll;
+    object-fit: contain;
+    justify-content: center;
+}
+
+.topic {
+    position: relative;
+    width: 900px;
+    height: 500px;
+    margin-bottom: 50px;
+    
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    box-shadow: -4px -4px 8px #f0f3fa34;
+    filter: drop-shadow(4px 4px 4px #3e3e3e75);
+    backdrop-filter: blur(11px);
+    -webkit-backdrop-filter: blur(11px);
+}
+
+#topic1 {
+    height: 300px;
+}
+
+#topic2 {
+    height: 500px;
+}
+
+#topic3 {
+    height: 700px;
+}
+
 
 #messages {
     max-height: 200px;
     overflow-y: scroll;
+}
+
+.splineText {
+    position: absolute;
+    top: 0;
+}
+
+
+#hider {
+    z-index: 10;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    height: 100px;
+    width: 300px;
+    /* background-color: #718355; */
+    background-color: #395886;
+    border-radius: 12px;
+    box-shadow: 4px 4px 8px #2a2a2a;
+    transition: all ease-in-out 0.4s;
+    overflow: hidden;
+}
+
+#hider:hover {
+    background-color: #4971ad;
+}
+
+#hiderAfter {
+    z-index: 10;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    /* background-color: #718355; */
+    background-color: #395886;
+    border-radius: 12px;
+    box-shadow: 4px 4px 8px #2a2a2a;
+    transition: all ease-in-out 0.4s;
+    height: 500px;
+    overflow: hidden;
+}
+
+#closeHider {
+    z-index: 10;
+    opacity: 0;
+    text-align: center;
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    border-radius: 30px;
+    /* background-color: #23380b; */
+    background-color: #B1C9EF;
+    right: 6px;
+    top: 378px;
+    transition: all 0.3s;
+}
+
+#closeHiderAfter {
+    z-index: 10;
+    opacity: 1;
+    text-align: center;
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    border-radius: 30px;
+    /* background-color: #23380b; */
+    background-color: #B1C9EF;
+    right: 6px;
+    top: 378px;
+    transition: all 0.3s;
+}
+
+#closeHiderAfter:hover {
+    background-color: #8AAEE0;
+    transition: all 0.3s;
+}
+
+.cross {
+    position: relative;
+    color: #395886;
+    top: 5px;
+    scale: 0.8;
+}
+
+#hider i {
+    position: absolute;
+    /* color: #B5C99A; */
+    color: #F0F3FA;
+    font-size: 50px;
+    top: 25%;
+    left: 25px;
+}
+
+#hiderAfter i {
+    opacity: 1;
+    position: absolute;
+    /* color: #B5C99A; */
+    color: #F0F3FA;
+    font-size: 50px;
+    top: 30px;
+    left: 25px;
+}
+
+
+.privateMessageWrapper {
+    position: relative;
+    top: 100px;
+    display: grid;
+    grid-column: 1;
+    row-gap: 15px;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    object-fit: contain;
+}
+
+.privateMessage {
+    opacity: 1;
+    width: 95%;
+    height: 80px;
+    border-radius: 10px;
+    background-color: #B1C9EF;
+    justify-self: center;
+    transition: all 0.4s;
+}
+
+.privateMessage:hover {
+    background-color: #869ec3;
+}
+
+.privateMessageAfter {
+    opacity: 0;
+    transition: all 0.4s;
+}
+
+
+.privateMessageCard {
+    position: absolute;
+    display: block;
+    height: 390px;
+    width: 95%;
+    justify-self: center;
+    bottom: 8px;
+    right: -400px;
+    background-color: #B1C9EF;
+    border-radius: 15px;
+    opacity: 0;
+    transition: all 0.4s;
+    /* pointer-events: none; */
+}
+
+.privateMessageCardAfter {
+    position: absolute;
+    display: block;
+    height: 390px;
+    width: 95%;
+    justify-self: center;
+    bottom: 8px;
+    right: 7px;
+    background-color: #B1C9EF;
+    border-radius: 15px;
+    opacity: 1;
+    transition: all 0.4s;
+}
+
+.messageInput {
+    border: none;
+    display: block;
+    position: absolute;
+    width: 70%;
+    height: 35px;
+    border-radius: 20px;
+    bottom: 10px;
+    left: 5px;
+    font-size: 20px;
+    padding-left: 10px;
+    border: 2px solid #4971ad00;
+    transition: all 0.3s;
+}
+
+.messageInput:focus {
+    outline: none;
+    border: 2px solid #4971ad;
+}
+
+.messageInput:hover {
+    border: 2px solid #4971ad;
+    transition: all 0.3s;
+}
+
+.sendButton {
+    position: absolute;
+    height: 39px;
+    width: 50px;
+    bottom: 10px;
+    right: 5px;
+    background-color: #395886;
+    border-radius: 20px;
+    transition: all 0.2s;
+}
+
+.sendButton:hover {
+    background-color: #4971ad;
+    transition: all 0.2s;
+}
+
+.plane {
+    position: relative !important;
+    scale: 0.35;
+    top: -7px !important;
+    left: -3px !important;
+}
+
+.arrow {
+    scale: 0.6;
+    position: absolute;
+    top: 0px !important;
+    left: 0px !important;
+    color: #395886 !important;
+    pointer-events: all;
+    transition: all 0.3s;
+}
+
+.arrow:hover {
+    scale: 0.7;
+    transition: all 0.3s;
+}
+
+
+
+/*----- Connexion -----*/
+
+
+.connexionBody {
+    display: grid;
+    height: 100%;
+}
+
+
+.connexionCard {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-self: center;
+    align-items: center;
+    width: 50%;
+    height: 60%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    border-radius: 20px;
+}
+
+.conexionPart {
+    height: 95%;
+    width: 100%;
+    /*background-color: aquamarine;*/
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.registerPart {
+    height: 95%;
+    width: 100%;
+    /*background-color: aquamarine;*/
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.connexionText {
+    position: relative;
+    top: 110px;
+    text-align: center;
+    font-size: 40px;
+    color: #395886;
+}
+
+.registerText {
+    position: relative;
+    top: 80px;
+    text-align: center;
+    font-size: 40px;
+    color: #395886;
+}
+
+.connexionInputDiv {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 40px;
+    justify-items: center;
+    width: 100%;
+    top: 30%;
+}
+
+.registerInputDiv {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 30px;
+    justify-items: center;
+    width: 100%;
+    top: 25%;
+}
+
+.connexionInput {
+    width: 250px;
+    height: 40px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    padding-left: 20px;
+    color: #395886;
+    font-size: 20px;
+    border: 2px solid #39588600 ;
+    transition: all 0.3s;
+}
+
+.connexionInput:hover {
+    border: 2px solid #395886 ;
+    transition: all 0.3s;
+}
+
+.connexionInput:focus {
+    outline: none;
+    border: none;
+    caret-shape: bar;
+    caret-color: #395886;
+    border: 2px solid #395886 ;
+    transition: all 0.3s;
+}
+
+.registerInput {
+    width: 250px;
+    height: 40px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    padding-left: 20px;
+    color: #395886;
+    font-size: 20px;
+    border: 2px solid #39588600 ;
+    transition: all 0.3s;
+}
+
+.registerInput:hover {
+    border: 2px solid #395886 ;
+    transition: all 0.3s;
+}
+
+.registerInput:focus {
+    outline: none;
+    border: none;
+    caret-shape: bar;
+    caret-color: #395886;
+    border: 2px solid #395886 ;
+    transition: all 0.3s;
+}
+
+.connexionSendButton {
+    position: relative;
+    width: 200px;
+    height: 50px;
+    left: 30%;
+    top: 230px;
+    background-color: #395886;
+    border-radius: 25px;
+    transition: all 0.3s;
+}
+
+.connexionSendButton:hover {
+    background-color: #4971ad;
+    transition: all 0.3s;
+}
+
+.registerSendButton {
+    position: relative;
+    width: 200px;
+    height: 50px;
+    left: 30%;
+    top: 170px;
+    background-color: #395886;
+    border-radius: 25px;
+    transition: all 0.3s;
+}
+
+.registerSendButton:hover {
+    background-color: #4971ad;
+    transition: all 0.3s;
+}
+
+.connextionSendText {
+    top: 20%;
+    position: relative;
+    color: #F0F3FA;
+    text-align: center;
+    pointer-events: none;
+}
+
+.registerSendText {
+    top: 20%;
+    position: relative;
+    color: #F0F3FA;
+    text-align: center;
+    pointer-events: none;
+}
+
+.connexionHider {
+    display: flex;
+    position: absolute;
+    height: 60%;
+    width: 25%;
+    top: 20%;
+    left: 25%;
+    background-color: #395886;
+    border-radius: 20px;
+    justify-content: center;
+    box-shadow: 0px 0px 16px #2a2a2a73;
+    transition: all 0.4s;
+}
+
+.connexionHiderAfter {
+    left: 50%;
+    transition: all 0.4s;
+}
+
+.hiderTextContainer {
+    position: absolute;
+    display: flex;
+    top: 150px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+    /* background-color: red; */
+    overflow-y: hidden;
+}
+
+.hiderText {
+    position: absolute;
+    text-align: center;
+    color: #B1C9EF;
+    font-size: 40px;
+    transition: all 0.4s;
+}
+
+#hiderText1 {
+    transform: translateY(-50px);
+    transition: all 0.4s;
+}
+
+#hideText1After {
+    transform: translateY(0px);
+    transition: all 0.4s;
+}
+
+#hiderText2 {
+    transform: translateY(0px);
+    transition: all 0.4s;
+}
+
+#hiderText2After {
+    transform: translateY(50px);
+    transition: all 0.3s;
+}
+
+.connexionButton {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 200px;
+    background-color: #8AAEE0;
+    bottom: -75%;
+    border-radius: 25px;
+    transition: all 0.2s;
+}
+
+.connexionButton:hover {
+    background-color: #4971ad;
+    transition: all 0.2s;
+}
+
+.buttonText {
+    color: #395886;
 }

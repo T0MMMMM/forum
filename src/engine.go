@@ -71,7 +71,6 @@ func (E *Engine) Init() {
 	E.CurrentData = Data{
 		ErrorMsg: "",
 	}
-
 	E.DataBase, _ = sql.Open("sqlite", "./serv/data/data.db")
 
 	E.DataBaseCreation()
@@ -107,7 +106,6 @@ func (E *Engine) Run() {
 	app.Get("/", E.Index)
 
 	app.Get("/connexion", E.Connexion)
-	app.Get("/register", E.Register)
 	app.Get("/new-topic", E.NewTopic)
 	app.Get("/topic", E.Topic)
 
