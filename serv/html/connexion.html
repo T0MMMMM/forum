@@ -10,25 +10,29 @@
 
 </head>
 
+<script> 
+    function specialChar(event, id){
+        var keyCode = event.which ? event.which : event.keyCode;
+        var touche = String.fromCharCode(keyCode);
+        var champ = document.getElementById(id);
+        var caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';
+        if(caracteres.indexOf(touche) >= 0) {
+            champ.value += touche;
+        }
+    }
+</script>
+
 <body class="connexionBody">
 
     <div class="connexionCard">
-
-<!-- 
-        <form action="/submit_register" method="POST">
-            <input name="username" type="text">
-            <input name="email" type="text">
-            <input name="pwd" type="text">
-            <input type="submit">
-        </form> -->
 
         <form action="/submit_register" method="POST">
             <div class="registerPart">
                 <h4 class="registerText">Register</h4>
                 <div class="registerInputDiv">
-                    <input class="registerInput" type="text" name="username" placeholder="Username">
-                    <input class="registerInput" type="text" name="email" placeholder="Email">
-                    <input class="registerInput" type="password" name="pwd" placeholder="Password">
+                    <input class="registerInput" type="text" id="usernameRegister" name="username" placeholder="Username" onkeypress="specialChar(event, id); return false;">
+                    <input class="registerInput" type="text" id="mailRegister" name="email" onkeypress="specialChar(event, id); return false;" placeholder="Email">
+                    <input class="registerInput" type="password" id="pwdRegister" name="pwd" placeholder="Password">
                 </div>
                 <div class="registerSendButton">
                     <input type="submit" value="Register">
@@ -39,16 +43,16 @@
             <div class="conexionPart">
                 <h4 class="connexionText">Connexion</h4>
                 <div class="connexionInputDiv">
-                    <input class="connexionInput" type="text" name="username" placeholder="Username">
-                    <input class="connexionInput" type="password" name="pwd" placeholder="Password">
+                    <input class="connexionInput" type="text" id="usernameConnexion" name="username" placeholder="Username" onkeypress="specialChar(event, id); return false;">
+                    <input class="connexionInput" type="password" id="pwdConnexion" name="pwd" placeholder="Password">
                 </div>
                 <div class="connexionSendButton">
                     <input type="submit" value="Log In">
                 </div>
             </div>
         </form>
-
     </div>
+
 
     <div class="connexionHider">
         <div class="hiderTextContainer">
@@ -61,7 +65,6 @@
             <h4 class="buttonText">Sing up</h4>
         </div>
     </div>
-
 
 
 
