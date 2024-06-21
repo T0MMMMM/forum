@@ -56,3 +56,26 @@ var headerUser = document.getElementsByClassName('headerUser').item(0);
 headerUser.addEventListener("click", function () {
     window.location.href = "/connexion";
 });
+
+
+var categories = document.getElementsByClassName('categories').item(0);
+
+categories.addEventListener("click", function () {
+    if (categories.classList.length == 1) {
+        categories.classList.add("categoriesAfter");
+    } else {
+        categories.classList.remove("categoriesAfter");
+    }
+})
+
+var like = document.getElementsByClassName('like');
+var heart = document.getElementsByClassName('heart');
+var likeAmount = document.getElementsByClassName('likeAmount');
+
+
+for (let i = 0; i < like.length; i++) {
+    like.item(i).addEventListener("click", function () {
+        heart.item(i).classList.add("heartAfter");
+        likeAmount.item(i).innerHTML = parseInt(likeAmount.item(i).innerHTML) + 1;
+    })
+}
