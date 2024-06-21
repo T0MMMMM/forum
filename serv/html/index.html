@@ -11,26 +11,6 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-    <h1>Chat Example</h1>
-    <h2>{{ .User.Username }}</h2>
-=======
-    <!-- <h1>Chat Example</h1>
->>>>>>> origin/front
-    <div id="messages"></div>
-    <input type="text" id="input" placeholder="Type a message...">
-    <button onclick="sendMessage()">Send</button>
-
-    <div id="data" data-variable-username="{{ .User.Username }}" data-variable-id="{{ .User.Id }}" data-variable-topic-id="{{ .Topic.Id }}"></div>
-
-
-    <a href="/topic?TopicID=1">Topic 1</a>
-    <a href="/topic?TopicID=2">Topic 2</a>
-    <a href="/topic?TopicID=3">Topic 3</a>
-
-    <script src="serv/js/websocket.js"></script>
-     -->
-
 
     <header id="head">
         <ul>
@@ -57,6 +37,10 @@
     <div class="main">
         <div class="mainWrapper">
             {{ range .Topics}}
+                <form action="/submit_topic" method="post">
+                    <input type="text" hidden value="{{ .Id }}" name="TopicID">
+                    <input type="submit"> 
+                </form>
                 <div class="topic"> {{ .Title }} </div>
             {{ end }}
         </div>

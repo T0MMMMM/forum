@@ -12,7 +12,7 @@ func (E *Engine) Websocket(c *websocket.Conn) {
 		_, msg, err := c.ReadMessage()
 		message := strings.Split(string(msg), ":") // 0 = id / 1 = username / 2 = msg / 3 = topic ID
 		if len(msg) > 0 {
-			E.ExecuteSQL("INSERT INTO answers (topicID, userID, content) VALUES ( '" + message[3] + "' , '" + message[0] + "', '" + message[2] + "')")
+			E.ExecuteSQL("INSERT INTO answers (topicID, userID, content) VALUES ( '" + message[3] + "' , '" + message[0] + "', '" + E.filterMsg(message[2]) + "')")
 		}
 		if err != nil {
 			break

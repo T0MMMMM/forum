@@ -98,3 +98,13 @@ func (E *Engine) SubmitNewTopic(c *fiber.Ctx) error {
 	c.Redirect("/")
 	return c.SendString("0")
 }
+
+func (E *Engine) SubmitTopic(c *fiber.Ctx) error {
+	TopicID := c.FormValue("TopicID")
+	//E.SetCookieTopic(E.StrToInt(TopicID), c)
+	E.GetCookieUser(c)
+	E.CurrentData.Topic = E.FindTopicByID(E.StrToInt(TopicID))
+	//E.GetCookieTopic(c)
+	defer func() { E.CurrentData.ErrorMsg = "" }()
+	return c.Render("topic", E.CurrentData)
+}

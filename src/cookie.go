@@ -7,7 +7,7 @@ import (
 )
 
 func (E *Engine) GetCookieUser(c *fiber.Ctx) {
-	if (c.Cookies("UserId", "false") == "false") {
+	if (c.Cookies("UserID") != "") {
 		E.CurrentData.User = E.FindUserByID(E.StrToInt(c.Cookies("UserID")))
 	}
 }

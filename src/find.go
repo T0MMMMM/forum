@@ -89,7 +89,7 @@ func (E *Engine) FindAnswersByTopicID(TopicID int) []Answer {
 	)
 	for data.Next() {
 		data.Scan(&id, &userID, &content, &created_at, &status, &visible, &like, &dislike)
-		answers = append(answers, Answer{Id: id, User: E.FindUserByID(userID), Content: content, CreatedAt: created_at, Status: status, Visible: visible, Like: like, Dislike: dislike})
+		answers = append(answers, Answer{Id: id, User: E.FindUserByID(userID), Content: E.reversefilterMsg(content), CreatedAt: created_at, Status: status, Visible: visible, Like: like, Dislike: dislike})
 	}
 	return answers
 }
