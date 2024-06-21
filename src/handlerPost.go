@@ -1,7 +1,6 @@
 package forum
 
 import (
-	"fmt"
 	"strconv"
 	"github.com/gofiber/fiber/v2"
 )
@@ -35,9 +34,6 @@ func (E *Engine) SubmitRegister(c *fiber.Ctx) error {
 	username := c.FormValue("username")
 	email := c.FormValue("email")
 	pwd := c.FormValue("pwd")
-	fmt.Println("d")
-	fmt.Println(username)
-	
 	var usernameExist string
 	var emailExist string
 
@@ -94,7 +90,6 @@ func (E *Engine) SubmitNewTopic(c *fiber.Ctx) error {
 		c.Redirect("/new-topic")
 		return c.SendString("2")
 	}
-
 	c.Redirect("/")
 	return c.SendString("0")
 }

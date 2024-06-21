@@ -19,6 +19,7 @@ type Data struct {
 	ErrorMsg   string
 	Categories []Category
 	Topics     []Topic
+	Users      []User
 }
 
 type Category struct {
@@ -49,6 +50,15 @@ type Topic struct {
 	Answers []Answer
 }
 
+type Message struct {
+	Id 		int
+	Sender User
+	Recipient User
+	Content string
+	Visible bool
+	CreatedAt string
+}
+
 type Answer struct {
 	Id        int
 	User      User
@@ -71,6 +81,7 @@ func (E *Engine) Init() {
 	E.Port = ":8080"
 	E.InitDescriptions()
 	E.InitTopics()
+	E.InitUsers()
 }
 
 
@@ -87,22 +98,20 @@ func (E *Engine) InitDescriptions() {
 }
 
 func (E *Engine) InitTopics() {
-	data := E.QuerySQL("SELECT id, categoryID, userID, title, content, created_at, status, visible, like, dislike FROM topics")
+	data := E.QuerySQL("SELECT id FROM topics")
 	var id int
-	var categoryID int
-	var userID int
-	var title string
-	var content string
-	var created_at string
-	var status string
-	var visible bool
-	var like int
-	var dislike int
 	for data.Next() {
-		data.Scan(&id, &categoryID, &userID, &title, &content, &created_at, &status, &visible, &like, &dislike)
-		E.CurrentData.Topics = 
-		append(E.CurrentData.Topics, Topic{Id: id, Category: E.FindCategoryByID(categoryID), 
-			User: E.FindUserByID(userID), Title: title, Content: content, CreatedAt: created_at, Status: status,
-		    Visible: visible, Like: like, Dislike: dislike,})
+		data.Scan(&id)
+		E.CurrentData.Topics = append(E.CurrentData.Topics, E.FindTopicByID(id))
 	}
 }
+
+func (E *Engine) InitUsers() {
+	data := E.QuerySQL("SELECT id FROM users")
+	var id int
+	for data.Next() {
+		data.Scan(&id)
+		E.CurrentData.Users = append(E.CurrentData.Users, E.FindUserByID(id))
+	}
+}
+

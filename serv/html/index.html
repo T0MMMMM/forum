@@ -54,22 +54,26 @@
     <div id="hider">
         <i class="fa-regular fa-envelope"></i>
         <div class="privateMessageWrapper">
-            <div class="privateMessage" id="1"></div>
-            <div class="privateMessage" id="2"></div>
-            <div class="privateMessage" id="3"></div>
-            <div class="privateMessage" id="4"></div>
-            <div class="privateMessage" id="5"></div>
-            <div class="privateMessage" id="6"></div>
-            <div class="privateMessage" id="7"></div>
+            {{ range .Users }}
+                <div class="privateMessage" id="{{ .Id }}"> {{ .Username }} </div>
+            {{ end }}
             <br>
         </div>
-        <div class="privateMessageCard" id="1">
-            <i class="fa-solid fa-arrow-left arrow" id="1"></i>
-            <input type="text" placeholder="Type a message..." class="messageInput">
-            <div class="sendButton">
-                <i class="fa-solid fa-paper-plane plane"></i>
+
+        <div id="data" data-variable-username="{{ .User.Username }}" data-variable-id="{{ .User.Id }}" ></div>
+        {{ range .Users }}
+            <div class="privateMessageCard" id="{{ .Id }}">
+                <i class="fa-solid fa-arrow-left arrow" id="{{ .Id }}"></i>
+                <div id="messages-{{ .Id }}">
+
+                </div>
+                <input type="text" id="input-{{ .Id }}" placeholder="Type a message..." class="messageInput">
+                <div class="sendButton" onclick="sendPrivateMessage('{{ .Id }}')">
+                    <i class="fa-solid fa-paper-plane plane"></i>
+                </div>
             </div>
-        </div>
+        {{ end }}
+
 
     </div>
     <div id="closeHider">
@@ -77,6 +81,8 @@
     </div>
 
     <script type="module" src="serv/js/style.js"></script>
+    <script src="serv/js/websocket.js"></script>
+
 
 </body>
 

@@ -94,3 +94,20 @@ func (E *Engine) FindAnswersByTopicID(TopicID int) []Answer {
 	return answers
 }
 
+func (E *Engine) FindMessageByID(msgId int) Message {
+	data := E.QuerySQL("SELECT id, senderID, recipientID, content, visible, created_at FROM messages WHERE id = " + strconv.Itoa(msgId))
+	var (
+		id         int
+		senderID     int
+		recipientID    int
+		content 	string
+		visible     bool
+		created_at string
+		
+	)
+	for data.Next() {
+		data.Scan(&id, &senderID, &recipientID, &content, &visible, &created_at)
+	}
+	return Message{Id: id, Sender: E.FindUserByID(senderID), Recipient: E.FindUserByID(recipientID), Content: content, Visible: visible, CreatedAt: created_at}
+}
+
