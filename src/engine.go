@@ -108,6 +108,7 @@ func (E *Engine) Run() {
 	app.Get("/connexion", E.Connexion)
 	app.Get("/new-topic", E.NewTopic)
 	app.Get("/topic", E.Topic)
+	app.Get("/topicstyle", E.TopicStyle)
 
 	app.Post("/submit_connexion", E.SubmitConnexion)
 	app.Post("/submit_register", E.SubmitRegister)

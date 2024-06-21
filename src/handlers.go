@@ -21,6 +21,10 @@ func (E *Engine) Connexion(c *fiber.Ctx) error {
 	return c.Render("connexion", E.CurrentData)
 }
 
+func (E *Engine) TopicStyle(c *fiber.Ctx) error {
+	return c.Render("topicStyle", nil)
+}
+
 func (E *Engine) NewTopic(c *fiber.Ctx) error {
 	E.GetCookieUser(c)
 	defer func() { E.CurrentData.ErrorMsg = "" }()
