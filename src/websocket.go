@@ -2,6 +2,8 @@ package forum
 
 import (
 	"strings"
+	"time"
+
 	"github.com/gofiber/websocket/v2"
 )
 
@@ -13,9 +15,9 @@ func (E *Engine) Websocket(c *websocket.Conn) {
 		message := strings.Split(string(msg), ":") 
 		if len(msg) > 0 {
 			if (message[0] == "[TYPEPrivate]"){
-				E.ExecuteSQL("INSERT INTO messages (senderID, recipientID, content) VALUES ( '" + message[1] + "' , '" + message[3] + "', '" + E.filterMsg(message[4]) + "')")
+				E.ExecuteSQL("INSERT INTO messages (senderID, recipientID, content, created_at) VALUES ( '" + message[1] + "' , '" + message[3] + "', '" + E.filterMsg(message[4]) + "', '" + time.Now().String()[:19] + "')")
 			} else if (message[0] == "[TYPETopic]") {
-				E.ExecuteSQL("INSERT INTO answers (topicID, userID, content) VALUES ( '" + message[4] + "' , '" + message[1] + "', '" + E.filterMsg(message[3]) + "')")
+				E.ExecuteSQL("INSERT INTO answers (topicID, userID, content, created_at) VALUES ( '" + message[4] + "' , '" + message[1] + "', '" + E.filterMsg(message[3]) + "', '" + time.Now().String()[:19] + "')")
 			} else if (message[0] == "[TYPELike]") {
 				E.ExecuteSQL("INSERT INTO topicsLikes (topicID, userID) VALUES ( '" + message[2] + "' , '" + message[1] + "')")
 				E.ExecuteSQL("UPDATE topics SET like = like + 1 WHERE id = " + message[2])

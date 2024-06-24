@@ -20,6 +20,7 @@ type Data struct {
 	Categories []Category
 	Topics     []Topic
 	Users      []User
+	UserSearch UserSearch
 	CurrentCategory string
 	CurrentSearch string
 }
@@ -37,6 +38,19 @@ type User struct {
 	Password  string
 	CreatedAt string
 	Messages  []Message
+}
+
+type UserSearch struct {
+	Username  string
+	Email     string
+	CreatedAt string
+	Topics    []Topic
+	AnswersTopic []AnswerTopic
+}
+
+type AnswerTopic struct {
+	Answer   Answer
+	Topic    Topic
 }
 
 type Topic struct {
@@ -67,6 +81,7 @@ type Message struct {
 type Answer struct {
 	Id        int
 	User      User
+	TopicID   int
 	Content   string
 	CreatedAt string
 	Status    string
@@ -86,6 +101,7 @@ func (E *Engine) Init() {
 	E.Port = ":8080"
 	E.CurrentData.CurrentCategory = ""
 	E.CurrentData.CurrentSearch = ""
+	E.CurrentData.UserSearch = UserSearch{}
 	E.InitDescriptions()
 }
 

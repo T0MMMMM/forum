@@ -108,6 +108,11 @@
         <div class="privateMessageWrapper">
             {{ range .Users }}
                 <div class="privateMessage" id="{{ .Id }}"> {{ .Username }} </div>
+                <form action="/submit_search_user" method="post">
+                    <input hidden type="text" name="user" class="category" value="{{ .Id }}">
+                    <input type="submit" value="profil">
+                </form>
+
             {{ end }}
             <br>
         </div>

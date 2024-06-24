@@ -22,9 +22,11 @@ func (E *Engine) Run() {
 	app.Get("/connexion", E.Connexion)
 	app.Get("/new-topic", E.NewTopic)
 	app.Get("/topic", E.Topic)
-	
+	app.Get("/userSearch", E.UserSearch)
+
 	app.Post("/submit_search", E.SubmitSearch)
 	app.Post("/submit_topic", E.SubmitTopic)
+	app.Post("/submit_search_user", E.SubmitUser)
 	app.Post("/submit_connexion", E.SubmitConnexion)
 	app.Post("/submit_register", E.SubmitRegister)
 	app.Post("/submit_new-topic", E.SubmitNewTopic)

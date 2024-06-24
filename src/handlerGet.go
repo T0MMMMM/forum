@@ -33,4 +33,11 @@ func (E *Engine) Topic(c *fiber.Ctx) error {
 	return c.Render("topic", E.CurrentData)
 }
 
+func (E *Engine) UserSearch(c *fiber.Ctx) error {
+	E.GetCookieUser(c)
+	E.UsersMessages()
+	defer func() { E.CurrentData.ErrorMsg = "" }()
+	return c.Render("userSearch", E.CurrentData)
+}
+
 

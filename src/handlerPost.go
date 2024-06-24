@@ -53,7 +53,7 @@ func (E *Engine) SubmitRegister(c *fiber.Ctx) error {
 		}
 	}
 	if username != "" && pwd != "" && email != "" {
-		err := E.ExecuteSQL("INSERT INTO users (username, password, email) VALUES ('" + username + "', '" + pwd + "', '" + email + "')")
+		err := E.ExecuteSQL("INSERT INTO users (username, password, email, created_at) VALUES ('" + username + "', '" + pwd + "', '" + email + "', '" + time.Now().String()[:19] + "')")
 		if err != nil {
 			E.CurrentData.ErrorMsg = "Erreur de base de données, donc rien à voir avec vous, réessaie plus tard"
 			c.Redirect("/connexion")
@@ -105,6 +105,14 @@ func (E *Engine) SubmitTopic(c *fiber.Ctx) error {
 	//E.GetCookieTopic(c)
 	defer func() { E.CurrentData.ErrorMsg = "" }()
 	return c.Render("topic", E.CurrentData)
+}
+
+func (E *Engine) SubmitUser(c *fiber.Ctx) error {
+	UserID := c.FormValue("user")
+	E.GetCookieUser(c)
+	E.CurrentData.UserSearch = E.CreateUserSearch(E.StrToInt(UserID))
+	defer func() { E.CurrentData.ErrorMsg = "" }()
+	return c.Render("userSearch", E.CurrentData)
 }
 
 
