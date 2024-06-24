@@ -20,6 +20,7 @@ type Data struct {
 	Categories []Category
 	Topics     []Topic
 	Users      []User
+	CurrentCategory string
 }
 
 type Category struct {
@@ -82,6 +83,7 @@ func (E *Engine) Init() {
 	E.DataBase, _ = sql.Open("sqlite", "./serv/data/data.db")
 	E.DataBaseCreation()
 	E.Port = ":8080"
+	E.CurrentData.CurrentCategory = ""
 	E.InitDescriptions()
 }
 

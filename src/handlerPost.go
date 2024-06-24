@@ -106,3 +106,11 @@ func (E *Engine) SubmitTopic(c *fiber.Ctx) error {
 	defer func() { E.CurrentData.ErrorMsg = "" }()
 	return c.Render("topic", E.CurrentData)
 }
+
+
+func (E *Engine) SubmitChoseCategory(c *fiber.Ctx) error {
+	categoryButton := c.FormValue("category")
+	E.CurrentData.CurrentCategory = categoryButton
+	c.Redirect("/")
+	return c.Render("index", E.CurrentData)
+}

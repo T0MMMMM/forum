@@ -56,7 +56,12 @@ func (E *Engine) SetTopics() {
 		topic := E.FindTopicByID(id)
 		topic.Liked = E.SetLikedAndDisliked("topicsLikes", topic)
 		topic.Disliked = E.SetLikedAndDisliked("topicsDislike", topic)
-		E.CurrentData.Topics = append(E.CurrentData.Topics, topic)
+		if E.CurrentData.CurrentCategory == "" {
+			E.CurrentData.Topics = append(E.CurrentData.Topics, topic)
+		} else if E.StrToInt(E.CurrentData.CurrentCategory) == topic.Category.Id {
+			E.CurrentData.Topics = append(E.CurrentData.Topics, topic)
+		}
+
 	}
 }
 

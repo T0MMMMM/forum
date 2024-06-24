@@ -23,6 +23,7 @@ func (E *Engine) Run() {
 	app.Get("/new-topic", E.NewTopic)
 	app.Get("/topic", E.Topic)
 
+	app.Post("/submit_chose_category", E.SubmitChoseCategory)
 	app.Post("/submit_topic", E.SubmitTopic)
 	app.Post("/submit_connexion", E.SubmitConnexion)
 	app.Post("/submit_register", E.SubmitRegister)

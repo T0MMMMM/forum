@@ -39,9 +39,16 @@
         <div class="sideMenuSeparator"></div>
         <div class="categories">
             <h4 class="sideMenuSubtitle">Categories</h4>
-            <h5 class="category">Actualités</h5>
-            <h5 class="category">Jeux Vidéos</h5>
-            <h5 class="category">Programmation</h5>
+            <form action="/submit_chose_category" method="post">
+                <input hidden type="text" name="category" class="category" value="">
+                <input type="submit" value="All Categories">
+            </form>
+            {{ range .Categories }}
+                <form action="/submit_chose_category" method="post">
+                    <input hidden type="text" name="category" class="category" value="{{ .Id }}">
+                    <input type="submit"  value="{{ .Name }}">
+                </form>
+            {{ end }}
         </div>
 
     </div>
@@ -62,7 +69,7 @@
                     <input type="text" hidden value="{{ .Id }}" name="TopicID">
                     <input type="submit"> 
                 </form>
-
+                {{ .Category.Name }}
                 <div class="topic"> {{ .Title }} </div>
                 <div class="topicInfo">
                     <div class="like" data-variable-topic-id="{{ .Id }}">
@@ -88,9 +95,6 @@
                 </div>
 
             {{ end }}
-
-            <div class="topic" id="topic2"></div>
-            <div class="topic" id="topic3"></div>
         </div>
     </div>
 
