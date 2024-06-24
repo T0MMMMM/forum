@@ -57,6 +57,13 @@ headerUser.addEventListener("click", function () {
     window.location.href = "/connexion";
 });
 
+var navButton = document.getElementsByClassName('navButton').item(0);
+var sideMenu = document.getElementsByClassName('sideMenu').item(0);
+navButton.addEventListener("click", function () {
+    navButton.classList.add("navButtonAfter");
+    sideMenu.classList.add("sideMenuAfter");
+})
+
 
 var categories = document.getElementsByClassName('categories').item(0);
 
