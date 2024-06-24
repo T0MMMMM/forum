@@ -21,6 +21,7 @@ type Data struct {
 	Topics     []Topic
 	Users      []User
 	CurrentCategory string
+	CurrentSearch string
 }
 
 type Category struct {
@@ -84,6 +85,7 @@ func (E *Engine) Init() {
 	E.DataBaseCreation()
 	E.Port = ":8080"
 	E.CurrentData.CurrentCategory = ""
+	E.CurrentData.CurrentSearch = ""
 	E.InitDescriptions()
 }
 

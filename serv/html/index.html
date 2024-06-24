@@ -20,7 +20,11 @@
             <li><a href="/"><h3 class="headerText" id="header4">CONTACT</h3></a></li>
         </ul> -->
 
-        <input type="search" class="searchBar">
+        <form action="/submit_search" method="post">
+            <input type="search" class="searchBar" name="search">
+            <input type="submit" value="search">
+        </form>
+        
 
         <div class="headerUser">
             {{ if ne .User.Username "" }}

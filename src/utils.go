@@ -57,11 +57,18 @@ func (E *Engine) SetTopics() {
 		topic.Liked = E.SetLikedAndDisliked("topicsLikes", topic)
 		topic.Disliked = E.SetLikedAndDisliked("topicsDislike", topic)
 		if E.CurrentData.CurrentCategory == "" {
-			E.CurrentData.Topics = append(E.CurrentData.Topics, topic)
-		} else if E.StrToInt(E.CurrentData.CurrentCategory) == topic.Category.Id {
-			E.CurrentData.Topics = append(E.CurrentData.Topics, topic)
+			if E.ContainsTxt(topic) {E.CurrentData.Topics = append(E.CurrentData.Topics, topic)}
+		} else if E.StrToInt(E.CurrentData.CurrentCategory) == topic.Category.Id && E.ContainsTxt(topic) {
+			if E.ContainsTxt(topic) {E.CurrentData.Topics = append(E.CurrentData.Topics, topic)}
 		}
+	}
+}
 
+func (E *Engine) ContainsTxt(topic Topic) bool {
+	if E.CurrentData.CurrentSearch == "" {
+		return true
+	} else { 
+		return strings.Contains(strings.ToLower(topic.Title), strings.ToLower(E.CurrentData.CurrentSearch)) || strings.Contains(strings.ToLower(topic.Content), strings.ToLower(E.CurrentData.CurrentSearch))
 	}
 }
 

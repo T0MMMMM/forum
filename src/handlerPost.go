@@ -114,3 +114,10 @@ func (E *Engine) SubmitChoseCategory(c *fiber.Ctx) error {
 	c.Redirect("/")
 	return c.Render("index", E.CurrentData)
 }
+
+func (E *Engine) SubmitSearch(c *fiber.Ctx) error {
+	searchButton := c.FormValue("search")
+	if searchButton != "" {E.CurrentData.CurrentSearch = searchButton}
+	c.Redirect("/")
+	return c.Render("index", E.CurrentData)
+}
