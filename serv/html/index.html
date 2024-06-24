@@ -56,6 +56,7 @@
 
     <div class="main">
         <div class="mainWrapper">
+
             {{ range .Topics}}
                 <form action="/submit_topic" method="post">
                     <input type="text" hidden value="{{ .Id }}" name="TopicID">
@@ -64,85 +65,29 @@
 
                 <div class="topic"> {{ .Title }} </div>
                 <div class="topicInfo">
-                    <div class="like">
-                        <i class="fa-solid fa-heart heart"></i>
-                        <p class="likeAmount">155403</p>
+                    <div class="like" data-variable-topic-id="{{ .Id }}">
+                        {{ if .Liked }}
+                            <i class="fa-solid fa-heart heart heartAfter"></i>
+                        {{ else }}
+                            <i class="fa-solid fa-heart heart"></i>
+                        {{ end }}
+                        <p class="likeAmount">{{ .Like }}</p>
                     </div>
-                    <div class="dislike">
-                        <i class="fa-solid fa-thumbs-down thumbDown"></i>
-                        <p class="dislikeAmount">0</p>
+                    <div class="dislike" data-variable-topic-id="{{ .Id }}">
+                        {{ if .Dislike }}
+                            <i class="fa-solid fa-thumbs-down thumbDown thumbDownAfter"></i>
+                        {{ else }}
+                            <i class="fa-solid fa-thumbs-down thumbDown"></i>
+                        {{ end }}
+                        <p class="dislikeAmount">{{ .Dislike }}</p>
                     </div>
                     <div class="comments">
                         <i class="fa-solid fa-message commentIcon"></i>
-                        <p class="commentsAmount">24</p>
+                        <p class="commentsAmount">{{ len .Answers }}</p>
                     </div>
                 </div>
 
             {{ end }}
-
-            <!-- <div class="topic"></div>
-            <div class="topicInfo">
-                <div class="like">
-                    <i class="fa-solid fa-heart heart"></i>
-                    <p class="likeAmount">155403</p>
-                </div>
-                <div class="dislike">
-                    <i class="fa-solid fa-thumbs-down thumbDown"></i>
-                    <p class="dislikeAmount">0</p>
-                </div>
-                <div class="comments">
-                    <i class="fa-solid fa-message commentIcon"></i>
-                    <p class="commentsAmount">24</p>
-                </div>
-            </div>
-
-            <div class="topic" id="topic1"></div>
-            <div class="topicInfo">
-                <div class="like">
-                    <i class="fa-solid fa-heart heart"></i>
-                    <p class="likeAmount">162</p>
-                </div>
-                <div class="dislike">
-                    <i class="fa-solid fa-thumbs-down thumbDown"></i>
-                    <p class="dislikeAmount">0</p>
-                </div>
-                <div class="comments">
-                    <i class="fa-solid fa-message commentIcon"></i>
-                    <p class="commentsAmount">24</p>
-                </div>
-            </div>
-
-            <div class="topic" id="topic3"></div>
-            <div class="topicInfo">
-                <div class="like">
-                    <i class="fa-solid fa-heart heart"></i>
-                    <p class="likeAmount">1565</p>
-                </div>
-                <div class="dislike">
-                    <i class="fa-solid fa-thumbs-down thumbDown"></i>
-                    <p class="dislikeAmount">0</p>
-                </div>
-                <div class="comments">
-                    <i class="fa-solid fa-message commentIcon"></i>
-                    <p class="commentsAmount">24</p>
-                </div>
-            </div>
-
-            <div class="topic" id="topic2"></div>
-            <div class="topicInfo">
-                <div class="like">
-                    <i class="fa-solid fa-heart heart"></i>
-                    <p class="likeAmount">15543</p>
-                </div>
-                <div class="dislike">
-                    <i class="fa-solid fa-thumbs-down thumbDown"></i>
-                    <p class="dislikeAmount">0</p>
-                </div>
-                <div class="comments">
-                    <i class="fa-solid fa-message commentIcon"></i>
-                    <p class="commentsAmount">24</p>
-                </div>
-            </div> -->
 
             <div class="topic" id="topic2"></div>
             <div class="topic" id="topic3"></div>
@@ -164,7 +109,9 @@
             <div class="privateMessageCard" id="{{ .Id }}">
                 <i class="fa-solid fa-arrow-left arrow" id="{{ .Id }}"></i>
                 <div id="messages-{{ .Id }}">
-
+                    {{ range .Messages }}
+                        <p>{{ .Sender.Username }} : {{ .Content }}</p>
+                    {{ end }}
                 </div>
                 <input type="text" id="input-{{ .Id }}" placeholder="Type a message..." class="messageInput">
                 <div class="sendButton" onclick="sendPrivateMessage('{{ .Id }}')">
@@ -179,8 +126,8 @@
         <i class="fa-solid fa-xmark cross"></i>
     </div>
 
-    <script type="module" src="serv/js/style.js"></script>
     <script src="serv/js/websocket.js"></script>
+    <script type="module" src="serv/js/style.js"></script>
 
 
 </body>

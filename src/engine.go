@@ -29,11 +29,12 @@ type Category struct {
 }
 
 type User struct {
-	Id        int    `cookie:"id"`
-	Username  string `cookie:"username"`
-	Email     string `cookie:"email"`
-	Password  string `cookie:"password"`
-	CreatedAt string `cookie:"created_at"`
+	Id        int
+	Username  string
+	Email     string
+	Password  string
+	CreatedAt string
+	Messages  []Message
 }
 
 type Topic struct {
@@ -47,6 +48,8 @@ type Topic struct {
 	Visible   bool
 	Like      int
 	Dislike   int
+	Liked	  bool
+	Disliked  bool
 	Answers []Answer
 }
 
@@ -80,8 +83,6 @@ func (E *Engine) Init() {
 	E.DataBaseCreation()
 	E.Port = ":8080"
 	E.InitDescriptions()
-	E.InitTopics()
-	E.InitUsers()
 }
 
 
@@ -94,24 +95,6 @@ func (E *Engine) InitDescriptions() {
 	for data.Next() {
 		data.Scan(&id, &name, &description)
 		E.CurrentData.Categories = append(E.CurrentData.Categories, Category{Id: id, Name: name, Description: description})
-	}
-}
-
-func (E *Engine) InitTopics() {
-	data := E.QuerySQL("SELECT id FROM topics")
-	var id int
-	for data.Next() {
-		data.Scan(&id)
-		E.CurrentData.Topics = append(E.CurrentData.Topics, E.FindTopicByID(id))
-	}
-}
-
-func (E *Engine) InitUsers() {
-	data := E.QuerySQL("SELECT id FROM users")
-	var id int
-	for data.Next() {
-		data.Scan(&id)
-		E.CurrentData.Users = append(E.CurrentData.Users, E.FindUserByID(id))
 	}
 }
 

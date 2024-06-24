@@ -47,3 +47,17 @@ CREATE TABLE IF NOT EXISTS `messages` (
   FOREIGN KEY (`senderID`) REFERENCES `users` (`id`),
   FOREIGN KEY (`recipientID`) REFERENCES `users` (`id`)
 );
+CREATE TABLE IF NOT EXISTS `topicsLikes` (
+  `id` integer PRIMARY KEY,
+  `topicID` integer,
+  `userID` integer,
+  FOREIGN KEY (`topicID`) REFERENCES `topics` (`id`),
+  FOREIGN KEY (`userID`) REFERENCES `users` (`id`)
+);
+CREATE TABLE IF NOT EXISTS `topicsDislikes` (
+  `id` integer PRIMARY KEY,
+  `topicID` integer,
+  `userID` integer,
+  FOREIGN KEY (`topicID`) REFERENCES `topics` (`id`),
+  FOREIGN KEY (`userID`) REFERENCES `users` (`id`)
+);
