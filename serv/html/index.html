@@ -137,6 +137,7 @@
         {{ range .Users }}
             <div class="privateMessageCard" id="{{ .Id }}">
                 <i class="fa-solid fa-arrow-left arrow" id="{{ .Id }}"></i>
+                <img src="{{ .ProfilePicture }}" class="photoProfile"/>
                 <div id="messages-{{ .Id }}">
                     {{ range .Messages }}
                         <p>{{ .Sender.Username }} : {{ .Content }}</p>
