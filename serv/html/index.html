@@ -24,8 +24,8 @@
             <input type="search" class="searchBar" name="search">
             <input type="submit" value="search">
         </form>
-        
 
+        
         <div class="headerUser">
             {{ if ne .User.Username "" }}
                 <h3 class="userText"> {{ .User.Username }} </h3>
@@ -36,13 +36,15 @@
 
     </header>
 
+    
+    
 
     <div class="sideMenu">
-
         <h3 class="sideMenuTitle">FORUM</h3>
         <div class="sideMenuSeparator"></div>
         <div class="categories">
             <h4 class="sideMenuSubtitle">Categories</h4>
+            
             <form action="/submit_chose_category" method="post">
                 <input hidden type="text" name="category" class="category" value="">
                 <input type="submit" value="All Categories">
@@ -67,6 +69,15 @@
 
     <div class="main">
         <div class="mainWrapper">
+
+            {{ if ne .CurrentSearch "" }}
+                <h2> current search = "{{ .CurrentSearch }}" 
+                <form action="/submit_reset_search" method="post">
+                    <input type="submit" value="reset"> 
+                </form>
+                </h2>
+            {{ else }}
+            {{ end }}
 
             {{ range .Topics}}
                 <form action="/submit_topic" method="post">

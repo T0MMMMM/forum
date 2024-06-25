@@ -24,6 +24,7 @@ func (E *Engine) Run() {
 	app.Get("/topic", E.Topic)
 	app.Get("/userSearch", E.UserSearch)
 
+	app.Post("/submit_reset_search", E.SubmitResetSearch)
 	app.Post("/submit_search", E.SubmitSearch)
 	app.Post("/submit_topic", E.SubmitTopic)
 	app.Post("/submit_search_user", E.SubmitUser)

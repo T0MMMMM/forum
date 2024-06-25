@@ -129,3 +129,9 @@ func (E *Engine) SubmitSearch(c *fiber.Ctx) error {
 	c.Redirect("/")
 	return c.Render("index", E.CurrentData)
 }
+
+func (E *Engine) SubmitResetSearch(c *fiber.Ctx) error {
+	E.CurrentData.CurrentSearch = ""
+	c.Redirect("/")
+	return c.Render("index", E.CurrentData)
+}

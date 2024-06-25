@@ -15,9 +15,9 @@
     <h1> Account created at {{ .UserSearch.CreatedAt }} </h1>
 
     <br> 
-    
+    Answers :
     {{ range .UserSearch.AnswersTopic }}
-        <h3> Answers : {{ .Answer.Content }} in {{ .Topic.Title }} at {{ .Answer.CreatedAt }}
+        <h3> {{ .Answer.Content }} in {{ .Topic.Title }} at {{ .Answer.CreatedAt }}
     {{ end }}
 
 
