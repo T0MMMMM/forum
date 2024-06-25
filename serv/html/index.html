@@ -26,9 +26,16 @@
             <i class="fa-solid fa-bars bars"></i>
         </div> -->
 
-        <div class="search">
-            <input type="search" class="searchBar" placeholder="Search for ...">
-            <i class="fa-solid fa-magnifying-glass searchIcon"></i>
+        
+
+        <div class="right-nav">
+            <div class="search">
+                <input type="search" class="searchBar" placeholder="Search for ...">
+                <i class="fa-solid fa-magnifying-glass searchIcon"></i>
+            </div>
+            <div>
+                <i class="fa-solid fa-user"></i>
+            </div>
         </div>
 
         <!-- <div class="headerUser">
@@ -124,41 +131,48 @@
             <div class="topic" id="topic3"></div>
         </div>
         <div class="mp">
-            <p>messages</p>
-        </div>
-    </div>
-
-
-    <div id="hider">
-        <i class="fa-regular fa-envelope"></i>
-        <div class="privateMessageWrapper">
-            {{ range .Users }}
-                <div class="privateMessage" id="{{ .Id }}"> {{ .Username }} </div>
-            {{ end }}
-            <br>
-        </div>
-
-        <div id="data" data-variable-username="{{ .User.Username }}" data-variable-id="{{ .User.Id }}" ></div>
-        {{ range .Users }}
-            <div class="privateMessageCard" id="{{ .Id }}">
-                <i class="fa-solid fa-arrow-left arrow" id="{{ .Id }}"></i>
-                <div id="messages-{{ .Id }}">
-                    {{ range .Messages }}
-                        <p>{{ .Sender.Username }} : {{ .Content }}</p>
+            
+            <div class="hider">
+                <div class="topMessage">
+                    <i class="fa-regular fa-envelope envelope"></i>
+                    <h1 class="messageText">Messages</h1>
+                </div>
+                
+                <div class="privateMessageWrapper">
+                    {{ range .Users }}
+                        <div class="privateMessage" id="{{ .Id }}"> {{ .Username }} </div>
                     {{ end }}
+                    <br>
                 </div>
-                <input type="text" id="input-{{ .Id }}" placeholder="Type a message..." class="messageInput">
-                <div class="sendButton" onclick="sendPrivateMessage('{{ .Id }}')">
-                    <i class="fa-solid fa-paper-plane plane"></i>
+        
+                <div id="data" data-variable-username="{{ .User.Username }}" data-variable-id="{{ .User.Id }}" ></div>
+                {{ range .Users }}
+                    <div class="privateMessageCard" id="{{ .Id }}">
+                        <i class="fa-solid fa-arrow-left arrow" id="{{ .Id }}"></i>
+                        <div id="messages-{{ .Id }}">
+                            {{ range .Messages }}
+                                <p>{{ .Sender.Username }} : {{ .Content }}</p>
+                            {{ end }}
+                        </div>
+                        <input type="text" id="input-{{ .Id }}" placeholder="Type a message..." class="messageInput">
+                        <div class="sendButton" onclick="sendPrivateMessage('{{ .Id }}')">
+                            <i class="fa-solid fa-paper-plane plane"></i>
+                        </div>
+                    </div>
+                {{ end }}
+        
+                <div class="closeButtonDiv">
+                    <i class="fa-solid fa-xmark cross"></i>
                 </div>
+        
             </div>
-        {{ end }}
+
+        </div>
+    </div>
 
 
-    </div>
-    <div id="closeHider">
-        <i class="fa-solid fa-xmark cross"></i>
-    </div>
+    
+    
 
     <script src="serv/js/websocket.js"></script>
     <script type="module" src="serv/js/style.js"></script>

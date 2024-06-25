@@ -1,33 +1,51 @@
-var hider = document.getElementById('hider');
-var closeHider = document.getElementById('closeHider');
+var hider = document.getElementsByClassName('hider').item(0);
+var closeHider = document.getElementsByClassName('closeButtonDiv').item(0);
 var messageDivs = document.getElementsByClassName('privateMessage');
 var messageCards = document.getElementsByClassName('privateMessageCard');
 var arrow = document.getElementsByClassName('arrow').item(0);
 
 hider.addEventListener("click", hiderr);
+var envelope = document.getElementsByClassName('envelope').item(0);
+var messageText = document.getElementsByClassName('messageText').item(0);
+var topMessage = document.getElementsByClassName('topMessage').item(0);
+
+var privateMessageWrapper = document.getElementsByClassName('privateMessageWrapper').item(0);
+
+closeHider.addEventListener("click", closeHiderFunc);
 
 function hiderr() {
-    hider.id = "hiderAfter"
-    setTimeout(() => {
-        closeHider.id = "closeHiderAfter";
-    }, 350);
+    if (closeHider.classList.length == 1) {
+        hider.classList.add("hiderAfter");
+        envelope.classList.add('envelopeAfter');
+        messageText.classList.add('messageTextAfter');
+        topMessage.classList.add('topMessageAfter');
+        privateMessageWrapper.classList.add('privateMessageWrapperAfter');
+        setTimeout(() => {
+            closeHider.classList.add("closeButtonDivAfter");
+            envelope.classList.add('envelopeNotDisplay');
+        }, 350);
+    }
 }
 
-closeHider.addEventListener("click", closeHiderFunc)
-
 function closeHiderFunc() {
-    closeHider.id = "closeHider";
-    setTimeout(() => {
-        for (let i = 0; i < messageCards.length; i++) {
-            messageCards.item(i).classList.remove("privateMessageCardAfter");
-        }
-        for (let j = 0; j < messageDivs.length; j++) {
-            messageDivs.item(j).classList.remove('privateMessageAfter');
-        }
-    }, 200);
-    setTimeout(() => {
-        hider.id = "hider";
-    }, 500);
+    if (hider.classList.length == 2) {
+        console.log(2);
+        setTimeout(() => {
+            closeHider.classList.remove("closeButtonDivAfter");
+        }, 1);
+        setTimeout(() => {
+            privateMessageWrapper.classList.remove('privateMessageWrapperAfter');
+            for (let i = 0; i < messageCards.length; i++) {
+                messageCards.item(i).classList.remove("privateMessageCardAfter");
+            }
+            for (let j = 0; j < messageDivs.length; j++) {
+                messageDivs.item(j).classList.remove('privateMessageAfter');
+            }
+        }, 200);
+        setTimeout(() => {
+            hider.classList.remove("hiderAfter");
+        }, 500);
+    }
 }
 
 
@@ -51,29 +69,29 @@ arrow.addEventListener("click", function () {
 });
 
 
-var headerUser = document.getElementsByClassName('headerUser').item(0);
+// var headerUser = document.getElementsByClassName('headerUser').item(0);
 
-headerUser.addEventListener("click", function () {
-    window.location.href = "/connexion";
-});
+// headerUser.addEventListener("click", function () {
+//     window.location.href = "/connexion";
+// });
 
-var navButton = document.getElementsByClassName('navButton').item(0);
-var sideMenu = document.getElementsByClassName('sideMenu').item(0);
-navButton.addEventListener("click", function () {
-    navButton.classList.add("navButtonAfter");
-    sideMenu.classList.add("sideMenuAfter");
-})
+// var navButton = document.getElementsByClassName('navButton').item(0);
+// var sideMenu = document.getElementsByClassName('sideMenu').item(0);
+// navButton.addEventListener("click", function () {
+//     navButton.classList.add("navButtonAfter");
+//     sideMenu.classList.add("sideMenuAfter");
+// })
 
 
 var categories = document.getElementsByClassName('categories').item(0);
 
-categories.addEventListener("click", function () {
-    if (categories.classList.length == 1) {
-        categories.classList.add("categoriesAfter");
-    } else {
-        categories.classList.remove("categoriesAfter");
-    }
-})
+// categories.addEventListener("click", function () {
+//     if (categories.classList.length == 1) {
+//         categories.classList.add("categoriesAfter");
+//     } else {
+//         categories.classList.remove("categoriesAfter");
+//     }
+// })
 
 
 var like = document.getElementsByClassName('like');
