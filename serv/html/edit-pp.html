@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="serv/css/style.css">
+    <script src="https://kit.fontawesome.com/ea8060e81f.js" crossorigin="anonymous"></script>
+    <title>Forum</title>
+
+</head>
+
+<body>
+    
+    <form action="/submit_change_picture_profile" method="post">
+        <input type="radio" id="adult" name="picture" value="serv/assets/pictures/default.jpg">
+        <img src="serv/assets/pictures/default.jpg" class="photoProfile"/>
+
+        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/girl.jpg">
+        <img src="serv/assets/pictures/girl.jpg" class="photoProfile"/>
+
+        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/shrek.png">
+        <img src="serv/assets/pictures/shrek.png" class="photoProfile" />
+        
+        <div><button type="submit">Submit</button></div>
+    </form>
+    
+    <script src="serv/js/websocket.js"></script>
+    
+
+</body>
+
+</html>

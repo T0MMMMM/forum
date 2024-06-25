@@ -3,7 +3,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(255),
   `email` varchar(255),
   `password` varchar(255),
-  `created_at` varchar(255)
+  `created_at` varchar(255),
+  `profile_picture` varchar(255)
 );
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` integer PRIMARY KEY,

@@ -26,11 +26,16 @@
         </form>
 
         
-        <div class="headerUser">
+        <div class="headerUser2">
             {{ if ne .User.Username "" }}
-                <h3 class="userText"> {{ .User.Username }} </h3>
+                <form action="/edit_profil" method="post"> 
+                    <img src="{{ .User.ProfilePicture }}" class="photoProfile"/>
+                    <input type="submit" value="{{ .User.Username }}">
+                </form> 
             {{ else }}
-                <h3 class="userText">LOGIN</h3>
+                <form action="/submit_connexion" method="post"> 
+                    <input type="submit" value="LOGIN">
+                </form>
             {{ end }}
         </div>
 

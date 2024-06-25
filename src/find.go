@@ -23,7 +23,7 @@ func (E *Engine) CreateUserSearch(UserID int) UserSearch {
 		data.Scan(&idAnswer, &userID)
 		answersTopic = append(answersTopic, AnswerTopic{Answer: E.FindAnswerByID(idAnswer), Topic: E.FindTopicByID(E.FindAnswerByID(idAnswer).TopicID)})
 	}
-	return UserSearch{Username: user.Username, Email: user.Email, CreatedAt: user.CreatedAt, AnswersTopic: answersTopic, Topics: topics}
+	return UserSearch{Username: user.Username, Email: user.Email, CreatedAt: user.CreatedAt, ProfilePicture: user.ProfilePicture, AnswersTopic: answersTopic, Topics: topics}
 }
 
 func (E *Engine) FindTopicByID(TopicID int) Topic {
@@ -96,22 +96,24 @@ func (E *Engine) FindCategoryByID(CategoryID int) Category {
 
 
 func (E *Engine) FindUserByID(UserID int) User {
-	data := E.QuerySQL("SELECT id, email, username, password, created_at FROM users WHERE id = " + strconv.Itoa(UserID))
+	data := E.QuerySQL("SELECT id, email, username, password, created_at, profile_picture FROM users WHERE id = " + strconv.Itoa(UserID))
 	var (
 		id         int
 		email      string
 		username   string
 		password   string
 		created_at string
+		profilePicture string
 	)
 	for data.Next() {
-		data.Scan(&id, &email, &username, &password, &created_at)
+		data.Scan(&id, &email, &username, &password, &created_at, &profilePicture)
 	}
 	return User{
 		Id:        id,
 		Username:  username,
 		Email:     email,
 		CreatedAt: created_at,
+		ProfilePicture: profilePicture,
 	}
 }
 

@@ -26,6 +26,19 @@ func (E *Engine) NewTopic(c *fiber.Ctx) error {
 	return c.Render("new-topic", E.CurrentData)
 }
 
+func (E *Engine) EditProfil(c *fiber.Ctx) error {
+	E.GetCookieUser(c)
+	E.UsersMessages()
+	defer func() { E.CurrentData.ErrorMsg = "" }()
+	return c.Render("edit-profil", E.CurrentData)
+}
+func (E *Engine) EditPictureProfil(c *fiber.Ctx) error {
+	E.GetCookieUser(c)
+	E.UsersMessages()
+	defer func() { E.CurrentData.ErrorMsg = "" }()
+	return c.Render("edit-pp", E.CurrentData)
+}
+
 func (E *Engine) Topic(c *fiber.Ctx) error {
 	E.GetCookieUser(c)
 	E.UsersMessages()

@@ -50,14 +50,6 @@ arrow.addEventListener("click", function () {
     }
 });
 
-
-var headerUser = document.getElementsByClassName('headerUser').item(0);
-
-headerUser.addEventListener("click", function () {
-    window.location.href = "/connexion";
-});
-
-
 var categories = document.getElementsByClassName('categories').item(0);
 
 categories.addEventListener("click", function () {

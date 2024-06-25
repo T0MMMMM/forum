@@ -23,6 +23,9 @@ func (E *Engine) Run() {
 	app.Get("/new-topic", E.NewTopic)
 	app.Get("/topic", E.Topic)
 	app.Get("/userSearch", E.UserSearch)
+	app.Post("/edit_profil", E.EditProfil)
+	app.Post("/edit_pp", E.EditPictureProfil)
+
 
 	app.Post("/submit_reset_search", E.SubmitResetSearch)
 	app.Post("/submit_search", E.SubmitSearch)
@@ -32,6 +35,9 @@ func (E *Engine) Run() {
 	app.Post("/submit_register", E.SubmitRegister)
 	app.Post("/submit_new-topic", E.SubmitNewTopic)
 	app.Post("/submit_chose_category", E.SubmitChoseCategory)
+	app.Post("/submit_change_picture_profile", E.SubmitChangePictureProfile)
+
+	
 
 
 	app.Listen(E.Port)

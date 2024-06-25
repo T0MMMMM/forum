@@ -37,6 +37,7 @@ type User struct {
 	Email     string
 	Password  string
 	CreatedAt string
+	ProfilePicture string
 	Messages  []Message
 }
 
@@ -44,6 +45,7 @@ type UserSearch struct {
 	Username  string
 	Email     string
 	CreatedAt string
+	ProfilePicture string
 	Topics    []Topic
 	AnswersTopic []AnswerTopic
 }

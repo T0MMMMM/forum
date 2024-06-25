@@ -24,10 +24,13 @@ func (E *Engine) DataBaseCreation() {
 
 	// Catégories Creation
 
-	//E.ExecuteSQL("INSERT INTO `categories` (name, description) VALUES ('Developpement', 'Developpement informatique')")
-	//INSERT INTO categories (name, description) VALUES ('Developpement', 'Developpement informatique');
-	//INSERT INTO categories (name, description) VALUES ('Cinéma', 'Cinéma films');
-	//DELETE FROM categories WHERE id > 2;
+	// E.ExecuteSQL("INSERT INTO `categories` (name, description) VALUES ('Developpement', 'Developpement informatique')")
+	// E.ExecuteSQL("INSERT INTO `categories` (name, description) VALUES ('Cinema', 'Tous les sujets possibles du cinéma !')")
+	// E.ExecuteSQL("INSERT INTO `categories` (name, description) VALUES ('Jeux Vidéos', 'Parlons de gaming !')")
+
+	// INSERT INTO categories (name, description) VALUES ('Developpement', 'Developpement informatique');
+	// INSERT INTO categories (name, description) VALUES ('Cinéma', 'Cinéma films');
+	// DELETE FROM categories WHERE id > 2;
 }
 
 func splitSQLCommands(file string) []string {

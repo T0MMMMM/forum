@@ -138,6 +138,36 @@ a {
     box-shadow: 0px 0px 14px #4971ad;
 }
 
+.headerUser2 {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+    right: 20px;
+    background-color: #395886;
+    border-radius: 30px;
+    transition: all 0.3s;
+}
+
+.headerUser2:hover {
+    background-color: #4971ad;
+    transition: all 0.3s;
+    box-shadow: 0px 0px 14px #4971ad;
+}
+
+.photoProfile {
+    width: 125px;
+    height: 125px;
+    object-fit: cover;
+    border-radius: 100%;
+    border: 3px solid #2a2a2a;
+}
+
 .userText {
     color: #F0F3FA;
     pointer-events: none;

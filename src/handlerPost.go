@@ -3,7 +3,6 @@ package forum
 import (
 	"strconv"
 	"time"
-
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -11,14 +10,13 @@ func (E *Engine) SubmitConnexion(c *fiber.Ctx) error {
 	username := c.FormValue("username")
 	pwd := c.FormValue("pwd")
 	if username != "" && pwd != "" {
-		data := E.QuerySQL("SELECT id, username, password, email, created_at FROM users")
+		data := E.QuerySQL("SELECT id, username, password, email FROM users")
 		var usernameRnd string
 		var passwordRnd string
 		var email string
 		var id int
-		var created_at string
 		for data.Next() {
-			data.Scan(&id, &usernameRnd, &passwordRnd, &email, &created_at)
+			data.Scan(&id, &usernameRnd, &passwordRnd, &email)
 			if usernameRnd == username && passwordRnd == pwd {
 				E.SetCookieUser(id, c)
 				E.CurrentData.ErrorMsg = ""
@@ -53,7 +51,7 @@ func (E *Engine) SubmitRegister(c *fiber.Ctx) error {
 		}
 	}
 	if username != "" && pwd != "" && email != "" {
-		err := E.ExecuteSQL("INSERT INTO users (username, password, email, created_at) VALUES ('" + username + "', '" + pwd + "', '" + email + "', '" + time.Now().String()[:19] + "')")
+		err := E.ExecuteSQL("INSERT INTO users (username, password, email, created_at, profile_picture) VALUES ('" + username + "', '" + pwd + "', '" + email + "', '" + time.Now().String()[:19] + "', '" + "serv/assets/pictures/default.jpg" + "')")
 		if err != nil {
 			E.CurrentData.ErrorMsg = "Erreur de base de données, donc rien à voir avec vous, réessaie plus tard"
 			c.Redirect("/connexion")
@@ -135,3 +133,14 @@ func (E *Engine) SubmitResetSearch(c *fiber.Ctx) error {
 	c.Redirect("/")
 	return c.Render("index", E.CurrentData)
 }
+
+func (E *Engine) SubmitChangePictureProfile(c *fiber.Ctx) error {
+	picture := c.FormValue("picture")
+	E.CurrentData.User.ProfilePicture = picture
+	E.ExecuteSQL("UPDATE users SET profile_picture = '" + picture + "' WHERE id = " + strconv.Itoa(E.CurrentData.User.Id) + ";")
+	return c.Render("edit-profil", E.CurrentData)
+}
+
+
+
+
