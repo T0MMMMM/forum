@@ -142,7 +142,7 @@
                         <p>{{ .Sender.Username }} : {{ .Content }}</p>
                     {{ end }}
                 </div>
-                <input type="text" id="input-{{ .Id }}" placeholder="Type a message..." class="messageInput">
+                <input type="text" id="input-{{ .Id }}" placeholder="Type a message..." class="messageInput" onkeypress="specialChar(event, id); return false;">
                 <div class="sendButton" onclick="sendPrivateMessage('{{ .Id }}')">
                     <i class="fa-solid fa-paper-plane plane"></i>
                 </div>
@@ -154,6 +154,18 @@
     <div id="closeHider">
         <i class="fa-solid fa-xmark cross"></i>
     </div>
+
+    <script> 
+        function specialChar(event, id){
+            var keyCode = event.which ? event.which : event.keyCode;
+            var touche = String.fromCharCode(keyCode);
+            var champ = document.getElementById(id);
+            var caracteres = 'abcdeéèfghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-?!.;,êî^ëï<>%$';
+            if(caracteres.indexOf(touche) >= 0) {
+                champ.value += touche;
+            }
+        }
+    </script>
 
     <script src="serv/js/websocket.js"></script>
     <script type="module" src="serv/js/style.js"></script>
