@@ -28,7 +28,7 @@
         
         <div class="headerUser2">
             {{ if ne .User.Username "" }}
-                <form action="/edit_profil" method="post"> 
+                <form action="/view_profil" method="post"> 
                     <img src="{{ .User.ProfilePicture }}" class="photoProfile"/>
                     <input type="submit" value="{{ .User.Username }}">
                 </form> 

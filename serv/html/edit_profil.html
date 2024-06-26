@@ -10,6 +10,27 @@
 </head>
 
 <body>
+
+    <script> 
+        function specialChar(event, id){
+            var keyCode = event.which ? event.which : event.keyCode;
+            var touche = String.fromCharCode(keyCode);
+            var champ = document.getElementById(id);
+            var caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';
+            if(caracteres.indexOf(touche) >= 0) {
+                champ.value += touche;
+            }
+        }
+    </script>
+
+
+    <form action="/change_username" method="post">
+        <input type="text" name="username" class="category" value="{{ .User.Username }}" onkeypress="specialChar(event, id); return false;">
+        <button type="submit"> change username </button>
+    </form>
+    {{ .ErrorMsg }}
+
+    <br><br><br><br><br><br><br>
     
     <form action="/submit_change_picture_profile" method="post">
         <input type="radio" id="adult" name="picture" value="serv/assets/pictures/default.jpg">

@@ -3,6 +3,7 @@ package forum
 import (
 	"strconv"
 	"time"
+
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -134,11 +135,39 @@ func (E *Engine) SubmitResetSearch(c *fiber.Ctx) error {
 	return c.Render("index", E.CurrentData)
 }
 
+func (E *Engine) SubmitChangeUsername(c *fiber.Ctx) error {
+	usernameButton := c.FormValue("username")
+	var username string
+	if usernameButton != "" {
+		data := E.QuerySQL("SELECT username FROM users")
+		for data.Next() {
+			data.Scan(&username)
+			if username == usernameButton {
+				E.CurrentData.ErrorMsg = "Username already used"
+				E.GetCookieUser(c)
+				c.Redirect("/edit_profil")
+				return nil
+			}
+		}
+		E.ExecuteSQL("UPDATE users SET username = '" + usernameButton + "' WHERE id = " + strconv.Itoa(E.CurrentData.User.Id) + ";")
+		E.GetCookieUser(c)
+		c.Redirect("/edit_profil")
+		return nil
+	}
+	E.CurrentData.ErrorMsg = "Please provide a valid name"
+	E.GetCookieUser(c)
+	c.Redirect("/edit_profil")
+	return c.SendString("1")
+}
+
+
 func (E *Engine) SubmitChangePictureProfile(c *fiber.Ctx) error {
 	picture := c.FormValue("picture")
 	E.CurrentData.User.ProfilePicture = picture
 	E.ExecuteSQL("UPDATE users SET profile_picture = '" + picture + "' WHERE id = " + strconv.Itoa(E.CurrentData.User.Id) + ";")
-	return c.Render("edit-profil", E.CurrentData)
+	E.GetCookieUser(c)
+	c.Redirect("/edit_profil")
+	return c.SendString("1")
 }
 
 

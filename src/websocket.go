@@ -41,8 +41,8 @@ func (E *Engine) Websocket(c *websocket.Conn) {
 					if err := usr.WriteMessage(websocket.TextMessage, []byte("[TYPEPrivate]:" + message[1]+":"+message[2]+":"+message[4]+":"+message[3])); err != nil {
 						return
 					}
-				} else if (message[0] == "[TYPETopic]") { // 0 = id / 1 = username / 2 = msg / 3 = topic ID
-					if err := usr.WriteMessage(websocket.TextMessage, []byte("[TYPETopic]:" + message[1]+":"+message[2]+":"+message[3])); err != nil {
+				} else if (message[0] == "[TYPETopic]") { // 0 = "[TYPETopic]"  / 1 = id / 2 = user / 3 = msg  / 4 = topicId
+					if err := usr.WriteMessage(websocket.TextMessage, []byte("[TYPETopic]:" + message[2]+":"+message[3]+":"+message[4])); err != nil {
 						return
 					}
 				} else {
