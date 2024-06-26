@@ -12,12 +12,42 @@ func (E *Engine) GetCookieUser(c *fiber.Ctx) {
 	}
 }
 
+
+func (E *Engine) GetCookieFilters(c *fiber.Ctx) {
+	E.GetCookieSearch(c)
+	E.GetCookieCategory(c)
+}
+
+func (E *Engine) GetCookieSearch(c *fiber.Ctx) {
+	E.CurrentData.CurrentSearch = c.Cookies("search")
+}
+
+func (E *Engine) GetCookieCategory(c *fiber.Ctx) {
+	E.CurrentData.CurrentCategory = c.Cookies("category")
+}
+
 func (E *Engine) SetCookieUser(userID int, c *fiber.Ctx) {
 	cookieUser := new(fiber.Cookie)
 	cookieUser.Name = "UserID"
 	cookieUser.Value = strconv.Itoa(userID)
 	cookieUser.Expires = time.Now().Add(24 * time.Hour)
 	c.Cookie(cookieUser)
+}
+
+func (E *Engine) SetCookieSearch(search string, c *fiber.Ctx) {
+	cookieSearch := new(fiber.Cookie)
+	cookieSearch.Name = "search"
+	cookieSearch.Value = search
+	cookieSearch.Expires = time.Now().Add(5 * time.Hour)
+	c.Cookie(cookieSearch)
+}
+
+func (E *Engine) SetCookieCategory(category string, c *fiber.Ctx) {
+	cookieCategory := new(fiber.Cookie)
+	cookieCategory.Name = "category"
+	cookieCategory.Value = category
+	cookieCategory.Expires = time.Now().Add(5 * time.Hour)
+	c.Cookie(cookieCategory)
 }
 
 

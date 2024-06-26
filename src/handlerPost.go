@@ -118,6 +118,7 @@ func (E *Engine) SubmitUser(c *fiber.Ctx) error {
 func (E *Engine) SubmitChoseCategory(c *fiber.Ctx) error {
 	categoryButton := c.FormValue("category")
 	E.CurrentData.CurrentCategory = categoryButton
+	E.SetCookieCategory(categoryButton, c)
 	c.Redirect("/")
 	return c.Render("index", E.CurrentData)
 }
@@ -125,12 +126,14 @@ func (E *Engine) SubmitChoseCategory(c *fiber.Ctx) error {
 func (E *Engine) SubmitSearch(c *fiber.Ctx) error {
 	searchButton := c.FormValue("search")
 	if searchButton != "" {E.CurrentData.CurrentSearch = searchButton}
+	E.SetCookieSearch(E.CurrentData.CurrentSearch, c)
 	c.Redirect("/")
 	return c.Render("index", E.CurrentData)
 }
 
 func (E *Engine) SubmitResetSearch(c *fiber.Ctx) error {
 	E.CurrentData.CurrentSearch = ""
+	E.SetCookieSearch(E.CurrentData.CurrentSearch, c)
 	c.Redirect("/")
 	return c.Render("index", E.CurrentData)
 }
