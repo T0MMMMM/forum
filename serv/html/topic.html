@@ -11,7 +11,12 @@
 
 <body>
 
-    <h1>{{ .Topic.Title }}</h1>
+    <div class="main-topic">
+        <div><h2>{{ .Topic.Title }}</h2></div>
+
+    </div>
+
+    
     <span>Category : {{ .Topic.Category.Name }}</span></br>
     <span>Creator : {{ .Topic.User.Username }}</span>
     <h2>---</h2>

@@ -19,7 +19,7 @@
         <div>
             <!-- <script type="module" src="https://unpkg.com/@splinetool/viewer@1.7.6/build/spline-viewer.js"></script>
             <spline-viewer url="https://prod.spline.design/yvJprAPC56Fb3yG5/scene.splinecode"></spline-viewer> -->
-            <h1>Y-NOT</h1>
+            <a href="/"><h1>Y-NOT</h1></a>
         </div>
 
         <!-- <div class="navButton">
@@ -34,7 +34,7 @@
                 <i class="fa-solid fa-magnifying-glass searchIcon"></i>
             </div>
             <div>
-                <i class="fa-solid fa-user"></i>
+                <a href="/connexion"><i class="fa-solid fa-user"></i></a>
             </div>
         </div>
 
@@ -72,10 +72,9 @@
 
     <div class="main">
         <div class="filter">
-            <h3>FORUM</h3>
-            <div></div>
+            <div><h3>FORUM</h3></div>
             <div>
-                <h4>Categories</h4>
+                <h5>Categories</h5>
                 <h5>Actualités</h5>
                 <h5>Jeux Vidéos</h5>
                 <h5>Programmation</h5>
@@ -144,8 +143,7 @@
                     {{ end }}
                     <br>
                 </div>
-        
-                <div id="data" data-variable-username="{{ .User.Username }}" data-variable-id="{{ .User.Id }}" ></div>
+
                 {{ range .Users }}
                     <div class="privateMessageCard" id="{{ .Id }}">
                         <i class="fa-solid fa-arrow-left arrow" id="{{ .Id }}"></i>
@@ -160,11 +158,13 @@
                         </div>
                     </div>
                 {{ end }}
-        
-                <div class="closeButtonDiv">
-                    <i class="fa-solid fa-xmark cross"></i>
+
+                <div class="closeDiv">
+                    <div class="closeButtonDiv">
+                        <i class="fa-solid fa-xmark cross"></i>
+                    </div>
                 </div>
-        
+                <div id="data" data-variable-username="{{ .User.Username }}" data-variable-id="{{ .User.Id }}" ></div>
             </div>
 
         </div>

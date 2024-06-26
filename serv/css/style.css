@@ -29,9 +29,10 @@ html {
 }
 
 h1 {
-    margin-left: 20px;
+    cursor: url("../assets/cursor/cursor.cur"), auto;
+    margin-left: 30px;
     font-size: 35px;
-    font-family: satoshi;
+    font-family: bosch;
     font-weight: 900;
     color: white;
 }
@@ -56,34 +57,36 @@ nav {
     transition: all 0.5s;
     align-items: center;
     justify-content: space-between;
-    background-color: #FBC5B3;
+    background: linear-gradient(to right bottom, #FBC5B3,#e1977e);
+    box-shadow: 4px 4px 10px #5b5b5b7b, inset 4px 4px 20px #fffffff0;
 }
+
 
 
 .searchBar {
     position: relative;
     height: 50px;
     width: 50px;
-    padding-right: 80px;
     border: none;
     border-radius: 10px;
     background-color: #F0F3FA;
     border: 2px solid #4971ad00;
     transition: all 0.2s;
     padding-left: 15px;
-    padding-right: 15px;
+    padding-right: 50px;
     color: #FBC5B3;
+    right: -15px;
     opacity: 0;
 }
 
 .searchIcon {
     position: relative;
     text-align: center;
-    /* left: -50px; */
     top: 3px;
-    left: -50px;
+    left: -35px;
     color: white;
     transition: all 0.2s;
+    cursor: url("../assets/cursor/cursor.cur"), auto;
 }
 
 .searchIcon:active {
@@ -128,7 +131,7 @@ li {
 }
 
 a, button {
-    cursor: url("../assets/cursor/cursor.cur"), pointer;
+    cursor: url("../assets/cursor/cursor.cur"), auto;
 }
 
 a {
@@ -187,9 +190,19 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 15px;
+    margin-right: 25px;
     color: white;
 }
+
+.right-nav a i {
+    text-decoration: none;
+    color: white;
+}
+
+.right-nav i {
+    cursor: url("../assets/cursor/cursor.cur"), auto;
+}
+
 
 .bars {
     color: #F0F3FA;
@@ -199,6 +212,7 @@ a {
 /* Side Menu */
 
 .filter {
+    color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -208,7 +222,7 @@ a {
     /* height: 100%; */
     width: 350px;
     margin: 10px;
-    padding: 10px;
+    padding: 20px;
 
     background: rgba(251, 197, 179, 0.5);
     border-radius: 16px;
@@ -216,6 +230,24 @@ a {
     -webkit-backdrop-filter: blur(14px);
 
     box-shadow: 4px 4px 10px #5b5b5b7b, inset 4px 4px 20px #fffffff0;
+}
+
+.filter div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.filter div h3 {
+    font-size: 45px;
+}
+
+.filter div h5 {
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .mp {
@@ -365,7 +397,8 @@ a {
     margin-bottom: 10px;
     min-height: 300px;
     padding: 10px;
-    background: rgba(255, 255, 255, 0.76);
+    color: white;
+    background: rgba(253, 239, 234, 0.5);
     border-radius: 5px;
     box-shadow: -4px -4px 8px #f0f3fa34;
     filter: drop-shadow(4px 4px 4px #3e3e3e75);
@@ -554,7 +587,7 @@ a {
     opacity: 0;
     text-align: center;
     height: 40px;
-    width: 40px;
+    width: 100%;
     /* background-color: #23380b; */
     background-color: #B1C9EF;
     right: 6px;
@@ -567,12 +600,26 @@ a {
     z-index: 10;
     opacity: 1;
     text-align: center;
-    width: 95%;
-    height: 10%;
+    padding: 5px;
+    background: linear-gradient(180deg, #FBC5B3,#e1977e);
+    box-shadow: 4px 4px 10px #5b5b5b7b, inset 4px 4px 20px #fffffff0;
+    border-radius: 16px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     /* background-color: #23380b; */
-    background-color: rebeccapurple;
+    backdrop-filter: blur(15px);
+    background: rgba(251, 197, 179, 0.5);
     transition: all 0.3s;
     display: block;
+}
+
+.closeDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 10%;
+    width: 95%;
 }
 
 .closeHiderAfter:hover {
@@ -622,6 +669,7 @@ a {
 }
 
 .privateMessageWrapper {
+    color: white;
     display: none;
     width: 100%;
     max-height: 75%;
