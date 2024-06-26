@@ -23,8 +23,8 @@ func (E *Engine) Run() {
 	app.Get("/new-topic", E.NewTopic)
 	app.Get("/topic", E.Topic)
 	app.Get("/userSearch", E.UserSearch)
-	app.Post("/view_profil", E.ViewProfil)
-	app.Post("/edit_profil", E.EditProfil)
+	app.Get("/view_profil", E.ViewProfil)
+	app.Get("/edit_profil", E.EditProfil)
 
 
 	app.Post("/submit_reset_search", E.SubmitResetSearch)
@@ -33,7 +33,7 @@ func (E *Engine) Run() {
 	app.Post("/submit_search_user", E.SubmitUser)
 	app.Post("/submit_connexion", E.SubmitConnexion)
 	app.Post("/submit_register", E.SubmitRegister)
-	app.Post("/change_username", E.SubmitChangeUsername)
+	app.Post("/submit_change_username", E.SubmitChangeUsername)
 	app.Post("/submit_new-topic", E.SubmitNewTopic)
 	app.Post("/submit_chose_category", E.SubmitChoseCategory)
 	app.Post("/submit_change_picture_profile", E.SubmitChangePictureProfile)

@@ -1,6 +1,6 @@
 const username = document.getElementById("data").getAttribute("data-variable-username");
 const id = document.getElementById("data").getAttribute("data-variable-id");
-const socket = new WebSocket('ws://10.34.4.52:8080/ws');
+const socket = new WebSocket('ws://10.34.4.236:8080/ws');
 
 socket.onmessage = function(event) {
     
