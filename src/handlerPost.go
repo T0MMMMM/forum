@@ -11,14 +11,13 @@ func (E *Engine) SubmitConnexion(c *fiber.Ctx) error {
 	username := c.FormValue("username")
 	pwd := c.FormValue("pwd")
 	if username != "" && pwd != "" {
-		data := E.QuerySQL("SELECT id, username, password, email, created_at FROM users")
+		data := E.QuerySQL("SELECT id, username, password, email FROM users")
 		var usernameRnd string
 		var passwordRnd string
 		var email string
 		var id int
-		var created_at string
 		for data.Next() {
-			data.Scan(&id, &usernameRnd, &passwordRnd, &email, &created_at)
+			data.Scan(&id, &usernameRnd, &passwordRnd, &email)
 			if usernameRnd == username && passwordRnd == pwd {
 				E.SetCookieUser(id, c)
 				E.CurrentData.ErrorMsg = ""
@@ -53,7 +52,7 @@ func (E *Engine) SubmitRegister(c *fiber.Ctx) error {
 		}
 	}
 	if username != "" && pwd != "" && email != "" {
-		err := E.ExecuteSQL("INSERT INTO users (username, password, email) VALUES ('" + username + "', '" + pwd + "', '" + email + "')")
+		err := E.ExecuteSQL("INSERT INTO users (username, password, email, created_at, profile_picture) VALUES ('" + username + "', '" + pwd + "', '" + email + "', '" + time.Now().String()[:19] + "', '" + "serv/assets/pictures/default.jpg" + "')")
 		if err != nil {
 			E.CurrentData.ErrorMsg = "Erreur de base de données, donc rien à voir avec vous, réessaie plus tard"
 			c.Redirect("/connexion")
@@ -106,3 +105,72 @@ func (E *Engine) SubmitTopic(c *fiber.Ctx) error {
 	defer func() { E.CurrentData.ErrorMsg = "" }()
 	return c.Render("topic", E.CurrentData)
 }
+
+func (E *Engine) SubmitUser(c *fiber.Ctx) error {
+	UserID := c.FormValue("user")
+	E.GetCookieUser(c)
+	E.CurrentData.UserSearch = E.CreateUserSearch(E.StrToInt(UserID))
+	defer func() { E.CurrentData.ErrorMsg = "" }()
+	return c.Render("userSearch", E.CurrentData)
+}
+
+
+func (E *Engine) SubmitChoseCategory(c *fiber.Ctx) error {
+	categoryButton := c.FormValue("category")
+	E.CurrentData.CurrentCategory = categoryButton
+	E.SetCookieCategory(categoryButton, c)
+	c.Redirect("/")
+	return c.Render("index", E.CurrentData)
+}
+
+func (E *Engine) SubmitSearch(c *fiber.Ctx) error {
+	searchButton := c.FormValue("search")
+	if searchButton != "" {E.CurrentData.CurrentSearch = searchButton}
+	E.SetCookieSearch(E.CurrentData.CurrentSearch, c)
+	c.Redirect("/")
+	return c.Render("index", E.CurrentData)
+}
+
+func (E *Engine) SubmitResetSearch(c *fiber.Ctx) error {
+	E.CurrentData.CurrentSearch = ""
+	E.SetCookieSearch(E.CurrentData.CurrentSearch, c)
+	c.Redirect("/")
+	return c.Render("index", E.CurrentData)
+}
+
+func (E *Engine) SubmitChangeUsername(c *fiber.Ctx) error {
+	E.GetCookieUser(c)
+	usernameButton := c.FormValue("username")
+	var username string
+	if usernameButton != "" {
+		data := E.QuerySQL("SELECT username FROM users")
+		for data.Next() {
+			data.Scan(&username)
+			if username == usernameButton {
+				E.CurrentData.ErrorMsg = "Username already used"
+				c.Redirect("/edit_profil")
+				return nil
+			}
+		}
+		E.ExecuteSQL("UPDATE users SET username = '" + usernameButton + "' WHERE id = " + strconv.Itoa(E.CurrentData.User.Id) + ";")
+		c.Redirect("/view_profil")
+		return nil
+	}
+	E.CurrentData.ErrorMsg = "Please provide a valid name"
+	c.Redirect("/edit_profil")
+	return nil
+}
+
+
+func (E *Engine) SubmitChangePictureProfile(c *fiber.Ctx) error {
+	picture := c.FormValue("picture")
+	E.GetCookieUser(c)
+	E.CurrentData.User.ProfilePicture = picture
+	E.ExecuteSQL("UPDATE users SET profile_picture = '" + picture + "' WHERE id = " + strconv.Itoa(E.CurrentData.User.Id) + ";")
+	c.Redirect("/view_profil")
+	return nil
+}
+
+
+
+

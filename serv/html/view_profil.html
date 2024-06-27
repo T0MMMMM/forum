@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="serv/css/style.css">
+    <script src="https://kit.fontawesome.com/ea8060e81f.js" crossorigin="anonymous"></script>
+    <title>Forum</title>
+
+</head>
+
+<body>
+    
+    <img src="{{ .User.ProfilePicture }}" class="photoProfile"/>
+    <h1> Username : {{ .User.Username }} </h1>
+    <h1> Email : {{ .User.Email }} </h1>
+    <h1> Account created at {{ .User.CreatedAt }} </h1>
+
+    <div class="headerUser">
+        {{ if ne .User.Username "" }}
+            <h3 class="userText"> {{ .User.Username }} </h3>
+        {{ else }}
+            <h3 class="userText">LOGIN</h3>
+        {{ end }}
+    </div> 
+
+    <form action="/edit_profil" method="get">
+        <button type="submit">Edit profil</button>
+    </form>
+    
+    <form action="/" method="get">
+        <div><button type="submit" >Back</button></div>
+    </form>
+    
+    <script src="serv/js/websocket.js"></script>
+    
+
+</body>
+
+</html>

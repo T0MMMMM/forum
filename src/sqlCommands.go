@@ -24,11 +24,13 @@ func (E *Engine) DataBaseCreation() {
 
 	// Catégories Creation
 
-	//E.ExecuteSQL("INSERT INTO `categories` (name, description) VALUES ('Developpement', 'Developpement informatique')")
-	//INSERT INTO categories (name, description) VALUES ('Developpement', 'Developpement informatique');
-	//INSERT INTO categories (name, description) VALUES ('Cinéma', 'Cinéma films');
-	//DELETE FROM categories WHERE id > 2;
-	E.DataBase.Close()
+	// E.ExecuteSQL("INSERT INTO `categories` (name, description) VALUES ('Developpement', 'Developpement informatique')")
+	// E.ExecuteSQL("INSERT INTO `categories` (name, description) VALUES ('Cinema', 'Tous les sujets possibles du cinéma !')")
+	// E.ExecuteSQL("INSERT INTO `categories` (name, description) VALUES ('Jeux Vidéos', 'Parlons de gaming !')")
+
+	// INSERT INTO categories (name, description) VALUES ('Developpement', 'Developpement informatique');
+	// INSERT INTO categories (name, description) VALUES ('Cinéma', 'Cinéma films');
+	// DELETE FROM categories WHERE id > 2;
 }
 
 func splitSQLCommands(file string) []string {
@@ -41,23 +43,19 @@ func splitSQLCommands(file string) []string {
 }
 
 func (E *Engine) ExecuteSQL(cmd string) error {
-	E.DataBase, _ = sql.Open("sqlite", "./serv/data/data.db")
 	_, err := E.DataBase.Exec(cmd)
 	if err != nil {
 		log.Fatalf("Erreur d'exécution de la commande SQL: %v", err)
 		return err
 	}
-	E.DataBase.Close()
 	return nil
 }
 
 func (E *Engine) QuerySQL(cmd string) *sql.Rows {
-	E.DataBase, _ = sql.Open("sqlite", "./serv/data/data.db")
 	data, err := E.DataBase.Query(cmd)
 	if err != nil {
 		log.Fatalf("Erreur d'exécution de la commande SQL: %v", err)
 	}
-	E.DataBase.Close()
 	return data
 }
 

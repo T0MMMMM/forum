@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="serv/css/style.css">
+    <script src="https://kit.fontawesome.com/ea8060e81f.js" crossorigin="anonymous"></script>
+    <title>Forum</title>
+
+</head>
+
+<body>
+    <img src="{{ .UserSearch.ProfilePicture }}" class="photoProfile"/>
+    <h1> Username : {{ .UserSearch.Username }} </h1>
+    <h1> Email : {{ .UserSearch.Email }} </h1>
+    <h1> Account created at {{ .UserSearch.CreatedAt }} </h1>
+
+    <br> 
+    Answers :
+    {{ range .UserSearch.AnswersTopic }}
+        <h3> {{ .Answer.Content }} in {{ .Topic.Title }} at {{ .Answer.CreatedAt }}
+    {{ end }}
+
+
+    
+
+    <script src="serv/js/websocket.js"></script>
+    
+
+</body>
+
+</html>

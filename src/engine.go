@@ -20,6 +20,9 @@ type Data struct {
 	Categories []Category
 	Topics     []Topic
 	Users      []User
+	UserSearch UserSearch
+	CurrentCategory string
+	CurrentSearch string
 }
 
 type Category struct {
@@ -34,7 +37,22 @@ type User struct {
 	Email     string
 	Password  string
 	CreatedAt string
+	ProfilePicture string
 	Messages  []Message
+}
+
+type UserSearch struct {
+	Username  string
+	Email     string
+	CreatedAt string
+	ProfilePicture string
+	Topics    []Topic
+	AnswersTopic []AnswerTopic
+}
+
+type AnswerTopic struct {
+	Answer   Answer
+	Topic    Topic
 }
 
 type Topic struct {
@@ -65,6 +83,7 @@ type Message struct {
 type Answer struct {
 	Id        int
 	User      User
+	TopicID   int
 	Content   string
 	CreatedAt string
 	Status    string
@@ -82,6 +101,9 @@ func (E *Engine) Init() {
 	E.DataBase, _ = sql.Open("sqlite", "./serv/data/data.db")
 	E.DataBaseCreation()
 	E.Port = ":8080"
+	E.CurrentData.CurrentCategory = ""
+	E.CurrentData.CurrentSearch = ""
+	E.CurrentData.UserSearch = UserSearch{}
 	E.InitDescriptions()
 }
 

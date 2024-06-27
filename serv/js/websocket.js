@@ -1,6 +1,6 @@
 const username = document.getElementById("data").getAttribute("data-variable-username");
 const id = document.getElementById("data").getAttribute("data-variable-id");
-const socket = new WebSocket('ws://10.34.3.146:8080/ws');
+const socket = new WebSocket('ws://10.34.4.236:8080/ws');
 
 socket.onmessage = function(event) {
     
@@ -13,7 +13,7 @@ socket.onmessage = function(event) {
         console.log(messages.scrollHeight);
     } else if (message[0] == "[TYPETopic]" && parseInt(message[3]) == document.getElementById("data").getAttribute("data-variable-topic-id")) {
         const messages = document.getElementById('messages');
-        messages.innerHTML += '<p>' + message[1] + " : " + filterMsg(message[1]) + '</p>';
+        messages.innerHTML += '<p>' + message[1] + " : " + filterMsg(message[2]) + '</p>';
         messages.scrollTop = messages.scrollHeight;
     }
 };

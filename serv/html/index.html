@@ -17,73 +17,61 @@
     <nav id="head">
 
         <div>
-            <!-- <script type="module" src="https://unpkg.com/@splinetool/viewer@1.7.6/build/spline-viewer.js"></script>
-            <spline-viewer url="https://prod.spline.design/yvJprAPC56Fb3yG5/scene.splinecode"></spline-viewer> -->
             <a href="/"><h1>Y-NOT</h1></a>
         </div>
 
-        <!-- <div class="navButton">
-            <i class="fa-solid fa-bars bars"></i>
-        </div> -->
-
-        
-
         <div class="right-nav">
             <div class="search">
-                <input type="search" class="searchBar" placeholder="Search for ...">
+                <form action="/submit_search" method="post">
+                    <input type="search" class="searchBar" placeholder="Search for ..." name="search">
+                    <input type="submit" value="search">
+                </form>
                 <i class="fa-solid fa-magnifying-glass searchIcon"></i>
             </div>
             <div>
-                <a href="/connexion"><i class="fa-solid fa-user"></i></a>
+                {{ if ne .User.Username "" }}
+                    <a href="/view_profil">
+                        <img src="{{ .User.ProfilePicture }}" class="photoProfile"/>
+                        <input type="submit" value="{{ .User.Username }}">
+                    </a>
+                {{ else }}
+                    <a href="/connexion"><i class="fa-solid fa-user"></i></a>
+                {{ end }}
+                
             </div>
         </div>
 
-        <!-- <div class="headerUser">
-            {{ if ne .User.Username "" }}
-                <h3 class="userText"> {{ .User.Username }} </h3>
-            {{ else }}
-                <h3 class="userText">LOGIN</h3>
-            {{ end }}
-        </div> -->
-
     </nav>
-
-
-    <!-- <div class="sideMenu">
-
-        <h3 class="sideMenuTitle">FORUM</h3>
-        <div class="sideMenuSeparator"></div>
-        <div class="categories">
-            <h4 class="sideMenuSubtitle">Categories</h4>
-            <h5 class="category">Actualités</h5>
-            <h5 class="category">Jeux Vidéos</h5>
-            <h5 class="category">Programmation</h5>
-        </div>
-
-    </div> -->
-
-
-    <!-- <div class="background"></div> -->
-
-
-    <!-- <script type="module" src="https://unpkg.com/@splinetool/viewer@1.6.8/build/spline-viewer.js"></script>
-    <spline-viewer class="splineText" url="https://prod.spline.design/yvJprAPC56Fb3yG5/scene.splinecode"></spline-viewer> -->
-
 
     <div class="main">
         <div class="filter">
             <div><h3>FORUM</h3></div>
             <div>
-                <h5>Categories</h5>
-                <h5>Actualités</h5>
-                <h5>Jeux Vidéos</h5>
-                <h5>Programmation</h5>
+                <form action="/submit_chose_category" method="post">
+                    <input hidden type="text" name="category" class="category" value="">
+                    <input type="submit" value="All Categories">
+                </form>
+                {{ range .Categories }}
+                    <form action="/submit_chose_category" method="post">
+                        <input hidden type="text" name="category" class="category" value="{{ .Id }}">
+                        <input type="submit"  value="{{ .Name }}">
+                    </form>
+                {{ end }}
             </div>
         </div>
 
         <div class="mainWrapper">
 
-            {{ template "topictmpl" . }}
+            {{ if ne .CurrentSearch "" }}
+                <h2> current search = "{{ .CurrentSearch }}" 
+                <form action="/submit_reset_search" method="post">
+                    <input type="submit" value="reset"> 
+                </form>
+                </h2>
+            {{ else }}
+            {{ end }}
+
+            {{ template "topics" . }}
         
         </div>
         <div class="mp">
@@ -96,7 +84,10 @@
                 
                 <div class="privateMessageWrapper">
                     {{ range .Users }}
-                        <div class="privateMessage" id="{{ .Id }}"> {{ .Username }} </div>
+                        <form action="/submit_search_user" method="post">
+                            <input hidden type="text" name="user" class="category" value="{{ .Id }}">
+                            <button type="submit" class="privateMessage" id="{{ .Id }}"> {{ .Username }} </button>
+                        </form>
                     {{ end }}
                     <br>
                 </div>
@@ -120,7 +111,7 @@
                             </div>
     
                             <div class="privateMessageCardBottomBox">
-                                <input type="text" id="input-{{ .Id }}" placeholder="Type a message..." class="messageInput">
+                                <input type="text" id="input-{{ .Id }}" placeholder="Type a message..." class="messageInput" onkeypress="specialChar(event, id); return false;">
                                 <div class="sendButton" onclick="sendPrivateMessage('{{ .Id }}')">
                                     <i class="fa-solid fa-paper-plane plane"></i>
                                 </div>
@@ -142,9 +133,18 @@
         </div>
     </div>
 
+    <script> 
+        function specialChar(event, id){
+            var keyCode = event.which ? event.which : event.keyCode;
+            var touche = String.fromCharCode(keyCode);
+            var champ = document.getElementById(id);
+            var caracteres = 'abcdeéèfghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-?!.;,êî^ëï<>%$';
+            if(caracteres.indexOf(touche) >= 0) {
+                champ.value += touche;
+            }
+        }
+    </script>
 
-    
-    
 
     <script src="serv/js/websocket.js"></script>
     <script type="module" src="serv/js/style.js"></script>

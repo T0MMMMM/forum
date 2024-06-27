@@ -4,6 +4,28 @@ import (
 	"strconv"
 )
 
+func (E *Engine) CreateUserSearch(UserID int) UserSearch {
+	user := E.FindUserByID(UserID)
+	var (
+		topics []Topic
+		answersTopic []AnswerTopic
+		idTopic int
+		idAnswer int
+		userID int
+	)
+	data := E.QuerySQL("SELECT id, userID FROM topics WHERE userID = " + strconv.Itoa(UserID))
+	for data.Next() {
+		data.Scan(&idTopic, &userID)
+		topics = append(topics, E.FindTopicByID(idTopic))
+	}
+	data = E.QuerySQL("SELECT id, userID FROM answers WHERE userID = " + strconv.Itoa(UserID))
+	for data.Next() {
+		data.Scan(&idAnswer, &userID)
+		answersTopic = append(answersTopic, AnswerTopic{Answer: E.FindAnswerByID(idAnswer), Topic: E.FindTopicByID(E.FindAnswerByID(idAnswer).TopicID)})
+	}
+	return UserSearch{Username: user.Username, Email: user.Email, CreatedAt: user.CreatedAt, ProfilePicture: user.ProfilePicture, AnswersTopic: answersTopic, Topics: topics}
+}
+
 func (E *Engine) FindTopicByID(TopicID int) Topic {
 	data := E.QuerySQL("SELECT id, categoryID, userID, title, content, created_at, status, visible, like, dislike FROM topics WHERE id = " + strconv.Itoa(TopicID))
 	var (
@@ -35,6 +57,25 @@ func (E *Engine) FindTopicByID(TopicID int) Topic {
 	}
 }
 
+func (E *Engine) FindAnswerByID(AnswerID int) Answer {
+	data := E.QuerySQL("SELECT id, userID, TopicID, content, created_at, status, visible, like, dislike FROM answers WHERE id = " + strconv.Itoa(AnswerID))
+	var (
+		id         int
+		userID     int
+		topicID    int
+		content    string
+		created_at string
+		status     string
+		visible    bool
+		like       int
+		dislike    int
+	)
+	for data.Next() {
+		data.Scan(&id, &userID, &topicID, &content, &created_at, &status, &visible, &like, &dislike)
+	}
+	return Answer{Id: id, TopicID: topicID, Content: E.reversefilterMsg(content), CreatedAt: created_at, Status: status, Visible: visible, Like: like, Dislike: dislike}
+}
+
 
 func (E *Engine) FindCategoryByID(CategoryID int) Category {
 	data := E.QuerySQL("SELECT id, name, description FROM Categories WHERE id = " + strconv.Itoa(CategoryID))
@@ -55,22 +96,24 @@ func (E *Engine) FindCategoryByID(CategoryID int) Category {
 
 
 func (E *Engine) FindUserByID(UserID int) User {
-	data := E.QuerySQL("SELECT id, email, username, password, created_at FROM users WHERE id = " + strconv.Itoa(UserID))
+	data := E.QuerySQL("SELECT id, email, username, password, created_at, profile_picture FROM users WHERE id = " + strconv.Itoa(UserID))
 	var (
 		id         int
 		email      string
 		username   string
 		password   string
 		created_at string
+		profilePicture string
 	)
 	for data.Next() {
-		data.Scan(&id, &email, &username, &password, &created_at)
+		data.Scan(&id, &email, &username, &password, &created_at, &profilePicture)
 	}
 	return User{
 		Id:        id,
 		Username:  username,
 		Email:     email,
 		CreatedAt: created_at,
+		ProfilePicture: profilePicture,
 	}
 }
 
@@ -89,7 +132,7 @@ func (E *Engine) FindAnswersByTopicID(TopicID int) []Answer {
 	)
 	for data.Next() {
 		data.Scan(&id, &userID, &content, &created_at, &status, &visible, &like, &dislike)
-		answers = append(answers, Answer{Id: id, User: E.FindUserByID(userID), Content: E.reversefilterMsg(content), CreatedAt: created_at, Status: status, Visible: visible, Like: like, Dislike: dislike})
+		answers = append(answers, Answer{Id: id, TopicID: TopicID, User: E.FindUserByID(userID), Content: E.reversefilterMsg(content), CreatedAt: created_at, Status: status, Visible: visible, Like: like, Dislike: dislike})
 	}
 	return answers
 }
