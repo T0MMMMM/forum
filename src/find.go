@@ -44,8 +44,8 @@ func (E *Engine) FindTopicByID(TopicID int) Topic {
 
 	return Topic{
 		Id:        id,
-		Title:     title,
-		Content:   content,
+		Title:     E.reversefilterMsg(title),
+		Content:   E.reversefilterMsg(content),
 		Category:  E.FindCategoryByID(categoryID),
 		User:      E.FindUserByID(userID),
 		CreatedAt: created_at,
