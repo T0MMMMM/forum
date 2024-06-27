@@ -97,8 +97,8 @@ type Answer struct {
 
 func (E *Engine) Init() {
 	//rand.Seed(time.Now().UnixNano())
+	E.CurrentData = Data{ErrorMsg: ""}
 	E.CurrentData.User = User{}
-	E.CurrentData = Data{ErrorMsg: "",}
 	E.DataBase, _ = sql.Open("sqlite", "./serv/data/data.db")
 	E.DataBaseCreation()
 	E.Port = ":8080"

@@ -1,6 +1,6 @@
 const username = document.getElementById("data").getAttribute("data-variable-username");
 const id = document.getElementById("data").getAttribute("data-variable-id");
-const socket = new WebSocket('ws://10.34.4.52:8080/ws');
+const socket = new WebSocket('ws://localhost:8080/ws');
 
 socket.onmessage = function(event) {
     
@@ -13,7 +13,7 @@ socket.onmessage = function(event) {
         console.log(messages.scrollHeight);
     } else if (message[0] == "[TYPETopic]" && parseInt(message[3]) == document.getElementById("data").getAttribute("data-variable-topic-id")) {
         const messages = document.getElementById('messages');
-        messages.innerHTML += '<p>' + message[1] + " : " + filterMsg(message[2]) + '</p>';
+        messages.innerHTML +=  '<div class="topicAnswerDiv">' + '<p>' + message[1] + " : " + filterMsg(message[2]) + '</p>' + '</div>';
         messages.scrollTop = messages.scrollHeight;
     }
 };
@@ -28,7 +28,7 @@ function sendMessage() {
     if (message && username != "") {
         socket.send("[TYPETopic]:" + id + ":" + username + ":" + message + ":" + topicId);
         input.value = '';
-        messages.innerHTML += '<p>' + username + " : " + reversefilterMsg(message) + '</p>';
+        messages.innerHTML += '<div class="topicAnswerDiv">' + '<p>' + username + " : " + reversefilterMsg(message) + '</p>' + '</div>';
         messages.scrollTop = messages.scrollHeight;
     }
 }

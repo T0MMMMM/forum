@@ -9,9 +9,10 @@ import (
 func (E *Engine) GetCookieUser(c *fiber.Ctx) {
 	if (c.Cookies("UserID") != "") {
 		E.CurrentData.User = E.FindUserByID(E.StrToInt(c.Cookies("UserID")))
+	} else {
+		E.CurrentData.User = User{}
 	}
 }
-
 
 func (E *Engine) GetCookieFilters(c *fiber.Ctx) {
 	E.GetCookieSearch(c)
@@ -31,6 +32,8 @@ func (E *Engine) GetCookieTopic(c *fiber.Ctx) {
 		E.CurrentData.Topic = Topic{Id: 0}
 	} else if (c.Cookies("topic") != "") {
 		E.CurrentData.Topic = E.FindTopicByID(E.StrToInt(c.Cookies("topic")))
+		E.CurrentData.Topic.Liked = E.SetLikedAndDisliked("topicsLikes", E.CurrentData.Topic)
+		E.CurrentData.Topic.Disliked = E.SetLikedAndDisliked("topicsDislikes", E.CurrentData.Topic)
 	} 
 }
 
@@ -38,6 +41,9 @@ func (E *Engine) SetCookieUser(userID int, c *fiber.Ctx) {
 	cookieUser := new(fiber.Cookie)
 	cookieUser.Name = "UserID"
 	cookieUser.Value = strconv.Itoa(userID)
+	if (userID == 0) {
+		cookieUser.Value = ""
+	}
 	cookieUser.Expires = time.Now().Add(24 * time.Hour)
 	c.Cookie(cookieUser)
 }

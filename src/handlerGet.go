@@ -55,4 +55,8 @@ func (E *Engine) UserSearch(c *fiber.Ctx) error {
 	return c.Render("userSearch", E.CurrentData)
 }
 
-
+func (E *Engine) Logout(c *fiber.Ctx) error {
+	E.SetCookieUser(0, c)
+	c.Redirect("/")
+	return nil
+}

@@ -25,6 +25,7 @@ func (E *Engine) Run() {
 	app.Get("/userSearch", E.UserSearch)
 	app.Get("/view_profil", E.ViewProfil)
 	app.Get("/edit_profil", E.EditProfil)
+	app.Get("/Logout", E.Logout)
 
 
 	app.Post("/submit_reset_search", E.SubmitResetSearch)

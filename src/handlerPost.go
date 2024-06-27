@@ -102,7 +102,6 @@ func (E *Engine) SubmitTopic(c *fiber.Ctx) error {
 	E.GetCookieUser(c)
 	E.SetCookieTopic(E.StrToInt(TopicID), c)
 	E.CurrentData.Topic = E.FindTopicByID(E.StrToInt(TopicID))
-	defer func() { E.CurrentData.ErrorMsg = "" }()
 	c.Redirect("/")
 	return nil
 }

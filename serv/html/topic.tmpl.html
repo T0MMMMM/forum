@@ -1,8 +1,10 @@
 {{ define "topictmpl" }}
 
+    <div id="data" data-variable-username="{{ .User.Username }}" data-variable-id="{{ .User.Id }}" data-variable-topic-id="{{ .Topic.Id }}"></div>
+
     <div class="topicUser">
         <form action="/submit_back_topics" method="post"> 
-            <button type="submit"> 
+            <button type="submit" class="submitSendMessage"> 
                 <i class="fa-solid fa-arrow-left arrow"></i>
             </button>
         </form>
@@ -22,47 +24,46 @@
                 {{ .Topic.Content }}
             </p>
         </div>
-        <div class="topicReactions">
-            <div class="topicInfo">
-                <div>
-                    <div class="like" data-variable-topic-id="{{ .Topic.Id }}">
-                        {{ if .Topic.Liked }}
-                            <i class="fa-solid fa-heart heart heartAfter"></i>
-                        {{ else }}
-                            <i class="fa-solid fa-heart heart"></i>
-                        {{ end }}
-                        <p class="likeAmount">{{ .Topic.Like }}</p>
-                    </div>
-                    <div class="dislike" data-variable-topic-id="{{ .Topic.Id }}">
-                        {{ if .Topic.Dislike }}
-                            <i class="fa-solid fa-thumbs-down thumbDown thumbDownAfter"></i>
-                        {{ else }}
-                            <i class="fa-solid fa-thumbs-down thumbDown"></i>
-                        {{ end }}
-                        <p class="dislikeAmount">{{ .Topic.Dislike }}</p>
-                    </div>
+        
+        <div class="topicInfo">
+            <div>
+                <div class="like" data-variable-topic-id="{{ .Topic.Id }}">
+                    {{ if .Topic.Liked }}
+                        <i class="fa-solid fa-heart heart heartAfter"></i>
+                    {{ else }}
+                        <i class="fa-solid fa-heart heart"></i>
+                    {{ end }}
+                    <p class="likeAmount">{{ .Topic.Like }}</p>
+                </div>
+                <div class="dislike" data-variable-topic-id="{{ .Topic.Id }}">
+                    {{ if .Topic.Dislike }}
+                        <i class="fa-solid fa-thumbs-down thumbDown thumbDownAfter"></i>
+                    {{ else }}
+                        <i class="fa-solid fa-thumbs-down thumbDown"></i>
+                    {{ end }}
+                    <p class="dislikeAmount">{{ .Topic.Dislike }}</p>
                 </div>
             </div>
+            <div class="comments">
+                <i class="fa-solid fa-message commentIcon"></i>
+                <p class="commentsAmount">{{ len .Topic.Answers }}</p>
+            </div>
         </div>
+            
         <div class="topicWriteAnswer">
             <input id="input" class="writeAnwerInput" type="text" placeholder="Add a comment...">
             <div class="sendComment" onclick="sendMessage()">
-                <p>Send</p>
+                <i class="fa-solid fa-paper-plane"></i>
             </div>
         </div>
-        <div class="topicAnswers">
-            <div id="messages">
-                {{ range .Topic.Answers }}
-                    <div class="topicAnswerDiv">
-                        <p>{{ .User.Username }} : {{ .Content }}</p>
-                    </div>
-                {{ end }}
-            </div>
-            
-
+        <div class="topicAnswers" id="messages">
+            {{ range .Topic.Answers }}
+                <div class="topicAnswerDiv">
+                    <p>{{ .User.Username }} : {{ .Content }}</p>
+                </div>
+            {{ end }}
         </div>
 
     </div>
-
 
 {{ end }}

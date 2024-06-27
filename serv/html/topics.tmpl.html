@@ -1,46 +1,49 @@
 {{ define "topicstmpl" }}
 
-{{ range .Topics}}
-<div class="topic">
-    <form action="/submit_topic" method="post">
-        <input type="text" hidden value="{{ .Id }}" name="TopicID">
+    <div id="data" data-variable-username="{{ .User.Username }}" data-variable-id="{{ .User.Id }}" ></div>
 
-        <div class="topic-content">
-            <label>Title : {{ .Title }} </label>
-            <p>Content : {{ .Content }}</p>
-            <p>Category : {{ .Category.Name }}</p>
-        </div>
-        
-        <div class="topicInfo">
-            <div>
-                <div class="like" data-variable-topic-id="{{ .Id }}">
-                    {{ if .Liked }}
-                        <i class="fa-solid fa-heart heart heartAfter"></i>
-                    {{ else }}
-                        <i class="fa-solid fa-heart heart"></i>
-                    {{ end }}
-                    <p class="likeAmount">{{ .Like }}</p>
-                </div>
-                <div class="dislike" data-variable-topic-id="{{ .Id }}">
-                    {{ if .Dislike }}
-                        <i class="fa-solid fa-thumbs-down thumbDown thumbDownAfter"></i>
-                    {{ else }}
-                        <i class="fa-solid fa-thumbs-down thumbDown"></i>
-                    {{ end }}
-                    <p class="dislikeAmount">{{ .Dislike }}</p>
-                </div>
+
+    {{ range .Topics}}
+    <div class="topic">
+        <form action="/submit_topic" method="post">
+            <input type="text" hidden value="{{ .Id }}" name="TopicID">
+
+            <div class="topic-content">
+                <label>Title : {{ .Title }} </label>
+                <p>Content : {{ .Content }}</p>
+                <p>Category : {{ .Category.Name }}</p>
             </div>
             
-            <button type="submit" class="comments">
+            <div class="topicInfo">
+                <div>
+                    <div class="like" data-variable-topic-id="{{ .Id }}">
+                        {{ if .Liked }}
+                            <i class="fa-solid fa-heart heart heartAfter"></i>
+                        {{ else }}
+                            <i class="fa-solid fa-heart heart"></i>
+                        {{ end }}
+                        <p class="likeAmount">{{ .Like }}</p>
+                    </div>
+                    <div class="dislike" data-variable-topic-id="{{ .Id }}">
+                        {{ if .Dislike }}
+                            <i class="fa-solid fa-thumbs-down thumbDown thumbDownAfter"></i>
+                        {{ else }}
+                            <i class="fa-solid fa-thumbs-down thumbDown"></i>
+                        {{ end }}
+                        <p class="dislikeAmount">{{ .Dislike }}</p>
+                    </div>
+                </div>
                 
-                <i class="fa-solid fa-message commentIcon"></i>
-                <p class="commentsAmount">{{ len .Answers }}</p>
-            </button>
-        </div>
-    
-    </form>
+                <button type="submit" class="comments">
+                    
+                    <i class="fa-solid fa-message commentIcon"></i>
+                    <p class="commentsAmount">{{ len .Answers }}</p>
+                </button>
+            </div>
+        
+        </form>
 
-</div>
-{{ end }}
+    </div>
+    {{ end }}
 
 {{ end }}

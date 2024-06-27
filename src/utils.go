@@ -55,7 +55,7 @@ func (E *Engine) SetTopics() {
 		data.Scan(&id)
 		topic := E.FindTopicByID(id)
 		topic.Liked = E.SetLikedAndDisliked("topicsLikes", topic)
-		topic.Disliked = E.SetLikedAndDisliked("topicsDislike", topic)
+		topic.Disliked = E.SetLikedAndDisliked("topicsDislikes", topic)
 		if E.CurrentData.CurrentCategory == "" {
 			if E.ContainsTxt(topic) {E.CurrentData.Topics = append(E.CurrentData.Topics, topic)}
 		} else if E.StrToInt(E.CurrentData.CurrentCategory) == topic.Category.Id && E.ContainsTxt(topic) {
@@ -73,7 +73,7 @@ func (E *Engine) ContainsTxt(topic Topic) bool {
 }
 
 func (E *Engine) SetLikedAndDisliked(table string, topic Topic) bool {
-	data := E.QuerySQL("SELECT userID FROM topicsLikes WHERE topicID = " + strconv.Itoa(topic.Id))
+	data := E.QuerySQL("SELECT userID FROM " + table + " WHERE topicID = " + strconv.Itoa(topic.Id))
 	var userID int
 	for data.Next() {
 		data.Scan(&userID)

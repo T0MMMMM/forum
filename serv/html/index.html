@@ -43,18 +43,33 @@
 
     <div class="main">
         <div class="filter">
-            <div><h3>FORUM</h3></div>
-            <div>
-                <form action="/submit_chose_category" method="post">
-                    <input hidden type="text" name="category" class="category" value="">
-                    <input type="submit" value="All Categories">
-                </form>
-                {{ range .Categories }}
+            <div class="fliterTop">
+                <div class="alignCenter"><h3>FILTER</h3></div>
+                <div>
                     <form action="/submit_chose_category" method="post">
-                        <input hidden type="text" name="category" class="category" value="{{ .Id }}">
-                        <input type="submit"  value="{{ .Name }}">
+                        <input hidden type="text" name="category" class="category" value="">
+                        <input type="submit" value="All Categories" class="categoryInput">
                     </form>
-                {{ end }}
+                    {{ range .Categories }}
+                        <form action="/submit_chose_category" method="post">
+                            <input hidden type="text" name="category" class="category" value="{{ .Id }}">
+                            <input type="submit"  value="{{ .Name }}" class="categoryInput">
+                        </form>
+                    {{ end }}
+                </div>
+                <hr/>
+                <div class="newTopic">
+                    <a href="/new-topic">
+                        <i class="fa-solid fa-plus"></i> 
+                        <p>Create a new Topic</p>
+                    </a>
+                </div>
+            </div>
+            <div class="filterBottom">
+                <a href="/Logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <p>Logout</p>
+                </a>
             </div>
         </div>
 
@@ -133,7 +148,6 @@
                         <i class="fa-solid fa-xmark cross"></i>
                     </div>
                 </div>
-                <div id="data" data-variable-username="{{ .User.Username }}" data-variable-id="{{ .User.Id }}" ></div>
             </div>
 
         </div>
