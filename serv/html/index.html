@@ -68,10 +68,12 @@
                     <input type="submit" value="reset"> 
                 </form>
                 </h2>
-            {{ else }}
             {{ end }}
-
-            {{ template "topics" . }}
+            {{ if .ShowTopic }}
+                {{ template "topictmpl" . }}
+            {{ else }}
+                {{ template "topicstmpl" . }}
+            {{ end }}
         
         </div>
         <div class="mp">

@@ -23,6 +23,7 @@ type Data struct {
 	UserSearch UserSearch
 	CurrentCategory string
 	CurrentSearch string
+	ShowTopic bool
 }
 
 type Category struct {
