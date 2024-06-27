@@ -99,12 +99,12 @@ func (E *Engine) SubmitNewTopic(c *fiber.Ctx) error {
 
 func (E *Engine) SubmitTopic(c *fiber.Ctx) error {
 	TopicID := c.FormValue("TopicID")
-	//E.SetCookieTopic(E.StrToInt(TopicID), c)
 	E.GetCookieUser(c)
+	E.SetCookieTopic(E.StrToInt(TopicID), c)
 	E.CurrentData.Topic = E.FindTopicByID(E.StrToInt(TopicID))
-	//E.GetCookieTopic(c)
 	defer func() { E.CurrentData.ErrorMsg = "" }()
-	return c.Render("topic", E.CurrentData)
+	c.Redirect("/")
+	return nil
 }
 
 func (E *Engine) SubmitUser(c *fiber.Ctx) error {
@@ -119,6 +119,7 @@ func (E *Engine) SubmitUser(c *fiber.Ctx) error {
 func (E *Engine) SubmitChoseCategory(c *fiber.Ctx) error {
 	categoryButton := c.FormValue("category")
 	E.CurrentData.CurrentCategory = categoryButton
+	E.SetCookieTopic(0, c)
 	E.SetCookieCategory(categoryButton, c)
 	c.Redirect("/")
 	return c.Render("index", E.CurrentData)
@@ -127,6 +128,7 @@ func (E *Engine) SubmitChoseCategory(c *fiber.Ctx) error {
 func (E *Engine) SubmitSearch(c *fiber.Ctx) error {
 	searchButton := c.FormValue("search")
 	if searchButton != "" {E.CurrentData.CurrentSearch = searchButton}
+	E.SetCookieTopic(0, c)
 	E.SetCookieSearch(E.CurrentData.CurrentSearch, c)
 	c.Redirect("/")
 	return c.Render("index", E.CurrentData)
@@ -172,6 +174,11 @@ func (E *Engine) SubmitChangePictureProfile(c *fiber.Ctx) error {
 	return nil
 }
 
-
+func (E *Engine) SubmitBackTopics(c *fiber.Ctx) error {
+	E.GetCookieUser(c)
+	E.SetCookieTopic(0, c)
+	c.Redirect("/")
+	return nil
+}
 
 

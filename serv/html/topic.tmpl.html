@@ -1,8 +1,12 @@
 {{ define "topictmpl" }}
 
     <div class="">
-        <i class="fa-solid fa-arrow-left arrow"></i>
-        <p>Arnoooo</p>
+        <form action="/submit_back_topics" method="post"> 
+            <button type="submit"> 
+                <i class="fa-solid fa-arrow-left arrow"></i>
+            </button>
+        </form>
+        <p> {{ .Topic.User.Username }}</p>
     </div>
     <div class="">
         <p>title</p>

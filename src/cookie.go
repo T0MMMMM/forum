@@ -26,6 +26,14 @@ func (E *Engine) GetCookieCategory(c *fiber.Ctx) {
 	E.CurrentData.CurrentCategory = c.Cookies("category")
 }
 
+func (E *Engine) GetCookieTopic(c *fiber.Ctx) {
+	if c.Cookies("topic") == "0" {
+		E.CurrentData.Topic = Topic{Id: 0}
+	} else if (c.Cookies("topic") != "") {
+		E.CurrentData.Topic = E.FindTopicByID(E.StrToInt(c.Cookies("topic")))
+	} 
+}
+
 func (E *Engine) SetCookieUser(userID int, c *fiber.Ctx) {
 	cookieUser := new(fiber.Cookie)
 	cookieUser.Name = "UserID"
@@ -48,6 +56,14 @@ func (E *Engine) SetCookieCategory(category string, c *fiber.Ctx) {
 	cookieCategory.Value = category
 	cookieCategory.Expires = time.Now().Add(5 * time.Hour)
 	c.Cookie(cookieCategory)
+}
+
+func (E *Engine) SetCookieTopic(idTopic int, c *fiber.Ctx) {
+	cookieTopic := new(fiber.Cookie)
+	cookieTopic.Name = "topic"
+	cookieTopic.Value = strconv.Itoa(idTopic)
+	cookieTopic.Expires = time.Now().Add(5 * time.Hour)
+	c.Cookie(cookieTopic)
 }
 
 

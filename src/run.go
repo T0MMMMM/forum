@@ -37,6 +37,8 @@ func (E *Engine) Run() {
 	app.Post("/submit_new-topic", E.SubmitNewTopic)
 	app.Post("/submit_chose_category", E.SubmitChoseCategory)
 	app.Post("/submit_change_picture_profile", E.SubmitChangePictureProfile)
+	app.Post("/submit_back_topics", E.SubmitBackTopics)
+
 
 	
 

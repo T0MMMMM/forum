@@ -8,6 +8,7 @@ import (
 func (E *Engine) Index(c *fiber.Ctx) error {
 	E.GetCookieUser(c)
 	E.GetCookieFilters(c)
+	E.GetCookieTopic(c)
 	E.UsersMessages()
 	E.SetTopics()
 	defer func() { E.CurrentData.ErrorMsg = "" }()
