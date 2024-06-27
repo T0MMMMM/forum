@@ -75,6 +75,7 @@ func (E *Engine) SubmitRegister(c *fiber.Ctx) error {
 }
 
 func (E *Engine) SubmitNewTopic(c *fiber.Ctx) error {
+	E.GetCookieUser(c)
 	categorieID := c.FormValue("categorie")
 	title := c.FormValue("title")
 	content := c.FormValue("content")
