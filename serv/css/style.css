@@ -1170,6 +1170,160 @@ a {
 }
 
 
+/* Topic Template */
+
+.alinea {
+    padding-left: 60px;
+}
+
+.topicUser {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px
+}
+
+.topicUser p {
+    color: #fff2ee;
+}
+
+.topicUserPictureCointainer {
+    height: 50px;
+    width: 50px;
+    border-radius: 30px;
+    border: 2px solid salmon;
+    margin-right: 15px;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.topicUserPicture {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+}
+
+
+.topicTitle {
+    display: flex;
+    margin-bottom: 25px;
+}
+
+.topicTitle p {
+    font-size: 50px;
+    color: #fff2ee;
+}
+
+
+.topicContent {
+    display: flex;
+    margin-bottom: 15px;
+    border: 2px solid #fff2ee;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.topicContent p {
+    color: #fff2ee;
+}
+
+
+.topicReactions {
+    display: flex;
+    margin-bottom: 15px;
+    /* border: 2px solid #fff2ee; */
+    border-radius: 8px;
+    padding: 15px;
+}
+
+
+.topicWriteAnswer {
+    display: flex;
+}
+
+.topicWriteAnswerAfter {
+    justify-content: space-between;
+}
+
+.writeAnwerInput {
+    width: 35%;
+    height: 50px;
+    border-radius: 25px;
+    padding-left: 20px;
+    margin-bottom: 25px;
+    border: 2px solid #fff2ee;
+    background-color: rgba(0, 0, 0, 0);
+    transition: all 0.3s;
+}
+
+.writeAnwerInput:hover {
+    box-shadow: 0px 0px 12px #fff2ee;
+}
+
+.writeAnwerInput::placeholder {
+    color: #fff2ee;
+}
+
+.writeAnwerInput:focus {
+    width: 80%;
+    border: none;
+    outline: none;
+    border: 2px solid #fff2ee;
+    transition: all 0.3s;
+    box-shadow: 0px 0px 12px #fff2ee;
+}
+
+.sendComment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    width: 15%;
+    height: 50px;
+    border-radius: 25px;
+    background-color: #fff2ee;
+    transition: all 0.3s;
+}
+
+.sendComment p {
+    color: #FFA084;
+}
+
+.sendCommentAfter {
+    opacity: 1;
+}
+
+.sendCommentAfter:hover {
+    box-shadow: 0px 0px 12px #fff2ee;
+}
+
+.topicAnswers {
+    display: flex;
+    flex-direction: column;
+}
+
+.topicAnswerDiv {
+    background-color: #fff2ee;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media screen and (max-width: 1100px) {
     .topic {
         max-width: 1100px;

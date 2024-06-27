@@ -1,29 +1,49 @@
 {{ define "topictmpl" }}
 
-    <div class="">
+    <div class="topicUser">
         <form action="/submit_back_topics" method="post"> 
             <button type="submit"> 
                 <i class="fa-solid fa-arrow-left arrow"></i>
             </button>
         </form>
-        <p> {{ .Topic.User.Username }}</p>
+        <div class="topicUserPictureCointainer">
+            <img class="topicUserPicture" src="{{ .Topic.User.ProfilePicture }}" alt="">
+        </div>
+        <p>{{ .Topic.User.Username }}</p>
     </div>
-    <div class="">
-        <p>title</p>
+
+    <div class="alinea">
+
+        <div class="topicTitle">
+            <p>{{ .Topic.Title }}</p>
+        </div>
+        <div class="topicContent">
+            <p> 
+                {{ .Topic.Content }}
+            </p>
+        </div>
+        <div class="topicReactions">
+            
+        </div>
+        <div class="topicWriteAnswer">
+            <input class="writeAnwerInput" type="text" placeholder="Add a comment...">
+            <div class="sendComment">
+                <p>Send</p>
+            </div>
+        </div>
+        <div class="topicAnswers">
+            <div id="messages">
+                {{ range .Topic.Answers }}
+                    <div class="topicAnswerDiv">
+                        <p>{{ .User.Username }} : {{ .Content }}</p>
+                    </div>
+                {{ end }}
+            </div>
+            
+
+        </div>
+
     </div>
-    <div class="">
-        <p>content Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur quibusdam iste, magni totam cum cupiditate quos ratione, aliquam nostrum voluptate laboriosam illo harum repudiandae asperiores perspiciatis soluta? Commodi inventore reprehenderit vel eligendi atque porro ea, molestias, voluptatem, laboriosam vitae aliquid ullam? Eveniet eos quis laboriosam accusamus iste! Ut minima alias expedita. Itaque necessitatibus quibusdam adipisci obcaecati? Sequi ex, nisi facere consequatur animi veritatis unde voluptate, delectus, reiciendis vero labore. Nemo, neque necessitatibus nesciunt, quis similique sequi in adipisci repellendus sed recusandae quidem autem facilis dolorem consectetur quibusdam? Rem minus, aliquid totam in unde quasi, reprehenderit sed facere dolores tempore odit ipsam, incidunt praesentium esse qui. Eaque cumque necessitatibus delectus non. Laboriosam delectus ducimus eos labore omnis nam corrupti, ad ab expedita a obcaecati assumenda. Inventore dolor officiis mollitia ullam. Impedit cupiditate ea vitae vel adipisci dolore voluptatibus odit, excepturi ex similique architecto laborum eos repellendus earum error? Ullam nisi, similique ratione temporibus perspiciatis laboriosam totam rerum sequi amet perferendis sint illum laudantium, sit quis maiores neque, cum aut excepturi. Iusto officiis modi ut fugiat esse reprehenderit facilis. Error impedit explicabo hic repudiandae fugiat nobis nisi delectus ut officiis et? Ipsam quaerat animi vero at libero suscipit eos exercitationem architecto labore tempore dolor hic cupiditate culpa expedita quo voluptatibus, vitae soluta eveniet! Iure architecto consequatur eveniet facilis rem harum cupiditate natus autem nesciunt! Tempore modi nisi deleniti rerum iure a facere facilis sint nihil quas earum commodi consectetur, itaque optio omnis eaque officia dicta ad beatae! Vitae magnam beatae dolores iure et a iusto ut, odit harum fugit deleniti porro rerum, debitis perferendis laboriosam, quia aut. Cumque cupiditate natus iure recusandae at minima obcaecati earum aspernatur ab distinctio, necessitatibus ad odio vel error aliquam mollitia unde nisi, debitis, itaque eveniet repellat. Dolor velit voluptatibus hic non nihil eligendi rerum asperiores officiis modi doloremque, omnis a temporibus quam corrupti et optio quo, ut at? Possimus nihil harum ducimus nostrum neque, iste, repellendus natus fuga similique, ab explicabo impedit cupiditate dignissimos accusantium optio sunt voluptatibus ullam quo praesentium adipisci odit! Animi sit, a est harum omnis dolorem perspiciatis eius sed tempore repellat corporis, sequi magnam? Laudantium odio veritatis, nostrum distinctio aut cupiditate ut consequatur, sit odit repellat nisi illum doloribus, commodi porro officia blanditiis reprehenderit officiis nam quisquam similique quia iste expedita quis. Obcaecati molestiae deserunt vitae. Minus, veniam harum fugiat incidunt molestias asperiores quaerat voluptatem repudiandae eum eius explicabo, voluptates adipisci laudantium recusandae ad culpa ex sequi? Ipsum ullam laboriosam porro id maxime non quas aperiam iusto voluptas distinctio mollitia obcaecati est at laudantium error rerum aspernatur autem, labore consectetur aliquam? Vitae iste, at animi esse dolore assumenda aperiam nihil deserunt doloremque rem in, quasi explicabo! Quos perferendis quo sunt suscipit esse at natus, sit rem! Ipsa recusandae nisi officiis itaque distinctio voluptas, libero odit maxime non repellendus labore ipsam deserunt asperiores, laudantium dolorum cum, laboriosam numquam tempora ipsum enim harum quos nulla iusto neque. Necessitatibus in similique quibusdam accusamus ex eum quae autem quasi nihil vel expedita tenetur non explicabo dolor quia quod, sit, nulla mollitia laudantium! Fugiat architecto magni atque incidunt at, culpa modi recusandae vero perspiciatis ducimus dolores odit ullam est vitae iusto, ad repellendus quae aut nam. Pariatur quod accusantium quae nobis laudantium amet earum sunt minima libero voluptate quibusdam perspiciatis corrupti praesentium a dolorem itaque, voluptatibus hic illum labore delectus. Quas, laudantium!</p>
-    </div>
-    <div class="">
-        <p>like</p>
-        <p>dislike</p>
-        <p>comments</p>
-    </div>
-    <div class="">
-        <input type="text">
-    </div>
-    <div class="">
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque exercitationem deleniti, ducimus quia adipisci quod nostrum aspernatur dicta error ratione, architecto temporibus, voluptas illo eos! Possimus aspernatur impedit deserunt sint dolorem voluptates cupiditate tempore ipsam repellendus a adipisci quos soluta numquam, alias blanditiis officiis quae nesciunt natus perspiciatis? Dolore earum, quo quos aut assumenda accusamus.</p>
-    </div>
+
 
 {{ end }}

@@ -83,6 +83,25 @@ searchIcon.addEventListener("click", function () {
 })
 
 
+// topic add comment button 
+
+var writeAnwerInput = document.getElementsByClassName('writeAnwerInput').item(0);
+
+var topicWriteAnswer = document.getElementsByClassName('topicWriteAnswer').item(0);
+
+var sendComment = document.getElementsByClassName('sendComment').item(0);
+
+
+writeAnwerInput.addEventListener("focus", function () {
+    topicWriteAnswer.classList.add("topicWriteAnswerAfter");
+    sendComment.classList.add("sendCommentAfter");
+})
+
+writeAnwerInput.addEventListener("focusout", function () {
+    topicWriteAnswer.classList.remove("topicWriteAnswerAfter");
+    sendComment.classList.remove("sendCommentAfter");
+})
+
 
 // var headerUser = document.getElementsByClassName('headerUser').item(0);
 
