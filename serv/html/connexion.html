@@ -15,7 +15,7 @@
         var keyCode = event.which ? event.which : event.keyCode;
         var touche = String.fromCharCode(keyCode);
         var champ = document.getElementById(id);
-        var caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';
+        var caracteres = 'abcdeéèfghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-?!.;,êî^ëï<>%$@';
         if(caracteres.indexOf(touche) >= 0) {
             champ.value += touche;
         }

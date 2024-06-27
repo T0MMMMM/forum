@@ -91,16 +91,17 @@ var topicWriteAnswer = document.getElementsByClassName('topicWriteAnswer').item(
 
 var sendComment = document.getElementsByClassName('sendComment').item(0);
 
+if (writeAnwerInput != null) {
+    writeAnwerInput.addEventListener("focus", function () {
+        topicWriteAnswer.classList.add("topicWriteAnswerAfter");
+        sendComment.classList.add("sendCommentAfter");
+    })
+    writeAnwerInput.addEventListener("focusout", function () {
+        topicWriteAnswer.classList.remove("topicWriteAnswerAfter");
+        sendComment.classList.remove("sendCommentAfter");
+    })
+}
 
-writeAnwerInput.addEventListener("focus", function () {
-    topicWriteAnswer.classList.add("topicWriteAnswerAfter");
-    sendComment.classList.add("sendCommentAfter");
-})
-
-writeAnwerInput.addEventListener("focusout", function () {
-    topicWriteAnswer.classList.remove("topicWriteAnswerAfter");
-    sendComment.classList.remove("sendCommentAfter");
-})
 
 
 // var headerUser = document.getElementsByClassName('headerUser').item(0);
@@ -137,9 +138,11 @@ for (let i = 0; i < like.length; i++) {
         if (!heart.item(i).classList.contains("heartAfter")) {
             heart.item(i).classList.add("heartAfter");
             likeAmount.item(i).innerHTML = parseInt(likeAmount.item(i).innerHTML) + 1;
+            console.log("dddd")
             socket.send("[TYPELike]:" + id + ":" + like.item(i).getAttribute("data-variable-topic-id"))
         } else {
             heart.item(i).classList.remove("heartAfter");
+            console.log("dddddddsssssdd")
             likeAmount.item(i).innerHTML = parseInt(likeAmount.item(i).innerHTML) - 1;
             socket.send("[TYPERemoveLike]:" + id + ":" +  like.item(i).getAttribute("data-variable-topic-id"))  
         }

@@ -23,11 +23,30 @@
             </p>
         </div>
         <div class="topicReactions">
-            
+            <div class="topicInfo">
+                <div>
+                    <div class="like" data-variable-topic-id="{{ .Topic.Id }}">
+                        {{ if .Topic.Liked }}
+                            <i class="fa-solid fa-heart heart heartAfter"></i>
+                        {{ else }}
+                            <i class="fa-solid fa-heart heart"></i>
+                        {{ end }}
+                        <p class="likeAmount">{{ .Topic.Like }}</p>
+                    </div>
+                    <div class="dislike" data-variable-topic-id="{{ .Topic.Id }}">
+                        {{ if .Topic.Dislike }}
+                            <i class="fa-solid fa-thumbs-down thumbDown thumbDownAfter"></i>
+                        {{ else }}
+                            <i class="fa-solid fa-thumbs-down thumbDown"></i>
+                        {{ end }}
+                        <p class="dislikeAmount">{{ .Topic.Dislike }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="topicWriteAnswer">
-            <input class="writeAnwerInput" type="text" placeholder="Add a comment...">
-            <div class="sendComment">
+            <input id="input" class="writeAnwerInput" type="text" placeholder="Add a comment...">
+            <div class="sendComment" onclick="sendMessage()">
                 <p>Send</p>
             </div>
         </div>
