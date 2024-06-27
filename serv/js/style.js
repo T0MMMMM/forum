@@ -2,7 +2,7 @@ var hider = document.getElementsByClassName('hider').item(0);
 var closeHider = document.getElementsByClassName('closeButtonDiv').item(0);
 var messageDivs = document.getElementsByClassName('privateMessage');
 var messageCards = document.getElementsByClassName('privateMessageCard');
-var arrow = document.getElementsByClassName('arrow').item(0);
+var arrow = document.getElementsByClassName('arrow');
 
 hider.addEventListener("click", hiderr);
 var envelope = document.getElementsByClassName('envelope').item(0);
@@ -52,6 +52,7 @@ function closeHiderFunc() {
 for (let i = 0; i < messageDivs.length; i++) {
     messageDivs.item(i).addEventListener("click", function () {
         console.log(messageCards.item(i));
+        privateMessageWrapper.classList.remove('privateMessageWrapperAfter');
         messageCards.item(i).classList.add("privateMessageCardAfter");
         for (let i = 0; i < messageDivs.length; i++) {
             messageDivs.item(i).classList.add("privateMessageAfter");
@@ -59,14 +60,28 @@ for (let i = 0; i < messageDivs.length; i++) {
     });
 };
 
-arrow.addEventListener("click", function () {
-    for (let i = 0; i < messageCards.length; i++) {
-        messageCards.item(i).classList.remove('privateMessageCardAfter');
-    }
-    for (let j = 0; j < messageDivs.length; j++) {
-        messageDivs.item(j).classList.remove("privateMessageAfter");
-    }
-});
+for (let k = 0; k < arrow.length; k++) {
+    arrow.item(k).addEventListener("click", function () {
+        privateMessageWrapper.classList.add('privateMessageWrapperAfter');
+        for (let i = 0; i < messageCards.length; i++) {
+            messageCards.item(i).classList.remove('privateMessageCardAfter');
+        }
+        for (let j = 0; j < messageDivs.length; j++) {
+            messageDivs.item(j).classList.remove("privateMessageAfter");
+        }
+    });
+}
+
+
+
+// Search Bar 
+
+var searchIcon = document.getElementsByClassName('searchIcon').item(0);
+var searchBar = document.getElementsByClassName('searchBar').item(0);
+searchIcon.addEventListener("click", function () {
+    searchBar.focus();
+})
+
 
 
 // var headerUser = document.getElementsByClassName('headerUser').item(0);

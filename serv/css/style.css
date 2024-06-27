@@ -58,10 +58,8 @@ nav {
     align-items: center;
     justify-content: space-between;
     background: linear-gradient(to right bottom, #FBC5B3,#e1977e);
-    box-shadow: 4px 4px 10px #5b5b5b7b, inset 4px 4px 20px #fffffff0;
+    box-shadow: 4px 4px 10px #5b5b5b7b;
 }
-
-
 
 .searchBar {
     position: relative;
@@ -79,6 +77,10 @@ nav {
     opacity: 0;
 }
 
+.searchBar::placeholder {
+    color: #FBC5B3;
+}
+
 .searchIcon {
     position: relative;
     text-align: center;
@@ -87,10 +89,6 @@ nav {
     color: white;
     transition: all 0.2s;
     cursor: url("../assets/cursor/cursor.cur"), auto;
-}
-
-.searchIcon:active {
-    pointer-events: none;
 }
 
 .searchIcon:hover {
@@ -215,21 +213,21 @@ a {
     color: white;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background: linear-gradient(180deg, #FBC5B3,#e1977e); 
-    backdrop-filter: blur(15px);
+    align-items: center; 
     /* position: sticky; */
     /* height: 100%; */
     width: 350px;
     margin: 10px;
     padding: 20px;
 
-    background: rgba(251, 197, 179, 0.5);
-    border-radius: 16px;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    border: 3px solid #fff2ee;
+    border-radius: 15px;
+    transition: all 0.3s;
+}
 
-    box-shadow: 4px 4px 10px #5b5b5b7b, inset 4px 4px 20px #fffffff0;
+.filter:hover {
+    box-shadow: 0px 0px 20px #fff2ee, inset 0px 0px 12px #fff2ee;
+    transition: all 0.3s;
 }
 
 .filter div {
@@ -255,7 +253,6 @@ a {
     flex-direction: column;
     align-items: center;
     justify-content: end;
-    backdrop-filter: blur(15px);
     max-height: 100%;
     width: 400px;
 }
@@ -378,7 +375,8 @@ a {
     padding-left: 10px;
     padding-right: 10px;
     overflow-y: scroll;
-    object-fit: contain; 
+    object-fit: contain;
+    width: 50%
 }
 
 .mainWrapper::-webkit-scrollbar {
@@ -386,24 +384,29 @@ a {
 }
 
 .topic {
-    max-width: 1500px;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
+
+
 .topic-content {
     display: flex;
+    flex-direction: column;
     margin-bottom: 10px;
     min-height: 300px;
     padding: 10px;
     color: white;
-    background: rgba(253, 239, 234, 0.5);
-    border-radius: 5px;
-    box-shadow: -4px -4px 8px #f0f3fa34;
+    /* background: rgba(253, 239, 234, 0.5); */
+    background-color: #ffffff48;
+
+    border-radius: 10px;
+    /* box-shadow: -4px -4px 8px #f0f3fa34;
     filter: drop-shadow(4px 4px 4px #3e3e3e75);
     backdrop-filter: blur(11px);
-    -webkit-backdrop-filter: blur(11px);
+    -webkit-backdrop-filter: blur(11px); */
 }
 
 .topicInfo {
@@ -427,7 +430,7 @@ a {
     padding: 5px 10px 5px 10px;
     background-color: #ffffff48;
     border-radius: 5px;
-    filter: drop-shadow(4px 4px 4px #3e3e3e52);
+    transition: all 0.2s;
 }
 
 @keyframes heartscale {
@@ -458,6 +461,11 @@ a {
     animation: heartscale 0.3s;
 }
 
+.like:hover {
+    box-shadow: 0px 0px 12px #fff2ee, inset 0px 0px 12px #fff2ee;
+    scale: 1.05;
+}
+
 .like:hover .heart {
     color: #ff5050;
     filter: drop-shadow(0px 0px 4px #ff5050);
@@ -467,6 +475,7 @@ a {
 .likeAmount {
     pointer-events: none;
     font-size: 20px;
+    /* color: #fff2ee; */
 }
 
 
@@ -477,7 +486,7 @@ a {
     padding: 5px 10px 5px 10px;
     background-color: #ffffff48;
     border-radius: 5px;
-    filter: drop-shadow(4px 4px 4px #3e3e3e52);
+    transition: all 0.2s;
 }
 
 .thumbDown {
@@ -500,6 +509,12 @@ a {
     transition: all 0.2s;
 }
 
+.dislike:hover {
+    box-shadow: 0px 0px 12px #fff2ee, inset 0px 0px 12px #fff2ee;
+    transition: all 0.2s;
+    scale: 1.05;
+}
+
 .dislikeAmount {
     pointer-events: none;
     font-size: 20px;
@@ -515,7 +530,7 @@ a {
     padding: 5px 10px 5px 10px;
     background-color: #ffffff48;
     border-radius: 5px;
-    filter: drop-shadow(4px 4px 4px #3e3e3e52);
+    transition: all 0.2s;
 }
 
 .commentIcon {
@@ -537,6 +552,11 @@ a {
     color: #3683f7;
     filter: drop-shadow(0px 0px 4px #3683f7);
     transition: all 0.2s;
+}
+
+.comments:hover {
+    box-shadow: 0px 0px 12px #fff2ee, inset 0px 0px 12px #fff2ee;
+    scale: 1.05;
 }
 
 .commentsAmount {
@@ -588,29 +608,32 @@ a {
     text-align: center;
     height: 40px;
     width: 100%;
-    /* background-color: #23380b; */
-    background-color: #B1C9EF;
-    right: 6px;
-    top: 378px;
+    
     transition: all 0.3s;
     display: none;
 }
 
 .closeButtonDivAfter {
-    z-index: 10;
     opacity: 1;
-    text-align: center;
     padding: 5px;
-    background: linear-gradient(180deg, #FBC5B3,#e1977e);
-    box-shadow: 4px 4px 10px #5b5b5b7b, inset 4px 4px 20px #fffffff0;
     border-radius: 16px;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    /* background-color: #23380b; */
-    backdrop-filter: blur(15px);
-    background: rgba(251, 197, 179, 0.5);
+    
+    border: 2px solid #fff2ee;
+
     transition: all 0.3s;
     display: block;
+}
+
+.closeButtonDivAfter:hover {
+    box-shadow: 0px 0px 20px #fff2ee, inset 0px 0px 12px #fff2ee;
+}
+
+.cross {
+    color: #fff2ee;
+}
+
+.closeButtonDivAfter:hover .cross {
+    filter: drop-shadow(0px 0px 16px #fff2ee);
 }
 
 .closeDiv {
@@ -626,13 +649,6 @@ a {
     background-color: #8AAEE0;
     transition: all 0.3s;
 }
-
-/* .cross {
-    position: relative;
-    color: #395886;
-    top: 5px;
-    scale: 0.8;
-} */
 
 .topMessage {
     display: flex;
@@ -698,7 +714,7 @@ a {
     width: 95%;
     min-height: 140px;
     border-radius: 10px;
-    background-color: #FBC5B3;
+    /* background-color: #FBC5B3; */
     justify-self: center;
     transition: all 0.4s;
     margin-bottom: 10px;
@@ -715,6 +731,7 @@ a {
 }
 
 .privateMessageAfter {
+    display: none;
     opacity: 0;
     transition: all 0.4s;
 }
@@ -722,30 +739,85 @@ a {
 
 .privateMessageCard {
     display: none;
-    height: 390px;
-    width: 95%;
-    justify-self: center;
-    bottom: 8px;
-    right: -400px;
-    background-color: #B1C9EF;
-    border-radius: 15px;
-    opacity: 0;
     transition: all 0.4s;
-    /* pointer-events: none; */
 }
 
 .privateMessageCardAfter {
-    display: block;
-    height: 390px;
-    width: 95%;
-    justify-self: center;
-    bottom: 8px;
-    right: 7px;
-    background-color: #B1C9EF;
-    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75%;
+    width: 100%;
     opacity: 1;
     transition: all 0.4s;
 }
+
+.privateMessageCardFlexBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #FBC5B3;
+    width: 95%;
+    height: 97%;
+    border-radius: 10px;
+}
+
+.privateMessageCardTopBox {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.arrow {
+    scale: 0.8;
+    color: #fff2ee;
+    pointer-events: all;
+    transition: all 0.3s;
+    margin-left: 15px;
+    margin-right: 20px;
+}
+
+.arrow:hover {
+    scale: 1;
+    transition: all 0.3s;
+}
+
+.privateMessageUsername {
+    color: #fff2ee;
+}
+
+.privateMessageCardMiddleBox {
+    width: 100%;
+    height: 75%;
+    display: flex;
+    justify-content: start;
+    overflow-y: scroll;
+}
+
+.privateMessageCardMiddleBox::-webkit-scrollbar {
+    display: none;
+}
+
+.privateMessageCardMiddleBox p {
+    margin: 10px;
+    font-size: 25px;
+    color: #fff2ee;
+    overflow-wrap: break-word;
+    width: 275px;
+}
+
+.privateMessageCardBottomBox {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
 
 .messageInput {
     border: none;
@@ -763,49 +835,34 @@ a {
 
 .messageInput:focus {
     outline: none;
-    border: 2px solid #4971ad;
+    box-shadow: 0px 0px 20px #fff2ee;
 }
 
 .messageInput:hover {
-    border: 2px solid #4971ad;
+    box-shadow: 0px 0px 20px #fff2ee;
     transition: all 0.3s;
 }
 
 .sendButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 39px;
     width: 50px;
-    bottom: 10px;
-    right: 5px;
-    background-color: #395886;
+    border: 3px solid #fff2ee;
     border-radius: 20px;
     transition: all 0.2s;
 }
 
 .sendButton:hover {
-    background-color: #4971ad;
     transition: all 0.2s;
+    box-shadow: 0px 0px 20px #fff2ee, inset 0px 0px 12px #fff2ee;
 }
 
 .plane {
-    position: relative !important;
-    scale: 0.35;
-    top: -7px !important;
-    left: -3px !important;
-}
-
-.arrow {
-    scale: 0.6;
-    position: absolute;
-    top: 0px !important;
-    left: 0px !important;
-    color: #395886 !important;
-    pointer-events: all;
-    transition: all 0.3s;
-}
-
-.arrow:hover {
-    scale: 0.7;
-    transition: all 0.3s;
+    position: relative;
+    scale: 0.5;
+    color: #fff2ee;
 }
 
 
@@ -1083,6 +1140,25 @@ a {
 }
 
 
+@media screen and (max-width: 1100px) {
+    .topic {
+        max-width: 1100px;
+        min-width: 0px;
+    }
 
+    .filter {
+        display: none;
+    }
+    
+    .mp {
+        display: none;
+    }
 
-/* justify-content: center; */  
+    .main { 
+        justify-content: center; 
+    }
+
+    .mainWrapper {
+        width: 95%;
+    }
+} 
