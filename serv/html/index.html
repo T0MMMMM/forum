@@ -92,10 +92,17 @@
         <div class="mp">
             
             <div tabindex="-1" class="view-profil-card">
-                <p>Username : {{ .User.Username }}</p>
-                <p>Email : {{ .User.Email }}</p>
-                <p>Account Created : {{ .User.CreatedAt }}</p>
-                <a href="edit_profil">Edit Profile</a>
+                <div>
+                    <h5>Profile</h5>
+                </div>
+                <div class="profile-info">
+                    <p>{{ .User.Username }}</p>
+                    <p>{{ .User.Email }}</p>
+                    <p>{{ .User.CreatedAt }}</p>
+                </div>
+                <div class="profile-bottom">
+                    <a href="edit_profil"><i class="fa-solid fa-pen-to-square"></i></a>
+                </div>
             </div>
 
             <div class="hider">

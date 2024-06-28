@@ -89,7 +89,9 @@ showProfileInfo.addEventListener("click", function () {
 var search = document.getElementsByClassName('search').item(0);
 var searchBar = document.getElementsByClassName('searchBar').item(0);
 search.addEventListener("mouseover", function () {
-    searchBar.focus();
+    if (!viewProfilCard.hasFocus()) {
+        searchBar.focus();
+    }
 });
 
 
