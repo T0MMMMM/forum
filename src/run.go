@@ -40,6 +40,10 @@ func (E *Engine) Run() {
 	app.Post("/submit_chose_category", E.SubmitChoseCategory)
 	app.Post("/submit_change_picture_profile", E.SubmitChangePictureProfile)
 	app.Post("/submit_back_topics", E.SubmitBackTopics)
+	app.Post("/submit_validate_answer", E.ValidateAnswer)
+
+
 	
+
 	app.Listen(E.Port)
 }

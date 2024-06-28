@@ -59,11 +59,19 @@
         <div class="topicAnswers" id="messages">
             {{ range .Topic.Answers }}
                 <div class="topicAnswerDiv">
+                    <h20> {{ .CreatedAt }} </h20>
                     <p>{{ .User.Username }} : {{ .Content }}</p>
+                    <form action="submit_validate_answer" method="post">                    
+                        <button type="submit" name="button" value="{{ .Id }}">  salut </button>
+                    </form>
                 </div>
+                {{ if ne .Status "solved" }}
+                {{ else }}
+                    <i class="fa-solid fa-check"></i>
+                {{ end }}
+
             {{ end }}
         </div>
-
     </div>
 
 {{ end }}

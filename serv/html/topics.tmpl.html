@@ -32,6 +32,11 @@
                         {{ end }}
                         <p class="dislikeAmount">{{ .Dislike }}</p>
                     </div>
+                    {{ if ne .Status "solved" }}
+                    {{ else }}
+                        <i class="fa-solid fa-check"></i>
+                    {{ end }}
+
                 </div>
                 
                 <button type="submit" class="comments">

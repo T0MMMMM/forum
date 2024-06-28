@@ -3,12 +3,11 @@ package forum
 import (
 	"strconv"
 	"time"
-
 	"github.com/gofiber/fiber/v2"
 )
 
 /*
-This function allows the user to connect by entering their username and password. 
+This function allows the user to connect by entering their username and password.
 If they do not match a User in the database, it does not log in and stays on the page, otherwise it logs in and is redigested on the main page
 */
 func (E *Engine) SubmitConnexion(c *fiber.Ctx) error {
@@ -186,6 +185,37 @@ func (E *Engine) SubmitChangePictureProfile(c *fiber.Ctx) error {
 func (E *Engine) SubmitBackTopics(c *fiber.Ctx) error {
 	E.GetCookieUser(c)
 	E.SetCookieTopic(0, c)
+	c.Redirect("/")
+	return nil
+}
+
+func (E *Engine) ValidateAnswer(c *fiber.Ctx) error {
+	E.GetCookieUser(c)
+	button := c.FormValue("button")
+	topicId := E.FindAnswerByID(E.StrToInt(button)).TopicID
+	topic := E.FindTopicByID(topicId)
+	var id int
+	var status string
+	var validate bool = false 
+	data := E.QuerySQL("SELECT id, status FROM answers")
+	for data.Next() {
+		data.Scan(&id, &status)
+		if E.StrToInt(button) == id && status == "solved" {
+			E.ExecuteSQL("UPDATE topics SET status = 'unsolved' WHERE id = " + strconv.Itoa(topic.Id) + ";")
+			E.ExecuteSQL("UPDATE answers SET status = 'unsolved' WHERE id = " + button + ";")
+		} else if E.StrToInt(button) == id {
+			E.ExecuteSQL("UPDATE topics SET status = 'solved' WHERE id = " + strconv.Itoa(topic.Id) + ";")
+			E.ExecuteSQL("UPDATE answers SET status = 'solved' WHERE id = " + button + ";")
+			validate = true
+		}
+	}
+	data2 := E.QuerySQL("SELECT id, status FROM answers")
+	for data2.Next() {
+		data2.Scan(&id, &status)
+		if E.StrToInt(button) != id && status == "solved" && validate {
+			E.ExecuteSQL("UPDATE answers SET status = 'unsolved' WHERE id = " + strconv.Itoa(id) + ";")
+		}
+	}
 	c.Redirect("/")
 	return nil
 }
