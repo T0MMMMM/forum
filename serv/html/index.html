@@ -15,7 +15,7 @@
 
 
     <nav id="head">
-
+        
         <div>
             <a href="/"><h1>Y-NOT</h1></a>
         </div>
@@ -29,9 +29,9 @@
             </div>
             <div>
                 {{ if ne .User.Username "" }}
-                    <a href="/view_profil">
+                    <div class="showProfileInfo">
                         <img src="{{ .User.ProfilePicture }}" class="userPicture"/>
-                    </a>
+                    </div>
                 {{ else }}
                     <a href="/connexion"><i class="fa-solid fa-user"></i></a>
                 {{ end }}
@@ -58,7 +58,7 @@
                     {{ end }}
                 </div>
                 <hr/>
-                <div class="newTopic">
+                <div class="newTopicButton">
                     <a href="/new-topic">
                         <i class="fa-solid fa-plus"></i> 
                         <p>Create a new Topic</p>
@@ -91,6 +91,13 @@
         </div>
         <div class="mp">
             
+            <div tabindex="-1" class="view-profil-card">
+                <p>Username : {{ .User.Username }}</p>
+                <p>Email : {{ .User.Email }}</p>
+                <p>Account Created : {{ .User.CreatedAt }}</p>
+                <a href="edit_profil">Edit Profile</a>
+            </div>
+
             <div class="hider">
                 <div class="topMessage">
                     <i class="fa-regular fa-envelope envelope"></i>

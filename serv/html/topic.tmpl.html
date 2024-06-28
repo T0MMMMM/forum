@@ -51,7 +51,7 @@
         </div>
             
         <div class="topicWriteAnswer">
-            <input id="input" class="writeAnwerInput" type="text" placeholder="Add a comment...">
+            <input id="input" class="writeAnwerInput" type="text" placeholder="+ Add a comment...">
             <div class="sendComment" onclick="sendMessage()">
                 <i class="fa-solid fa-paper-plane"></i>
             </div>
@@ -61,9 +61,12 @@
                 <div class="topicAnswerDiv">
                     <h20> {{ .CreatedAt }} </h20>
                     <p>{{ .User.Username }} : {{ .Content }}</p>
-                    <form action="submit_validate_answer" method="post">                    
-                        <button type="submit" name="button" value="{{ .Id }}">  salut </button>
-                    </form>
+                    {{ if ne $.Topic.User.Id $.User.Id }} 
+                    {{ else }}
+                        <form action="submit_validate_answer" method="post">                    
+                            <button type="submit" name="button" value="{{ .Id }}">  salut </button>
+                        </form>
+                    {{ end }}
                 </div>
                 {{ if ne .Status "solved" }}
                 {{ else }}

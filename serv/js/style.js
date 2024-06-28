@@ -73,14 +73,24 @@ for (let k = 0; k < arrow.length; k++) {
 }
 
 
+// Profile Info
+
+var viewProfilCard = document.getElementsByClassName('view-profil-card').item(0);
+var showProfileInfo = document.getElementsByClassName('showProfileInfo').item(0);
+
+showProfileInfo.addEventListener("click", function () {
+    viewProfilCard.focus();
+})
+
+
 
 // Search Bar 
 
-var searchIcon = document.getElementsByClassName('searchIcon').item(0);
+var search = document.getElementsByClassName('search').item(0);
 var searchBar = document.getElementsByClassName('searchBar').item(0);
-searchIcon.addEventListener("click", function () {
+search.addEventListener("mouseover", function () {
     searchBar.focus();
-})
+});
 
 
 // topic add comment button 
@@ -100,7 +110,7 @@ if (writeAnwerInput != null) {
         setTimeout(() => {
             topicWriteAnswer.classList.remove("topicWriteAnswerAfter");
             sendComment.classList.remove("sendCommentAfter");
-        }, 350);
+        }, 100);
     })
 }
 
