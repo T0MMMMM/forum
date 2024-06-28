@@ -4,6 +4,10 @@ import (
 	"strconv"
 )
 
+/*
+This function allows you to create a UserSearch from the user ID in parameters to retrieve it from the database.
+This object is then used to display a user's information on the site
+*/
 func (E *Engine) CreateUserSearch(UserID int) UserSearch {
 	user := E.FindUserByID(UserID)
 	var (
@@ -26,6 +30,9 @@ func (E *Engine) CreateUserSearch(UserID int) UserSearch {
 	return UserSearch{Username: user.Username, Email: user.Email, CreatedAt: user.CreatedAt, ProfilePicture: user.ProfilePicture, AnswersTopic: answersTopic, Topics: topics}
 }
 
+/*
+This function allows you to search for a specific topic in the database based on the id passed in parameters
+*/
 func (E *Engine) FindTopicByID(TopicID int) Topic {
 	data := E.QuerySQL("SELECT id, categoryID, userID, title, content, created_at, status, visible, like, dislike FROM topics WHERE id = " + strconv.Itoa(TopicID))
 	var (
@@ -57,6 +64,9 @@ func (E *Engine) FindTopicByID(TopicID int) Topic {
 	}
 }
 
+/*
+This function allows you to search for a specific answer in the database based on the id passed in parameters
+*/
 func (E *Engine) FindAnswerByID(AnswerID int) Answer {
 	data := E.QuerySQL("SELECT id, userID, TopicID, content, created_at, status, visible, like, dislike FROM answers WHERE id = " + strconv.Itoa(AnswerID))
 	var (
@@ -76,7 +86,9 @@ func (E *Engine) FindAnswerByID(AnswerID int) Answer {
 	return Answer{Id: id, TopicID: topicID, Content: E.reversefilterMsg(content), CreatedAt: created_at, Status: status, Visible: visible, Like: like, Dislike: dislike}
 }
 
-
+/*
+This function allows you to search for a specific category in the database based on the id passed in parameters
+*/
 func (E *Engine) FindCategoryByID(CategoryID int) Category {
 	data := E.QuerySQL("SELECT id, name, description FROM Categories WHERE id = " + strconv.Itoa(CategoryID))
 	var (
@@ -94,7 +106,9 @@ func (E *Engine) FindCategoryByID(CategoryID int) Category {
 	}
 }
 
-
+/*
+This function allows you to search for a specific user in the database based on the id passed in parameters
+*/
 func (E *Engine) FindUserByID(UserID int) User {
 	data := E.QuerySQL("SELECT id, email, username, password, created_at, profile_picture FROM users WHERE id = " + strconv.Itoa(UserID))
 	var (
@@ -117,6 +131,9 @@ func (E *Engine) FindUserByID(UserID int) User {
 	}
 }
 
+/*
+This function allows you to obtain all the responses to a topic by searching for a topic in the database based on its id
+*/
 func (E *Engine) FindAnswersByTopicID(TopicID int) []Answer {
 	data := E.QuerySQL("SELECT id, userID, content, created_at, status, visible, like, dislike FROM answers WHERE topicID = " + strconv.Itoa(TopicID))
 	var (
@@ -137,6 +154,9 @@ func (E *Engine) FindAnswersByTopicID(TopicID int) []Answer {
 	return answers
 }
 
+/*
+This function allows you to search for a specific message in the database based on the id passed in parameters
+*/
 func (E *Engine) FindMessageByID(msgId int) Message {
 	data := E.QuerySQL("SELECT id, senderID, recipientID, content, visible, created_at FROM messages WHERE id = " + strconv.Itoa(msgId))
 	var (
@@ -146,7 +166,6 @@ func (E *Engine) FindMessageByID(msgId int) Message {
 		content 	string
 		visible     bool
 		created_at string
-		
 	)
 	for data.Next() {
 		data.Scan(&id, &senderID, &recipientID, &content, &visible, &created_at)

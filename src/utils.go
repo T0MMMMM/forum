@@ -5,6 +5,9 @@ import (
 	"strings"
 )
 
+/*
+This function transforms a string type variable into int. It is used to retransform ids
+*/
 func (E *Engine) StrToInt(str string) int {
 	i, err := strconv.Atoi(str)
 	if err != nil {
@@ -13,14 +16,23 @@ func (E *Engine) StrToInt(str string) int {
 	return i
 }
 
+/*
+this function replace apostrophes as these can cause problems in the database
+*/
 func (E *Engine) filterMsg(msg string) string {
 	return strings.ReplaceAll(msg, "'", "[[apostroph]]")
 }
 
+/*
+this function transforms converted apostrophes into real apostrophes
+*/
 func (E *Engine) reversefilterMsg(msg string) string {
 	return strings.ReplaceAll(msg, "[[apostroph]]", "'")
 }
 
+/*
+This function allows you to load messages between users. It is used on the main page
+*/
 func (E *Engine) UsersMessages() {
 	E.CurrentData.Users = []User{}
 	data := E.QuerySQL("SELECT id FROM users")
@@ -33,6 +45,9 @@ func (E *Engine) UsersMessages() {
 	}
 }
 
+/*
+This function allows you to return the list of messages for a user if he participates in the message (sender or receiver)
+*/
 func (E *Engine) ScanMessages(user User) []Message {
 	data := E.QuerySQL("SELECT id FROM messages")
 	var id int
@@ -47,6 +62,9 @@ func (E *Engine) ScanMessages(user User) []Message {
 	return list
 }
 
+/*
+This function allows you to generate topics on the main page. It takes into account user filters
+*/
 func (E *Engine) SetTopics() {
 	E.CurrentData.Topics = []Topic{}
 	data := E.QuerySQL("SELECT id FROM topics")
@@ -64,6 +82,9 @@ func (E *Engine) SetTopics() {
 	}
 }
 
+/*
+This function allows you to do a specific topic search with the str in parameters
+*/
 func (E *Engine) ContainsTxt(topic Topic) bool {
 	if E.CurrentData.CurrentSearch == "" {
 		return true
@@ -72,6 +93,11 @@ func (E *Engine) ContainsTxt(topic Topic) bool {
 	}
 }
 
+
+/*
+This function allows you to retrieve the dislikes and likes from the database and define them on the Topic passed in prametters
+It therefore takes as parameters a Topic and a string ("topicsLikes" or "topicsDislikes")
+*/
 func (E *Engine) SetLikedAndDisliked(table string, topic Topic) bool {
 	data := E.QuerySQL("SELECT userID FROM " + table + " WHERE topicID = " + strconv.Itoa(topic.Id))
 	var userID int

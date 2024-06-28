@@ -7,6 +7,9 @@ import (
 	_ "modernc.org/sqlite"
 )
 
+/* 
+This function executes all functions that load pages and page actions
+*/
 func (E *Engine) Run() {
 	E.Init()
 	engine := html.New("./serv/html", ".html")
@@ -17,7 +20,6 @@ func (E *Engine) Run() {
 	E.ConnectedUsers = make(map[*websocket.Conn]struct{})
 	app.Static("/serv", "./serv")
 	app.Get("/ws", websocket.New(E.Websocket))
-
 	app.Get("/", E.Index)
 	app.Get("/connexion", E.Connexion)
 	app.Get("/new-topic", E.NewTopic)
@@ -26,7 +28,6 @@ func (E *Engine) Run() {
 	app.Get("/view_profil", E.ViewProfil)
 	app.Get("/edit_profil", E.EditProfil)
 	app.Get("/Logout", E.Logout)
-
 
 	app.Post("/submit_reset_search", E.SubmitResetSearch)
 	app.Post("/submit_search", E.SubmitSearch)
@@ -39,12 +40,6 @@ func (E *Engine) Run() {
 	app.Post("/submit_chose_category", E.SubmitChoseCategory)
 	app.Post("/submit_change_picture_profile", E.SubmitChangePictureProfile)
 	app.Post("/submit_back_topics", E.SubmitBackTopics)
-
-
 	
-
-	
-
-
 	app.Listen(E.Port)
 }

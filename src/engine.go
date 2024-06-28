@@ -2,6 +2,7 @@ package forum
 
 import (
 	"database/sql"
+
 	"github.com/gofiber/websocket/v2"
 	_ "modernc.org/sqlite"
 )
@@ -14,16 +15,16 @@ type Engine struct {
 }
 
 type Data struct {
-	Topic      Topic
-	User       User
-	ErrorMsg   string
-	Categories []Category
-	Topics     []Topic
-	Users      []User
-	UserSearch UserSearch
+	Topic           Topic
+	User            User
+	ErrorMsg        string
+	Categories      []Category
+	Topics          []Topic
+	Users           []User
+	UserSearch      UserSearch
 	CurrentCategory string
-	CurrentSearch string
-	ShowTopic bool
+	CurrentSearch   string
+	ShowTopic       bool
 }
 
 type Category struct {
@@ -33,27 +34,27 @@ type Category struct {
 }
 
 type User struct {
-	Id        int
-	Username  string
-	Email     string
-	Password  string
-	CreatedAt string
+	Id             int
+	Username       string
+	Email          string
+	Password       string
+	CreatedAt      string
 	ProfilePicture string
-	Messages  []Message
+	Messages       []Message
 }
 
 type UserSearch struct {
-	Username  string
-	Email     string
-	CreatedAt string
+	Username       string
+	Email          string
+	CreatedAt      string
 	ProfilePicture string
-	Topics    []Topic
-	AnswersTopic []AnswerTopic
+	Topics         []Topic
+	AnswersTopic   []AnswerTopic
 }
 
 type AnswerTopic struct {
-	Answer   Answer
-	Topic    Topic
+	Answer Answer
+	Topic  Topic
 }
 
 type Topic struct {
@@ -67,17 +68,17 @@ type Topic struct {
 	Visible   bool
 	Like      int
 	Dislike   int
-	Liked	  bool
+	Liked     bool
 	Disliked  bool
-	Answers []Answer
+	Answers   []Answer
 }
 
 type Message struct {
-	Id 		int
-	Sender User
+	Id        int
+	Sender    User
 	Recipient User
-	Content string
-	Visible bool
+	Content   string
+	Visible   bool
 	CreatedAt string
 }
 
@@ -93,8 +94,9 @@ type Answer struct {
 	Dislike   int
 }
 
-
-
+/*
+Initializing global variables
+*/
 func (E *Engine) Init() {
 	//rand.Seed(time.Now().UnixNano())
 	E.CurrentData = Data{ErrorMsg: ""}
@@ -105,12 +107,13 @@ func (E *Engine) Init() {
 	E.CurrentData.CurrentCategory = ""
 	E.CurrentData.CurrentSearch = ""
 	E.CurrentData.UserSearch = UserSearch{}
-	E.InitDescriptions()
+	E.InitCategories()
 }
 
-
-
-func (E *Engine) InitDescriptions() {
+/*
+Initialization of the different categories extracted from the database
+*/
+func (E *Engine) InitCategories() {
 	data := E.QuerySQL("SELECT id, name, description FROM categories")
 	var id int
 	var name string
@@ -120,4 +123,3 @@ func (E *Engine) InitDescriptions() {
 		E.CurrentData.Categories = append(E.CurrentData.Categories, Category{Id: id, Name: name, Description: description})
 	}
 }
-

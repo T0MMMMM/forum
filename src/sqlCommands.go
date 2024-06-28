@@ -8,6 +8,9 @@ import (
 	"strings"
 )
 
+/*
+This function allows you to create all the bases of the program if they do not yet exist
+*/
 func (E *Engine) DataBaseCreation() {
 	sqlFile, err := ioutil.ReadFile("./serv/sql/forum.sql")
 	if err != nil {fmt.Printf("Error reading SQL file: %v", err)}
@@ -23,16 +26,15 @@ func (E *Engine) DataBaseCreation() {
 	if err != nil {log.Fatal(err)}
 
 	// Catégories Creation
-
 	// E.ExecuteSQL("INSERT INTO `categories` (name, description) VALUES ('Developpement', 'Developpement informatique')")
 	// E.ExecuteSQL("INSERT INTO `categories` (name, description) VALUES ('Cinema', 'Tous les sujets possibles du cinéma !')")
 	// E.ExecuteSQL("INSERT INTO `categories` (name, description) VALUES ('Jeux Vidéos', 'Parlons de gaming !')")
-
-	// INSERT INTO categories (name, description) VALUES ('Developpement', 'Developpement informatique');
-	// INSERT INTO categories (name, description) VALUES ('Cinéma', 'Cinéma films');
-	// DELETE FROM categories WHERE id > 2;
 }
 
+
+/* 
+This function helps separate different SQL commands so that they can be executed correctly and line by line.
+*/
 func splitSQLCommands(file string) []string {
 	list := strings.Split(file, ";")
 	list = list[:len(list)-1]
@@ -42,6 +44,9 @@ func splitSQLCommands(file string) []string {
 	return list
 }
 
+/*
+This function allows you to execute a SQL line
+*/
 func (E *Engine) ExecuteSQL(cmd string) error {
 	_, err := E.DataBase.Exec(cmd)
 	if err != nil {
@@ -51,6 +56,9 @@ func (E *Engine) ExecuteSQL(cmd string) error {
 	return nil
 }
 
+/*
+This function allows you to execute a SQL line which allows you to retrieve data
+*/
 func (E *Engine) QuerySQL(cmd string) *sql.Rows {
 	data, err := E.DataBase.Query(cmd)
 	if err != nil {

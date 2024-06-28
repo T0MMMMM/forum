@@ -6,6 +6,9 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+/*
+Retrieving current user's cookies, this function is called on every page load
+*/
 func (E *Engine) GetCookieUser(c *fiber.Ctx) {
 	if (c.Cookies("UserID") != "") {
 		E.CurrentData.User = E.FindUserByID(E.StrToInt(c.Cookies("UserID")))
@@ -14,6 +17,10 @@ func (E *Engine) GetCookieUser(c *fiber.Ctx) {
 	}
 }
 
+
+/*
+Retrieving cookies from the current category and current search so that the user can search for specific topics
+*/
 func (E *Engine) GetCookieFilters(c *fiber.Ctx) {
 	E.GetCookieSearch(c)
 	E.GetCookieCategory(c)
@@ -34,7 +41,7 @@ func (E *Engine) GetCookieTopic(c *fiber.Ctx) {
 		E.CurrentData.Topic = E.FindTopicByID(E.StrToInt(c.Cookies("topic")))
 		E.CurrentData.Topic.Liked = E.SetLikedAndDisliked("topicsLikes", E.CurrentData.Topic)
 		E.CurrentData.Topic.Disliked = E.SetLikedAndDisliked("topicsDislikes", E.CurrentData.Topic)
-	} 
+	}
 }
 
 func (E *Engine) SetCookieUser(userID int, c *fiber.Ctx) {

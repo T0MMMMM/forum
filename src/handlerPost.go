@@ -7,6 +7,10 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+/*
+This function allows the user to connect by entering their username and password. 
+If they do not match a User in the database, it does not log in and stays on the page, otherwise it logs in and is redigested on the main page
+*/
 func (E *Engine) SubmitConnexion(c *fiber.Ctx) error {
 	username := c.FormValue("username")
 	pwd := c.FormValue("pwd")
@@ -31,23 +35,26 @@ func (E *Engine) SubmitConnexion(c *fiber.Ctx) error {
 	return c.SendString("2")
 }
 
+/*
+This function allows the user to register on the site. Its information will be stored in the database. 
+If registration does not fail, the user is redirected to the main page and logged into their account
+*/
 func (E *Engine) SubmitRegister(c *fiber.Ctx) error {
 	username := c.FormValue("username")
 	email := c.FormValue("email")
 	pwd := c.FormValue("pwd")
 	var usernameExist string
 	var emailExist string
-
 	data := E.QuerySQL("SELECT username, email FROM users")
 	for data.Next() {
 		data.Scan(&usernameExist, &emailExist)
 		if usernameExist == username {
 			E.CurrentData.ErrorMsg = "Vous utilisez un nom d'utilisateur déja existant, donc rajoute full _"
-			c.Redirect("/register")
+			c.Redirect("/connexion")
 			return nil
 		} else if emailExist == email {
 			E.CurrentData.ErrorMsg = "Cette adresse mail est déja utilisée, donc connecte toi stp "
-			c.Redirect("/register")
+			c.Redirect("/connexion")
 			return nil
 		}
 	}
@@ -74,12 +81,15 @@ func (E *Engine) SubmitRegister(c *fiber.Ctx) error {
 	return c.SendString("0")
 }
 
+/*
+This function allows a user connected to their account to be able to create a new topic by choosing a category, 
+a title, and a description. This information will be saved in the database.
+*/
 func (E *Engine) SubmitNewTopic(c *fiber.Ctx) error {
 	E.GetCookieUser(c)
 	categorieID := c.FormValue("categorie")
 	title := c.FormValue("title")
 	content := c.FormValue("content")
-
 	if categorieID != "" && title != "" && content != "" && E.CurrentData.User.Username != "" {
 		err := E.ExecuteSQL("INSERT INTO topics (categoryID, userID, title, content, created_at, status, visible, like, dislike) VALUES ('" + categorieID + "', '" + strconv.Itoa(E.CurrentData.User.Id) + "', '" + E.filterMsg(title) + "', '" + E.filterMsg(content) + "', '" + time.Now().String()[:19] + "', '" + "unsolved" + "', '" + "true" + "', '" + "0" + "', '" + "0" + "')")
 		E.CurrentData.Topics = append(E.CurrentData.Topics, E.FindTopicByID(len(E.CurrentData.Topics)+1))
