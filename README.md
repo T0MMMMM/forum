@@ -30,5 +30,5 @@
         - Sur un Topic, un utilisateur peut répondre au Topic ou bien aux autres utilisateurs
         - Le créateur du Topic peut valider une seule et unique réponse et le topic apparait à l'accueil comme "résolved".
 
-    Un utilisateur peut like ou dislike un Topic.
+    Un utilisateur peut like ou dislike un Topic.ddddd
         
