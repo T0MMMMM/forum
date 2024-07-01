@@ -58,24 +58,32 @@
         </div>
         <div class="topicAnswers" id="messages">
             {{ range .Topic.Answers }}
-                <div class="topicAnswerDiv">
+                {{ if ne .Status "solved" }}
+                    <div class="topicAnswerDiv">
+                {{ else }}
+                    <div class="topicAnswerDiv" style="background-color: #8DC488;color: #8A806C;">
+                {{ end }}
                     <div class="answer-info">
-                        <img src="{{ .User.ProfilePicture }}" alt="" class="userPicture">
-                        <p>{{ .User.Username }}, </p>
-                        <p class="date">{{ .CreatedAt }}</p>
+                        <div>
+                            <img src="{{ .User.ProfilePicture }}" alt="" class="userPicture">
+                            <p>{{ .User.Username }},</p>
+                            <p class="date">{{ .CreatedAt }}</p>
+                        </div>
+                        <div>
+                            {{ if ne .Status "solved" }}
+                                {{ if ne $.Topic.User.Id $.User.Id }} 
+                                {{ else }}
+                                    <form action="submit_validate_answer" method="post">                    
+                                        <button type="submit" name="button" value="{{ .Id }}">
+                                            <i class="fa-regular fa-circle-check"></i>
+                                        </button>
+                                    </form>
+                                {{ end }}
+                            {{ end }}
+                        </div>
                     </div>
                     <p>{{ .Content }}</p>
-                    {{ if ne $.Topic.User.Id $.User.Id }} 
-                    {{ else }}
-                        <form action="submit_validate_answer" method="post">                    
-                            <button type="submit" name="button" value="{{ .Id }}">  salut </button>
-                        </form>
-                    {{ end }}
                 </div>
-                {{ if ne .Status "solved" }}
-                {{ else }}
-                    <i class="fa-solid fa-check"></i>
-                {{ end }}
 
             {{ end }}
         </div>
