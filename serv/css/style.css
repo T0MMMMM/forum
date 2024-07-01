@@ -119,12 +119,11 @@ nav {
     border: none;
     transition: all 0.2s;
     cursor: url("../assets/cursor/cursor.cur"), auto;
+    pointer-events: none;
 }
 
 .searchIcon i {
-    text-align: center;
-    transition: all 0.2s;
-    cursor: url("../assets/cursor/cursor.cur"), auto;
+    pointer-events: none;
 }
 
 .searchIcon:hover {
@@ -132,9 +131,35 @@ nav {
     transition: all 0.2s;
 }
 
+.searchIcon:hover .searchBar {
+    transition: all 0.2s;
+    outline: none;
+    width: 400px;
+    opacity: 1;
+}
+
+.searchIcon:hover {
+    color: var(--beige);
+    transition: all 0.2s;
+}
+
+.searchBar:hover {
+    transition: all 0.2s;
+    outline: none;
+    width: 400px;
+    opacity: 1;
+}
+
+.searchBar:hover + .searchIcon {
+    color: var(--beige);
+    transition: all 0.5s;
+    scale: 1.1;
+}
+
 .searchBar:focus + .searchIcon {
     color: var(--beige);
     transition: all 0.2s;
+    pointer-events: all;
 }
 
 ul {
@@ -424,14 +449,41 @@ h3 {
     justify-content: center;
 }
 
+.topic-content-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.topic-content-top label {
+    font-size: 40px;
+    text-decoration: underline;
+}
+
+.topic-content-top p {
+    font-size: 25px;
+    text-wrap: wrap;
+}
+
+.topic-content-bot {
+    display: flex;
+    justify-content: space-between;
+    min-height: 100px;
+    text-wrap: wrap;
+}
+
+.topic-content-bot p {
+    text-wrap: wrap;
+}
 
 
 .topic-content {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
-    min-height: 300px;
     padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
     color: var(--beige);
     /* background: rgba(253, 239, 234, 0.5); */
     background-color: #fffaf8;
@@ -455,6 +507,11 @@ h3 {
 
 .topicInfo div {
     display: flex;
+}
+
+.checkmark {
+    align-self: flex-end;
+    justify-self: end;
 }
 
 .like {
