@@ -694,6 +694,7 @@ h3 {
     transition: all 0.3s;
     margin-bottom: 25px;
     overflow-y: hidden;
+    cursor: url("../assets/cursor/cursor.cur"), auto;
 }
 
 .hider:hover {
@@ -712,6 +713,7 @@ h3 {
 }
 
 .hiderAfter {
+    cursor: url("../assets/cursor/cursor2.cur"), auto;
     flex-direction: column;
     height: 700px;
     transition: all 0.3s;
@@ -733,6 +735,7 @@ h3 {
 }
 
 .closeButtonDiv {
+    cursor: url("../assets/cursor/cursor.cur"), auto;
     display: flex;
     justify-content: center;
     opacity: 0;
@@ -752,18 +755,25 @@ h3 {
 
     cursor: url("../assets/cursor/cursor.cur"), auto;
 
-    transition: all 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.7;
 }
 
 .closeButtonDivAfter i {
     cursor: url("../assets/cursor/cursor.cur"), auto;
+    transition: all 0.7;
 }
 
 .closeButtonDivAfter:hover {
-    box-shadow: 0px 0px 20px #fff2ee, inset 0px 0px 12px #fff2ee;
+    background: var(--beige);
+    transition: all 0.7;
+}
+
+.closeButtonDivAfter:hover .cross {
+    color: var(--white);
+    transition: all 0.7;
 }
 
 .cross {
@@ -1601,7 +1611,6 @@ hr {
     text-align: center;
     height: 100%;
     width: 100%;
-
 }
 
 .newTopic {
@@ -1615,7 +1624,7 @@ hr {
     flex-direction: column;
     justify-content: space-between;
     padding: 30px;
-    color: white;
+    color: var(--white);
 }
 
 .newTopic h6 {
@@ -1763,8 +1772,81 @@ hr {
     transition: all 0.3s;
 }
 
+.userInfoPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
 
+.userInfo {
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    backdrop-filter: blur(7px);
+    height: 65%;
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px;
+    color: var(--beige);
+    overflow: scroll;
+}
 
+.userInfo::-webkit-scrollbar {
+    display: none;
+}
+
+.userNameAndPic {
+    height: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    margin: 10px;
+}
+
+.userNameAndPic img {
+    height: 65px;
+    width: 65px;
+    border-radius: 30px;
+    object-fit: cover;
+    scale: 1.3;
+    border: none;
+    overflow: hidden;
+    margin-right: 25px;
+}
+
+.userNameAndPic p {
+    font-size: 45px;
+}
+
+.viewUserInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 85%;
+}
+
+.viewUserInfo p {
+    padding: 10px;
+}
+
+.viewUserInfo hr {
+    border: 1px solid var(--beige);
+}
+
+.userAnswers {
+    max-height: 200px;
+    overflow: scroll;
+}
+
+.userAnswers::-webkit-scrollbar {
+    display: none;
+}
 
 
 

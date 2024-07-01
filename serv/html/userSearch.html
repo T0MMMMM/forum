@@ -9,17 +9,26 @@
 
 </head>
 
-<body>
-    <img src="{{ .UserSearch.ProfilePicture }}" class="photoProfile"/>
-    <h1> Username : {{ .UserSearch.Username }} </h1>
-    <h1> Email : {{ .UserSearch.Email }} </h1>
-    <h1> Account created at {{ .UserSearch.CreatedAt }} </h1>
+<body class="userInfoPage">
 
-    <br> 
-    Answers :
-    {{ range .UserSearch.AnswersTopic }}
-        <h3> {{ .Answer.Content }} in {{ .Topic.Title }} at {{ .Answer.CreatedAt }}
-    {{ end }}
+    <div class="userInfo">
+        <div class="userNameAndPic">
+            <img src="{{ .UserSearch.ProfilePicture }}" class="userPicture"/>
+            <p>{{ .UserSearch.Username }}</p>
+        </div>
+        <div class="viewUserInfo">
+            <hr>
+            <p>{{ .UserSearch.Email }}</p>
+            <p>Account created at {{ .UserSearch.CreatedAt }}</p>
+            <hr>
+            <p>{{ .UserSearch.Username }} answers</p>
+            <div class="userAnswers">
+                {{ range .UserSearch.AnswersTopic }}
+                    <p> {{ .Answer.Content }} in {{ .Topic.Title }} at {{ .Answer.CreatedAt }} </p>
+                {{ end }}
+            </div>
+        </div>
+    </div>
 
 
     
