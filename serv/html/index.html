@@ -103,9 +103,19 @@
                     <i class="fa-regular fa-envelope envelope"></i>
                     <h1 class="messageText">Messages</h1>
                 </div>
+
+                <script> 
+                    
+                </script>
                 
                 <div class="privateMessageWrapper">
+                    <input id="searchInput" type="text" placeholder="Search Username ..." style="width: 250px;" onkeyup="filterUsers()">
+                    <br>
                     {{ range .Users }}
+                        <form id="userForm"> 
+                            <input hidden type="text" name="user" class="category" value="{{ .Username }}">
+                        </form>
+
                         <div class="userContainer">
                             <div class="privateMessage" id="{{ .Id }}">
                                 <img src="{{ .ProfilePicture }}" alt="" class="userPicture">
@@ -168,6 +178,22 @@
             var caracteres = "abcdeéèfghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-?!.;,êî^ëï<>%$@ ";
             if(caracteres.indexOf(touche) >= 0) {
                 champ.value += touche;
+            }
+        }
+
+        function filterUsers() {
+            let input = document.getElementById('searchInput');
+            let filter = input.value.toUpperCase();
+            let form = document.getElementById('userForm');
+            let buttons = document.getElementsByClassName('userContainer');
+
+            for (let i = 0; i < buttons.length; i++) {
+                let txtValue = buttons[i].textContent || buttons[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    buttons[i].style.display = "";
+                } else {
+                    buttons[i].style.display = "none";
+                }
             }
         }
     </script>
