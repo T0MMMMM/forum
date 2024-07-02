@@ -189,6 +189,15 @@ func (E *Engine) SubmitBackTopics(c *fiber.Ctx) error {
 	return nil
 }
 
+func (E *Engine) SubmitRemoveTopic(c *fiber.Ctx) error {
+	E.GetCookieUser(c)
+	TopicID := c.FormValue("TopicID")
+	E.ExecuteSQL("DELETE FROM topics WHERE id = " + TopicID + ";")
+	E.SetCookieTopic(0, c)
+	c.Redirect("/")
+	return nil
+}
+
 func (E *Engine) ValidateAnswer(c *fiber.Ctx) error {
 	E.GetCookieUser(c)
 	button := c.FormValue("button")
