@@ -41,7 +41,7 @@ func (E *Engine) UsersMessages() {
 		data.Scan(&id)
 		user := E.FindUserByID(id);
 		user.Messages = E.ScanMessages(user)
-		E.CurrentData.Users = append(E.CurrentData.Users, user)
+		if E.CurrentData.User.Id != id {E.CurrentData.Users = append(E.CurrentData.Users, user)}
 	}
 }
 

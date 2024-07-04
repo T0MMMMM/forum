@@ -17,7 +17,6 @@ func (E *Engine) GetCookieUser(c *fiber.Ctx) {
 	}
 }
 
-
 /*
 Retrieving cookies from the current category and current search so that the user can search for specific topics
 */

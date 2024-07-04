@@ -5,8 +5,7 @@
 
     {{ range .Topics}}
     <div class="topic">
-        <form action="/submit_topic" method="post">
-            <input type="text" hidden value="{{ .Id }}" name="TopicID">
+     
 
             <div class="topic-content">
                 <label>Title : {{ .Title }} </label>
@@ -38,15 +37,25 @@
                     {{ end }}
 
                 </div>
-                
-                <button type="submit" class="comments">
-                    
+                {{ if ne $.User.Id .User.Id }} 
+                {{ else }}
+                    <form action="/submit_remove_topic" method="post">
+                        <input type="text" hidden value="{{ .Id }}" name="TopicID">
+                        <button type="submit" class="fa-solid fa-xmark"> </button>
+                    </form>
+                {{ end }}
+
+                <form action="/submit_topic" method="post">
+                    <input type="text" hidden value="{{ .Id }}" name="TopicID">
+                    <button type="submit" class="comments">
                     <i class="fa-solid fa-message commentIcon"></i>
                     <p class="commentsAmount">{{ len .Answers }}</p>
                 </button>
+                </form>
+               
+  
             </div>
         
-        </form>
 
     </div>
     {{ end }}

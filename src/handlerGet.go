@@ -52,6 +52,6 @@ func (E *Engine) UserSearch(c *fiber.Ctx) error {
 
 func (E *Engine) Logout(c *fiber.Ctx) error {
 	E.SetCookieUser(0, c)
-	c.Redirect("/")
+	c.Redirect("/connexion")
 	return nil
 }
