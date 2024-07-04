@@ -1965,7 +1965,7 @@ hr {
     }
     
     .mp {
-        display: none;
+        position: absolute;
     }
 
     .main { 
@@ -2007,6 +2007,18 @@ hr {
     .connexionHiderAfter {
         left: 0;
         top: 50%;
+    }
+
+    .hider {
+        display: block !important;
+        position: fixed;
+        bottom: 0;
+        right: 30px;
+        width: 20%;
+    }
+
+    .hiderAfter {
+        width: 65%;
     }
 
 }
