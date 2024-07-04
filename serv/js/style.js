@@ -73,26 +73,18 @@ for (let k = 0; k < arrow.length; k++) {
 }
 
 
-// Profile Info
-
-var viewProfilCard = document.getElementsByClassName('view-profil-card').item(0);
-var showProfileInfo = document.getElementsByClassName('showProfileInfo').item(0);
-
-showProfileInfo.addEventListener("click", function () {
-    viewProfilCard.focus();
-})
-
-
 
 // Search Bar 
 
-var search = document.getElementsByClassName('search').item(0);
+console.log("search");
+
+var searchIcon = document.getElementsByClassName('searchIcon').item(0);
 var searchBar = document.getElementsByClassName('searchBar').item(0);
-search.addEventListener("mouseover", function () {
-    if (!viewProfilCard.hasFocus()) {
-        searchBar.focus();
-    }
-});
+
+searchIcon.addEventListener('mouseover', function () {
+    searchBar.classList.add("searchBarAfter");
+    searchIcon.classList.add("searchIconAfter");
+})
 
 
 // topic add comment button 
@@ -178,3 +170,14 @@ for (let i = 0; i < dislike.length; i++) {
         }
     })
 }
+
+
+
+// Profile Info
+
+var viewProfilCard = document.getElementsByClassName('view-profil-card').item(0);
+var showProfileInfo = document.getElementsByClassName('showProfileInfo').item(0);
+
+showProfileInfo.addEventListener("click", function () {
+    viewProfilCard.focus();
+})

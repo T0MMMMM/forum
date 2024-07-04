@@ -103,7 +103,7 @@ nav {
     color: var(--beige);
 }
 
-.searchBar:focus {
+.searchBarAfter {
     transition: all 0.2s;
     outline: none;
     width: 400px;
@@ -120,47 +120,16 @@ nav {
     border: none;
     transition: all 0.2s;
     cursor: url("../assets/cursor/cursor.cur"), auto;
-    pointer-events: none;
-}
-
-.searchIcon i {
-    pointer-events: none;
-}
-
-.searchIcon:hover {
-    scale: 1.1;
-    transition: all 0.2s;
-}
-
-.searchIcon:hover .searchBar {
-    transition: all 0.2s;
-    outline: none;
-    width: 400px;
-    opacity: 1;
-}
-
-.searchIcon:hover {
-    color: var(--beige);
-    transition: all 0.2s;
-}
-
-.searchBar:hover {
-    transition: all 0.2s;
-    outline: none;
-    width: 400px;
-    opacity: 1;
-}
-
-.searchBar:hover + .searchIcon {
-    color: var(--beige);
-    transition: all 0.5s;
-    scale: 1.1;
-}
-
-.searchBar:focus + .searchIcon {
-    color: var(--beige);
-    transition: all 0.2s;
     pointer-events: all;
+}
+
+.searchIconAfter {
+    color: var(--beige);
+}
+
+.searchIcon:hover {
+    scale: 1.1;
+    transition: all 0.2s;
 }
 
 ul {
