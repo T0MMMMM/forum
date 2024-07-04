@@ -66,10 +66,18 @@
                 </div>
             </div>
             <div class="filterBottom">
-                <a href="/Logout">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <p>Logout</p>
-                </a>
+                {{ if ne .User.Id 0 }}
+                    <a href="/Logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <p>Logout</p>
+                    </a>
+                {{ else }}
+                    <a href="/connexion">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <p>Sign up</p>
+                    </a>
+                {{ end }}
+                
             </div>
         </div>
 
@@ -116,7 +124,7 @@
                 </script>
                 
                 <div class="privateMessageWrapper">
-                    <input id="searchInput" type="text" placeholder="Search Username ..." style="width: 250px;" onkeyup="filterUsers()">
+                    <input id="searchInput" type="text" placeholder="Search Username ..." class="searchInputName" onkeyup="filterUsers()">
                     <br>
                     {{ range .Users }}
                         <form id="userForm"> 
