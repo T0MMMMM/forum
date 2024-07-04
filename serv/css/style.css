@@ -1941,10 +1941,19 @@ hr {
     
     .mp {
         position: absolute;
+        right: 0;
+    }
+    
+    .view-profil-card {
+        
     }
 
     .main { 
         justify-content: center; 
+    }
+
+    .search {
+        display: none;
     }
 
     .mainWrapper {
@@ -1992,8 +2001,16 @@ hr {
         width: 20%;
     }
 
+    .topMessage h1 {
+        display: none;
+    }
+
     .hiderAfter {
         width: 65%;
+    }
+
+    .hiderAfter .topMessage h1 {
+        display: block;
     }
 
 }
