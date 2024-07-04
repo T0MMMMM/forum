@@ -1,6 +1,6 @@
 {{ define "topictmpl" }}
 
-    <div id="data" data-variable-username="{{ .User.Username }}" data-variable-id="{{ .User.Id }}" data-variable-topic-id="{{ .Topic.Id }}"></div>
+    <div id="data" data-variable-username="{{ .User.Username }}" data-variable-id="{{ .User.Id }}" data-variable-topic-id="{{ .Topic.Id }}" data-variable-topic-user-id="{{ .Topic.User.Id }}" data-variable-user-pp="{{ .User.ProfilePicture }}"></div>
 
     <div class="topicUser">
         <form action="/submit_back_topics" method="post"> 
@@ -63,28 +63,27 @@
                 {{ else }}
                     <div class="topicAnswerDiv" style="background-color: #8DC488;color: #8A806C;">
                 {{ end }}
-                    <div class="answer-info">
-                        <div>
-                            <img src="{{ .User.ProfilePicture }}" alt="" class="userPicture">
-                            <p>{{ .User.Username }},</p>
-                            <p class="date">{{ .CreatedAt }}</p>
-                        </div>
-                        <div>
-                            {{ if ne .Status "solved" }}
-                                {{ if ne $.Topic.User.Id $.User.Id }} 
-                                {{ else }}
-                                    <form action="submit_validate_answer" method="post">                    
-                                        <button type="submit" name="button" value="{{ .Id }}">
-                                            <i class="fa-regular fa-circle-check"></i>
-                                        </button>
-                                    </form>
+                        <div class="answer-info">
+                            <div>
+                                <img src="{{ .User.ProfilePicture }}" alt="" class="userPicture">
+                                <p>{{ .User.Username }},</p>
+                                <p class="date">{{ .CreatedAt }}</p>
+                            </div>
+                            <div>
+                                {{ if ne .Status "solved" }}
+                                    {{ if ne $.Topic.User.Id $.User.Id }}
+                                    {{ else }}
+                                        <form action="submit_validate_answer" method="post">                    
+                                            <button type="submit" name="button" value="{{ .Id }}">
+                                                <i class="fa-regular fa-circle-check"></i>
+                                            </button>
+                                        </form>
+                                    {{ end }}
                                 {{ end }}
-                            {{ end }}
+                            </div>
                         </div>
+                        <p>{{ .Content }}</p>
                     </div>
-                    <p>{{ .Content }}</p>
-                </div>
-
             {{ end }}
         </div>
     </div>

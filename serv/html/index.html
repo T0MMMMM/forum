@@ -84,11 +84,14 @@
         <div class="mainWrapper">
 
             {{ if ne .CurrentSearch "" }}
-                <h2> current search = "{{ .CurrentSearch }}" 
+            <div class="research">
+                <p> Result for {{ .CurrentSearch }} </p>
+                
                 <form action="/submit_reset_search" method="post">
                     <input type="submit" value="reset"> 
                 </form>
-                </h2>
+
+            </div>
             {{ end }}
             {{ if ne .Topic.Id 0 }}
                 {{ template "topictmpl" . }}

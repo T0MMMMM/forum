@@ -1,6 +1,7 @@
 package forum
 
 import (
+	"strconv"
 	"strings"
 	"time"
 
@@ -19,12 +20,21 @@ func (E *Engine) Websocket(c *websocket.Conn) {
 		if err != nil {break}
 		for usr := range E.ConnectedUsers {
 			if usr != c {
-				if (message[0] == "[TYPEPrivate]"){ // 0 = [TYPEPrivate] / 1 = id / 2 = username / 3 = recipientId / 4 = msg 
+				if (message[0] == "[TYPEPrivate]"){
 					if err := usr.WriteMessage(websocket.TextMessage, []byte("[TYPEPrivate]:" + message[1]+":"+message[2]+":"+message[4]+":"+message[3])); err != nil {
 						return
 					}
-				} else if (message[0] == "[TYPETopic]") { // 0 = "[TYPETopic]"  / 1 = id / 2 = user / 3 = msg  / 4 = topicId
-					if err := usr.WriteMessage(websocket.TextMessage, []byte("[TYPETopic]:" + message[2]+":"+message[3]+":"+message[4])); err != nil {
+				} else if (message[0] == "[TYPETopic]") {
+					data := E.QuerySQL("SELECT id FROM answers")
+					var id int
+					var maxId int
+					for data.Next() {
+						data.Scan(&id)
+						if (id > maxId) {
+							maxId = id
+						}
+					}
+					if err := usr.WriteMessage(websocket.TextMessage, []byte("[TYPETopic]:" + message[2] +":"+ message[3] +":"+ message[4] +":"+ message[5] +":"+  strconv.Itoa(maxId))); err != nil {
 						return
 					}
 				} else {

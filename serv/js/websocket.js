@@ -1,6 +1,54 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --------------------------------------------------------------------------------------------- */
+
+                                                                                
+        const IP = "00.00.00.00"
+
+
+/* --------------------------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const username = document.getElementById("data").getAttribute("data-variable-username");
 const id = document.getElementById("data").getAttribute("data-variable-id");
-const socket = new WebSocket('ws://localhost:8080/ws');
+var socket;
+if (IP != "00.00.00.00") {
+    socket = new WebSocket('ws://' + ip + ':8080/ws');
+} else {
+    socket = new WebSocket('ws://localhost:8080/ws');
+}
+
+
 
 socket.onmessage = function(event) {
     
@@ -12,8 +60,9 @@ socket.onmessage = function(event) {
         privateMessageCardMiddleBox.scrollTop = privateMessageCardMiddleBox.scrollHeight;
         console.log(messages.scrollHeight);
     } else if (message[0] == "[TYPETopic]" && parseInt(message[3]) == document.getElementById("data").getAttribute("data-variable-topic-id")) {
+        const dateTime = new Date().toLocaleString('sv-SE', { timeZoneName: 'short' }).replace(' ', ' ').substring(0, 19);
         const messages = document.getElementById('messages');
-        messages.innerHTML +=  '<div class="topicAnswerDiv">' + '<p>' + message[1] + " : " + filterMsg(message[2]) + '</p>' + '</div>';
+        messages.innerHTML += '<div class="topicAnswerDiv"><div class="answer-info"><div><img src="'+ message[4] +'" alt="" class="userPicture"><p>'+ message[1] +',</p><p class="date">'+ dateTime +'</p></div><div><form action="submit_validate_answer" method="post"><button type="submit" name="button" value="'+ message[5] +'"><i class="fa-regular fa-circle-check"></i></button></form></div></div><p>'+ reversefilterMsg(message[2]) +'</p></div>'
         messages.scrollTop = messages.scrollHeight;
     }
 };
@@ -23,12 +72,15 @@ function sendMessage() {
     const input = document.getElementById('input');
     
     const topicId = document.getElementById("data").getAttribute("data-variable-topic-id");
+    const pp = document.getElementById("data").getAttribute("data-variable-user-pp");
 
+    const dateTime = new Date().toLocaleString('sv-SE', { timeZoneName: 'short' }).replace(' ', ' ').substring(0, 19);
+    
     const message = input.value.trim();
     if (message && username != "") {
-        socket.send("[TYPETopic]:" + id + ":" + username + ":" + message + ":" + topicId);
+        socket.send("[TYPETopic]:" + id + ":" + username + ":" + message + ":" + topicId+ ":" + pp);
         input.value = '';
-        messages.innerHTML += '<div class="topicAnswerDiv">' + '<p>' + username + " : " + reversefilterMsg(message) + '</p>' + '</div>';
+        messages.innerHTML += '<div class="topicAnswerDiv"><div class="answer-info"><div><img src="'+ pp +'" alt="" class="userPicture"><p>'+ username +',</p><p class="date">'+ dateTime +'</p></div><div></div></div><p>'+ reversefilterMsg(message) +'</p></div>'
         messages.scrollTop = messages.scrollHeight;
     }
 }

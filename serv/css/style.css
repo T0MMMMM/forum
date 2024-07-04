@@ -1459,15 +1459,15 @@ hr {
     height: 50px;
     width: 50px;
     border-radius: 30px;
-    border: 2px solid salmon;
+    border: 2px solid var(--beige);
     margin-right: 15px;
     object-fit: cover;
     overflow: hidden;
 }
 
 .topicUserPicture {
-    height: 50px;
-    width: 50px;
+    height: 48px;
+    width: 48px;
     object-fit: cover;
 }
 
@@ -1786,9 +1786,25 @@ hr {
     padding-right: 10px;
 }
 
+
 .change-name button {
-    width: 35%;
+    cursor: url("../assets/cursor/cursor.cur"), auto;
+    background: none;
+    border-radius: 5px;
+    border: 2px solid var(--white);
+    padding: 5px;
+    color: var(--white);
+    padding: 5px;
+    outline: none;
+    transition: all 0.5s;
 }
+
+.change-name button:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    scale: 1.02;
+    transition: all 0.5s;
+}
+
 
 .flex-pictures {
     display: flex;
@@ -1926,7 +1942,29 @@ hr {
     transition: all 0.5s;
 }
 
+.research {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
 
+.research form input {
+    cursor: url("../assets/cursor/cursor.cur"), auto;
+    background: none;
+    width: 100px;
+    border-radius: 5px;
+    border: 2px solid var(--light-green);
+    padding: 5px;
+    color: var(--beige);
+    outline: none;
+    transition: all 0.5s;
+}
+
+.research form input:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    scale: 1.02;
+    transition: all 0.5s;
+}
 
 
 @media screen and (max-width: 1100px) {

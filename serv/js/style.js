@@ -76,8 +76,6 @@ for (let k = 0; k < arrow.length; k++) {
 
 // Search Bar 
 
-console.log("search");
-
 var searchIcon = document.getElementsByClassName('searchIcon').item(0);
 var searchBar = document.getElementsByClassName('searchBar').item(0);
 
@@ -178,6 +176,8 @@ for (let i = 0; i < dislike.length; i++) {
 var viewProfilCard = document.getElementsByClassName('view-profil-card').item(0);
 var showProfileInfo = document.getElementsByClassName('showProfileInfo').item(0);
 
-showProfileInfo.addEventListener("click", function () {
-    viewProfilCard.focus();
-})
+if (showProfileInfo != null) {
+    showProfileInfo.addEventListener("click", function () {
+        viewProfilCard.focus();
+    })
+}

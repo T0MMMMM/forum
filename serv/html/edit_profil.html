@@ -27,7 +27,7 @@
         <form class="username-form" action="/submit_change_username" method="post">
             <div class="change-name">
                 <input type="text" name="username" class="category" value="{{ .User.Username }}" onkeypress="specialChar(event, id); return false;">
-                <button type="submit"> change username </button>
+                <button type="submit" class="change-username"> Change Username </button>
             </div>
             {{ .ErrorMsg }}
         </form>
