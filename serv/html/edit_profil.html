@@ -9,7 +9,7 @@
 
 </head>
 
-<body>
+<body class="edit-profile-body">
 
     <script> 
         function specialChar(event, id){
@@ -23,69 +23,37 @@
         }
     </script>
 
+    <div class="edit-profile-card">
+        <form class="username-form" action="/submit_change_username" method="post">
+            <div class="change-name">
+                <input type="text" name="username" class="category" value="{{ .User.Username }}" onkeypress="specialChar(event, id); return false;">
+                <button type="submit"> change username </button>
+            </div>
+            {{ .ErrorMsg }}
+        </form>
+        <form action="/submit_change_picture_profile" method="post">
+            <div class="flex-pictures">
+                <div class="grid-item"><img src="serv/assets/pictures/default.jpg" class="photoEditProfile"/></div>
+                <div class="grid-item"><img src="serv/assets/pictures/shrek.png" class="photoEditProfile"/></div>
+                <div class="grid-item"><img src="serv/assets/pictures/nemo.png" class="photoEditProfile"/></div>
+                <div class="grid-item"><img src="serv/assets/pictures/vigros.jpg" class="photoEditProfile" /></div>
+                <div class="grid-item"><img src="serv/assets/pictures/vigros2.jpeg" class="photoEditProfile" /></div>
+                <div class="grid-item"><img src="serv/assets/pictures/lucas.jpg" class="photoEditProfile" /></div>
+                <div class="grid-item"><img src="serv/assets/pictures/terminator.jpg" class="photoEditProfile" /></div>
+                <div class="grid-item"><img src="serv/assets/pictures/brawl.png" class="photoEditProfile" /></div>
+                <div class="grid-item"><img src="serv/assets/pictures/pessi.jpg" class="photoEditProfile" /></div>
+                <div class="grid-item"><img src="serv/assets/pictures/abdel.png" class="photoEditProfile" /></div>
+                <div class="grid-item"><img src="serv/assets/pictures/dragon.png" class="photoEditProfile" /></div>
+                <div class="grid-item"><img src="serv/assets/pictures/yoda.jpg" class="photoEditProfile" /></div>
+                <div class="grid-item"><img src="serv/assets/pictures/fallen.png" class="photoEditProfile" /></div>
+                <div class="grid-item"><img src="serv/assets/pictures/pulp.jpg" class="photoEditProfile" /></div>
+                <div class="grid-item"><img src="serv/assets/pictures/pulp2.jpg" class="photoEditProfile" /></div>
+                <div class="grid-item"><img src="serv/assets/pictures/loic.jpg" class="photoEditProfile" /></div>
+                <div class="grid-item"><img src="serv/assets/pictures/cars.png" class="photoEditProfile" /></div>
+            </div>
+        </form>
 
-    <form action="/submit_change_username" method="post">
-        <input type="text" name="username" class="category" placeholder="{{ .User.Username }}" onkeypress="specialChar(event, id); return false;">
-        <button type="submit"> change username </button>
-    </form>
-    {{ .ErrorMsg }}
-
-    <br><br><br><br><br><br><br>
-    
-    <form action="/submit_change_picture_profile" method="post">
-        <input type="radio" id="adult" name="picture" value="serv/assets/pictures/default.jpg">
-        <img src="serv/assets/pictures/default.jpg" class="photoEditProfile"/>
-
-        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/shrek.png">
-        <img src="serv/assets/pictures/shrek.png" class="photoEditProfile" />
-
-        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/nemo.png">
-        <img src="serv/assets/pictures/nemo.png" class="photoEditProfile" />
-
-        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/vigros.jpg">
-        <img src="serv/assets/pictures/vigros.jpg" class="photoEditProfile" />
-
-        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/vigros2.jpeg">
-        <img src="serv/assets/pictures/vigros2.jpeg" class="photoEditProfile" />
-
-        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/lucas.jpg">
-        <img src="serv/assets/pictures/lucas.jpg" class="photoEditProfile" />
-
-        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/terminator.jpg">
-        <img src="serv/assets/pictures/terminator.jpg" class="photoEditProfile" />
-
-        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/brawl.png">
-        <img src="serv/assets/pictures/brawl.png" class="photoEditProfile" />
-
-        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/pessi.jpg">
-        <img src="serv/assets/pictures/pessi.jpg" class="photoEditProfile" />
-
-        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/abdel.png">
-        <img src="serv/assets/pictures/abdel.png" class="photoEditProfile" />
-
-        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/dragon.png">
-        <img src="serv/assets/pictures/dragon.png" class="photoEditProfile" />
-
-        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/yoda.jpg">
-        <img src="serv/assets/pictures/yoda.jpg" class="photoEditProfile" />
-
-        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/fallen.png">
-        <img src="serv/assets/pictures/fallen.png" class="photoEditProfile" />
-
-        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/pulp.jpg">
-        <img src="serv/assets/pictures/pulp.jpg" class="photoEditProfile" />
-
-        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/pulp2.jpg">
-        <img src="serv/assets/pictures/pulp2.jpg" class="photoEditProfile" />
-
-        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/loic.jpg">
-        <img src="serv/assets/pictures/loic.jpg" class="photoEditProfile" />
-
-        <input type="radio" id="senior" name="picture" value="serv/assets/pictures/cars.png">
-        <img src="serv/assets/pictures/cars.png" class="photoEditProfile" />
-
-        <div><button type="submit">Submit</button></div>
-    </form>
+    </div>
     
     <script src="serv/js/websocket.js"></script>
     

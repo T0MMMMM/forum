@@ -2,15 +2,27 @@
 
     <div id="data" data-variable-username="{{ .User.Username }}" data-variable-id="{{ .User.Id }}" ></div>
 
-
     {{ range .Topics}}
+
     <div class="topic">
      
 
+            {{ if ne .Status "solved" }}
             <div class="topic-content">
-                <label>Title : {{ .Title }} </label>
-                <p>Content : {{ .Content }}</p>
-                <p>Category : {{ .Category.Name }}</p>
+            {{ else }}
+            <div class="topic-content" style="border: 2px solid var(--light-green); box-shadow: inset 0px 0px 12px var(--light-green);">
+            {{ end }}
+                <div class="topic-content-top">
+                    <label>{{ .Title }} </label>
+                    <p>{{ .Category.Name }}</p>
+                </div>
+                <div class="topic-content-bot">
+                    <p>{{ .Content }}</p>
+                    {{ if ne .Status "solved" }}
+                    {{ else }}
+                        <i class="fa-solid fa-check checkmark"></i>
+                    {{ end }}
+                </div>
             </div>
             
             <div class="topicInfo">
@@ -31,10 +43,6 @@
                         {{ end }}
                         <p class="dislikeAmount">{{ .Dislike }}</p>
                     </div>
-                    {{ if ne .Status "solved" }}
-                    {{ else }}
-                        <i class="fa-solid fa-check"></i>
-                    {{ end }}
 
                 </div>
                 {{ if ne $.User.Id .User.Id }} 
