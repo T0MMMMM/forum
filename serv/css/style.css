@@ -1975,28 +1975,10 @@ hr {
     .mainWrapper {
         width: 95%;
     }
-} 
-
-@media screen and (max-width: 1650px) {
-    .writeAnwerInput {
-        width: 264.13px;
-    }
-
-    .writeAnwerInput:focus {
-        width: 85%;
-    }
-
-}
-
-@media screen and (max-width: 1100px) {
     .connexionCard {
         width: 80%;
         height: 80%;
         flex-direction: column;
-    }
-
-    .connexionHider {
-        /* display: none; */
     }
 
     .conexionPart {
@@ -2026,6 +2008,51 @@ hr {
         left: 0;
         top: 50%;
     }
+
 }
 
+@media screen and (max-width: 1650px) {
+    .writeAnwerInput {
+        width: 264.13px;
+    }
+
+    .writeAnwerInput:focus {
+        width: 85%;
+    }
+
+}
+
+@media screen and (max-width: 1600px) {
+
+    .newTopic {
+        width: 60%;
+        padding: none;
+    }
+    
+    .newTopic form select {
+        width: 80%;
+    }
+    
+    .newTopic form input {
+        width: 80%;
+    }
+
+}
+
+@media (max-width: 1600px) and (max-width: 600px) {
+
+    .newTopic {
+        width: 95%;
+        padding: none;
+    }
+    
+    .newTopic form select {
+        width: 95%;
+    }
+    
+    .newTopic form input {
+        width: 90%;
+    }
+
+}
 
