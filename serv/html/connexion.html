@@ -26,7 +26,7 @@
 
     <div class="connexionCard">
 
-        <form action="/submit_register" method="POST">
+        <form action="/submit_register" method="POST" class="connexionForm">
             <div class="registerPart">
                 <div>
                     <h4 class="registerText">Register</h4>
@@ -41,7 +41,10 @@
                 </div>
             </div>
         </form>
-        <form action="/submit_connexion" method="POST">  
+
+        <div class="connexionSeparator"></div>
+
+        <form action="/submit_connexion" method="POST" class="connexionForm">  
             <div class="conexionPart">
                 <div>
                     <h4 class="connexionText">Connexion</h4>
@@ -55,20 +58,22 @@
                 </div>
             </div>
         </form>
+
+        <div class="connexionHider">
+            <div class="hiderTextContainer">
+                <h4 class="hiderText" id="hiderText1">New member ?</h4>
+                <br>
+                <h4 class="hiderText" id="hiderText2">Welcome back !</h4>
+            </div>
+            
+            <div class="connexionButton">
+                <h4 class="buttonText">Sign up</h4>
+            </div>
+        </div>
     </div>
 
 
-    <div class="connexionHider">
-        <div class="hiderTextContainer">
-            <h4 class="hiderText" id="hiderText1">New member ?</h4>
-            <br>
-            <h4 class="hiderText" id="hiderText2">Welcome back !</h4>
-        </div>
-        
-        <div class="connexionButton">
-            <h4 class="buttonText">Sign up</h4>
-        </div>
-    </div>
+    
 
 
 
