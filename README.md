@@ -38,6 +38,7 @@
 
 2. **Connexion :**
    - Le nom d'utilisateur et le mot de passe doivent correspondre.
+   - Vous pouvez vous connecter aux différents comptes présents dans la base de données (serv/data/data.db) ou créer un compte
 
 3. **Déconnexion :**
    - Se déconnecte et renvoie sur la page de connexion.
@@ -79,4 +80,5 @@ Dans l'interface des messages privés, on peut cliquer sur un bouton pour voir l
 
 Le site est conçu pour être responsif et fonctionnel sur les appareils mobiles. Les interfaces et les fonctionnalités s'adaptent aux différentes tailles d'écran.
 
-arno tom luka
+
+F. Tom, P-L. Arnaud, S. Lucas
